@@ -6,13 +6,16 @@ namespace CnslApp.Dnc.Tests
     class Program
     {
         #region dll imports 
-        [DllImport(@"d:\temp\WrapTest\Debug\Dll1.dll", CallingConvention = CallingConvention.Cdecl)]
+        //const string dllNameWithPath = Environment.Is64BitProcess ? @"d:\temp\WrapTest\Dll1\Debug\Win32\Dll1.dll" : @"d:\temp\WrapTest\Dll1\Debug\x64\Dll1.dll";
+        //const string dllNameWithPath = @"d:\temp\WrapTest\Dll1\Debug\Win32\Dll1.dll";
+        const string dllNameWithPath = @"d:\temp\WrapTest\Dll1\Debug\x64\Dll1.dll";
+        [DllImport(dllNameWithPath, CallingConvention = CallingConvention.Cdecl)]
         static extern double Add(double a, double b);
-        [DllImport(@"d:\temp\WrapTest\Debug\Dll1.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(dllNameWithPath, CallingConvention = CallingConvention.Cdecl)]
         static extern double Subtract(double a, double b);
-        [DllImport(@"d:\temp\WrapTest\Debug\Dll1.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(dllNameWithPath, CallingConvention = CallingConvention.Cdecl)]
         static extern double Multiply(double a, double b);
-        [DllImport(@"d:\temp\WrapTest\Debug\Dll1.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(dllNameWithPath, CallingConvention = CallingConvention.Cdecl)]
         static extern double Divide(double a, double b);
         #endregion
 
@@ -21,10 +24,11 @@ namespace CnslApp.Dnc.Tests
             Console.WriteLine("Hello World!");
 
             bool? is64bitprocess = null;
-            if (Environment.Is64BitProcess) is64bitprocess = true;  // dnc test runner is 64bit process even when test | settings | processor architecture = x86 ??? 
+            if (Environment.Is64BitProcess) is64bitprocess = true; // dnc test runner is 64bit process even when test | settings | processor architecture = x86 
             else is64bitprocess = false;
 
-            var expected = 7; var actual = Program.Add(3, 4);
+            var expected = 7;
+            var actual = Program.Add(3, 4);
             Console.WriteLine($"expected = {expected} and actual = {actual}");
         }
     }
