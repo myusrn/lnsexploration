@@ -5,13 +5,18 @@ VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dll1", "Dll1\Dll1.vcxproj", "{B9A049E5-8C0F-4D7F-A2AD-4F7976D6AB22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsTest.Dnc.Tests", "MsTest.Dnc.Tests\MsTest.Dnc.Tests.csproj", "{80CED91E-AA00-4CD4-BA76-0DC9604FF0F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsTest.Dnc.Tests", "MsTest.Dnc.Tests\MsTest.Dnc.Tests.csproj", "{80CED91E-AA00-4CD4-BA76-0DC9604FF0F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CnslApp.Dnc.Tests", "CnslApp.Dnc.Tests\CnslApp.Dnc.Tests.csproj", "{C5371544-50BB-4077-AA2D-AA00A785FE09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CnslApp.Dnc.Tests", "CnslApp.Dnc.Tests\CnslApp.Dnc.Tests.csproj", "{C5371544-50BB-4077-AA2D-AA00A785FE09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CnslApp.Dnf.Tests", "CnslApp.Dnf.Tests\CnslApp.Dnf.Tests.csproj", "{A7ACD098-DC26-4B25-8910-083D62AEAF64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsTest.Dnf.Tests", "MsTest.Dnf.Tests\MsTest.Dnf.Tests.csproj", "{A9D22328-A73E-426E-88C9-439BA6096747}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1720A7FB-7587-4E98-8C35-5E3C7581FD49}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
