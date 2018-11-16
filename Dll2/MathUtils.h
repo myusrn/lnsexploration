@@ -2,8 +2,9 @@
 
 namespace Dll2
 {
-	class MathUtils
-	//public ref class MathUtils sealed
+	//class MathUtils
+	//public class MathUtils sealed  // w/o ref keyword none of the publics show up in managed code reference side of things
+	public ref class MathUtils sealed
 	{
 	private:
 		// todo: move any methods here that you don't want exposed by class scope DllExport statement

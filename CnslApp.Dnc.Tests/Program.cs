@@ -24,11 +24,13 @@ namespace CnslApp.Dnc.Tests
             Console.WriteLine("Hello World!");
 
             bool? is64bitprocess = null;
-            if (Environment.Is64BitProcess) is64bitprocess = true; // dnc test runner is 64bit process even when test | settings | processor architecture = x86 
+            if (Environment.Is64BitProcess) is64bitprocess = true; // dnc dotnet.exe process is always 64bit even though AnyCPU output is W32i not W32x64 format
             else is64bitprocess = false;
 
             var expected = 7;
-            var actual = Program.Add(3, 4);
+            var actual = Program.Add(3, 4); // platform invoke c# [DllImport] / c++ dll extern "C" __declspec( dllexport )  
+            //var dll2mathutils = new Dll2.MathUtils();
+            //var actual = dll2mathutils.Add(3, 4); // c++ dll /clr generated managed code build output that is directly referencable 
             Console.WriteLine($"expected = {expected} and actual = {actual}");
         }
     }
