@@ -20,6 +20,10 @@ to make $(OutDir) and $(IntDir) setting changes use &lt;project&gt; | properties
 platforms = All Platforms at which point you can replace "&lt;different options&gt;" value you'll see in $(OutDir) and 
 $(IntDir) boxes with the recommended ones above
 
+c++ ijw it just works ->  
+https://msdn.microsoft.com/en-us/library/ms235282.aspx  
+
+  
 https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interoperability-overview which says use 
 c++ interop, aka it just works (ijw), compiler /clr switch option vs platform invoke or com options  
 &lt;dll project&gt; | properties | configuration properties | c/c++ |
@@ -31,13 +35,17 @@ general | debug information format = program database for edit and continue (/ZI
 code generation | basice runtime checks = Both (/RTC1, equiv. to /RTCsu) (/RTC1) -> Default  
   
 Managed Debugging Assistant 'LoaderLock' : 'DLL 'D:\src\repos\wrapTest\CnslApp.Dnf.Tests\bin\Debug\Dll2.dll' is attempting managed execution inside OS Loader lock. Do not attempt to run managed code inside a DllMain or image initialization function since doing so can cause the application to hang.'  
-attempting managed execution inside OS Loader lock
-do not attempt to run managed code inside a DllMain or image initialization function since doing so can cause the application to hang
+/clr attempting managed execution inside OS Loader lock -> 
+https://stackoverflow.com/questions/23689521/os-loader-lock-when-doing-managed-to-native-interop  
+debug | windows | exception settings | managed debugging assistants | LoaderLock = checked -> unchecked
 
-filever CnslApp.Dnf.Tests.exe -> W32i always with AnyCPU
-filever Dll2.dll -> W32i or W32x64
-dumpbin /dependents Dll2.dll -> VCRUNTIME140D.dll ucrtbased.dll KERNEL32.dll mscoree.dll
-Environment.Is64BitProcess -> dnc dotnet.exe process is always 64bit even though AnyCPU output is W32i not W32x64 format
-Environment.Is64BitProcess -> dnf process is x86 when launched from vs17, given its x86, and x64 elsewhere ???
-test | test settings | default processor architecture | x86 only affects .net framework test runs not .net core ones
+Unhandled Exception: System.IO.FileLoadException: Could not load file or assembly 'Dll2.dll' or one of its dependencies. A dynamic link library (DLL) initialization routine failed. (Exception from HRESULT: 0x8007045A)
+/clr Could not load file or assembly 0x8007045A ->   
+    
+filever CnslApp.Dnf.Tests.exe -> W32i always with AnyCPU  
+filever Dll2.dll -> W32i or W32x64  
+dumpbin /dependents Dll2.dll -> VCRUNTIME140D.dll ucrtbased.dll KERNEL32.dll mscoree.dll  
+Environment.Is64BitProcess -> dnc dotnet.exe process is always 64bit even though AnyCPU output is W32i not W32x64 format  
+Environment.Is64BitProcess -> dnf process is x86 when launched from vs17, given its x86, and x64 elsewhere ???  
+test | test settings | default processor architecture | x86 only affects .net framework test runs not .net core ones  
    
