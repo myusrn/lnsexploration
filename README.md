@@ -1,4 +1,12 @@
-# c++ native code api exports and managed code access
+# lift and shift exploration work
+
+## azure functions http triggered use of c++ native code functions
+
+go serverless with azure c# functions talk https://www.youtube.com/watch?v=2ZGYLblGZQA by cecil ??? with 
+associated demo site http://dnc-todos.azurewebsites.net/  
+
+  
+## c++ native code api exports and managed code access
 
 tests of managed code access to c++ native code dll wrapped legacy static library (.lib) or dynamic link library (.dll) apis using
 1. platform invoke c# [DllImport] / c++ dll extern "C" __declspec( dllexport )  
@@ -11,7 +19,7 @@ windows universal unit test app |
   build | output path setting = bin\<ARM, ARM64, x64, x86>\<Debug, Release>, i.e. bin\$(Platform)\$(Configuration)\  
   debug | path setting = $(ProjectDir)\<ARM, ARM64, x64, x86>\<Debug, Release>\AppX, i.e. $(ProjectDir)bin\$(Platform)\$(Configuration)\AppX  
 AnyCPU managed code project templates hardcoded related setting = bin\$(Configuration)\[netcoreapp2.1]  
-setting rooted in project folder that doesn't treat Win32 like AnyCPU = bin\$(Configuration)\$(Platform)\  
+setting rooted in project folder that doesn't treat Win32 like AnyCPU = bin\$(Platform)\$(Configuration)\   
 
 c++ project template rationalization of "Intermediate Directory" | $(IntDir) | $(IntermediateOutputPath) setting
 Win32 = $(Configuration)\
@@ -19,7 +27,7 @@ ARM, ARM64, x64 = $(Platform)\$(Configuration)\
 ARM, ARM64, x64, x86 universal unit test app related setting = bin\<ARM, ARM64, x64, x86>\<Debug, Release>
 windows universal unit test app | ??? = obj\<ARM, ARM64, x64, x86>\<Debug, Release>, i.e. obj\$(Platform)\$(Configuration)\  
 AnyCPU managed code project templates hardcoded related setting = obj\$(Configuration)\[netcoreapp2.1]  
-setting rooted in project folder that doesn't treat Win32 like AnyCPU = obj\$(Configuration)\$(Platform)\
+setting rooted in project folder that doesn't treat Win32 like AnyCPU = obj\$(Platform)\$(Configuration)\  
 
 to make $(OutDir) and $(IntDir) setting changes use &lt;project&gt; | properties | configuration = All Configurations and 
 platforms = All Platforms at which point you can replace "&lt;different options&gt;" value you'll see in $(OutDir) and 

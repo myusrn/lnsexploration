@@ -8,9 +8,9 @@ namespace MsTest.Dnf.Tests
     public class Dll1Tests
     {
         #region dll imports 
-        //const string dllName = Environment.Is64BitProcess ? @"..\..\..\Dll1\bin\Debug\Win32\Dll1.dll" : @"..\..\..\Dll1\bin\Debug\x64\Dll1.dll";
-        //const string dllName = @"..\..\..\Dll1\bin\Debug\Win32\Dll1.dll";
-        const string dllName = @"..\..\..\Dll1\bin\Debug\x64\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
+        //const string dllName = Environment.Is64BitProcess ? @"..\..\..\Dll1\bin\Win32\Debug\Dll1.dll" : @"..\..\..\Dll1\bin\x64\Debug\Dll1.dll";
+        //const string dllName = @"..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
+        const string dllName = @"..\..\..\Dll1\bin\x64\Debug\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         static extern double Add(double a, double b);
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
