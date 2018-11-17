@@ -16,16 +16,15 @@ c++ project template rationalization of "Output Directory" | $(OutDir) | $(Outpu
 Win32 = $(SolutionDir)$(Configuration)\$(MSBuildProjectName)\  
 ARM, ARM64, x64 = $(SolutionDir)$(Platform)\$(Configuration)\$(MSBuildProjectName)\  
 windows universal unit test app |  
-  build | output path setting = bin\<ARM, ARM64, x64, x86>\<Debug, Release>, i.e. bin\$(Platform)\$(Configuration)\  
-  debug | path setting = $(ProjectDir)\<ARM, ARM64, x64, x86>\<Debug, Release>\AppX, i.e. $(ProjectDir)bin\$(Platform)\$(Configuration)\AppX  
+  build | output path setting = bin\<ARM, ARM64, x64, x86>\<Debug, Release>, i.e. hardcoded bin\$(Platform)\$(Configuration)\  
+  debug | layout folder path setting = $(ProjectDir)\<ARM, ARM64, x64, x86>\<Debug, Release>\AppX, i.e. hardcoded $(ProjectDir)bin\$(Platform)\$(Configuration)\AppX  
 AnyCPU managed code project templates hardcoded related setting = bin\$(Configuration)\[netcoreapp2.1]  
 setting rooted in project folder that doesn't treat Win32 like AnyCPU = bin\$(Platform)\$(Configuration)\   
 
 c++ project template rationalization of "Intermediate Directory" | $(IntDir) | $(IntermediateOutputPath) setting
 Win32 = $(Configuration)\
 ARM, ARM64, x64 = $(Platform)\$(Configuration)\
-ARM, ARM64, x64, x86 universal unit test app related setting = bin\<ARM, ARM64, x64, x86>\<Debug, Release>
-windows universal unit test app | ??? = obj\<ARM, ARM64, x64, x86>\<Debug, Release>, i.e. obj\$(Platform)\$(Configuration)\  
+windows universal unit test app | ??? = obj\<ARM, ARM64, x64, x86>\<Debug, Release>, i.e. hardcoded obj\$(Platform)\$(Configuration)\  
 AnyCPU managed code project templates hardcoded related setting = obj\$(Configuration)\[netcoreapp2.1]  
 setting rooted in project folder that doesn't treat Win32 like AnyCPU = obj\$(Platform)\$(Configuration)\  
 
