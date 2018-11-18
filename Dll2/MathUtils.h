@@ -17,6 +17,8 @@
 //MsTest.Dnf.Tests execution without a call to this class = The program '[21956] testhost.x86.exe' has exited with code 0 (0x0).
 //MsTest.Dnf.Tests execution with a call to this class = The program '[20804] testhost.x86.exe' has exited with code -532462766 (0xe0434352).
 
+// c++ /clr exited with code -532462766 -> ???
+
 namespace Dll2
 {
 	public ref class MathUtils sealed
