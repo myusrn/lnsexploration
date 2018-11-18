@@ -30,8 +30,8 @@ namespace MsTest.Dnc.Tests
 
             var expected = 7;
             var actual = Dll1Tests.Add(3, 4);
-            //var class1 = new Dll3.Class1();
-            //var actual = class1.Add(3, 4);
+            //var dll2mathutils = new Dll2.Class1();
+            //var actual = dll2mathutils.Add(3, 4);
             Assert.AreEqual(expected, actual);
         }
 
