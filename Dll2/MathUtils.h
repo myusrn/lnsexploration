@@ -1,4 +1,5 @@
 #pragma once
+using namespace System;
 
 // c++/clr tutorial -> quick c++/cli - learn c++/cli in less than 10 minutes -> 
 // to create a managed class all you have to do is prefix the class definition with a protection modifier followed by ref, e.g. public ref class MyClass [ sealed ]
@@ -7,6 +8,9 @@
 
 // c++/clr tutorial -> .net programming with c++/cli (visual c++) | native and .net interoperability | calling native functions from managed code | 
 // using c++ interop (implicit pinvoke) -> https://msdn.microsoft.com/en-us/library/2x8kf7zx.aspx
+
+// Add the ability to load native c++ libraries(dll) https://github.com/Azure/Azure-Functions/issues/68 which shows how to create clr c++ 
+// Add the ability to load native c++ libraries (dll) https://github.com/Azure/azure-functions-host/issues/1470 which shows how to create clr c++
 
 // initially you get "Managed Debugging Assistant 'LoaderLock' : 'DLL 'fqdn path to dll' is attempting managed execution inside OS Loader lock. Do not attempt to run managed code
 // inside a DllMain or image initialization function since doing so can cause the application to hang.'" with a call to this class in place which can be made to go away using 
@@ -41,5 +45,7 @@ namespace Dll2
 
 		// Returns a / b
 		double Divide(double a, double b);
+
+		String^ ManagedTypeTest(String^ input);		
 	};
 }

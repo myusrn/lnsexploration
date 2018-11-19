@@ -15,14 +15,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsTest.Dnf.Tests", "MsTest.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1720A7FB-7587-4E98-8C35-5E3C7581FD49}"
 	ProjectSection(SolutionItems) = preProject
+		azfndn.PublishSettings = azfndn.PublishSettings
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dll2", "Dll2\Dll2.vcxproj", "{1829E34E-D13E-4803-8EE2-2161ED121467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzWebApp1", "AzWebApp1\AzWebApp1.csproj", "{AD1E61BF-437B-43CC-98B8-9761B88D3679}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzWebApp1", "AzWebApp1\AzWebApp1.csproj", "{AD1E61BF-437B-43CC-98B8-9761B88D3679}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9A049E5-8C0F-4D7F-A2AD-4F7976D6AB22} = {B9A049E5-8C0F-4D7F-A2AD-4F7976D6AB22}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzFuncApp1", "AzFuncApp1\AzFuncApp1.csproj", "{DC06EA60-FA4E-48B5-A382-9CF417F21DC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzFuncApp1", "AzFuncApp1\AzFuncApp1.csproj", "{DC06EA60-FA4E-48B5-A382-9CF417F21DC1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9A049E5-8C0F-4D7F-A2AD-4F7976D6AB22} = {B9A049E5-8C0F-4D7F-A2AD-4F7976D6AB22}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

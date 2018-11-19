@@ -35,3 +35,8 @@ double MathUtils::Divide(double a, double b)
 	//return Lib2::MathUtils::Divide(a, b);
 }
 
+String^ MathUtils::ManagedTypeTest(String^ input)
+{
+	return gcnew String("you passed in the value" + input);
+}
+

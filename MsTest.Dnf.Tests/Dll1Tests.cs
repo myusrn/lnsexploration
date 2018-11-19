@@ -29,9 +29,9 @@ namespace MsTest.Dnf.Tests
             else is64bitprocess = false;
 
             var expected = 7;
-            var actual = Dll1Tests.Add(3, 4);
-            //var dll2mathutils = new Dll2.MathUtils();
-            //var actual = dll2mathutils.Add(3, 4);
+            //var actual = Dll1Tests.Add(3, 4);
+            var dll2mathutils = new Dll2.MathUtils();
+            var actual = dll2mathutils.Add(3, 4);
             Assert.AreEqual(expected, actual);
         }
 
