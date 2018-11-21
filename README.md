@@ -35,20 +35,26 @@ common language runtime support = No Common Runtime Language Support -> Common L
 //general | common language runtime support = <unset> -> Common Language Runtime Support (/clr) // this should have been set by previous step don't do it here as it breaks
 //things leading you change other settings, e.g. projectname.vcproj CompileAsManaged, ExceptionHandling, DebugInformationFormat, BasicRuntimeChecks, to get things to build
 //that are unnecessary when step 1 change is used
-precompiled headers | precompiled header = Use (/Yu) -> Not Using Precompiled hHaders  // or you get 
+precompiled headers | precompiled header = Use (/Yu) -> Not Using Precompiled Headers // == &lt;PrecompiledHeader&gt;Use -&gt; NotUsing&lt;/PrecompiledHeader&gt; and not required
+all options | additional options | /Zc:twoPhase- %(AdditionalOptions) [ or should it be $(AdditionalOptions) or is that suffix even required ]
 3. &lt;default visual c++ | windows desktop | dynamic-link library (dll) project template&gt; |
-Source Files | dllmain.cpp [ , stdafx.cpp, &lt;dll project name&gt;.cpp ] | delete  
+Source Files | dllmain.cpp [ , stdafx.cpp, &lt;dll project name&gt;.cpp ] | delete 
 // Header Files | stdafx.h, targetver.h | delete   
-4. managed class header file add   
-#include <vector> // to enable use of c++ native code arrays, e.g. jagged array std::vector<std::vector<double>> vs managed form array<double, 2>^  
+4. add | new item | c++ class | NewClass | other options Managed = checked | 
+NewClass.h | ref class NewClass -> public ref class NewClass [ sealed ] + optionally namespace NewNamespace { . . . } wrapper
+NewClass.cpp | optionally using namespace NewNamespace; if used in header file 
 using namespace System; // to enable use of managed types, e.g. String^    
 suffix reference[/instance] type declarations with ^ punctuator to have them allocated on the cli[/managed] heap but not value[/integral] types as doing so will cause them to be passed as System.ValueType<T> instead
-  
-"Managed Debugging Assistant 'LoaderLock' : 'DLL 'fqdn path to dll' is attempting managed execution inside OS Loader lock. Do not attempt to run managed code inside a DllMain 
-or image initialization function since doing so can cause the application to hang.'" with a call to this class in place which can be made to go away using using debug | 
-exception settings | managed debugging assistants | loaderloack = checked -> unchecked to suppress message is not a fix as you then get "The program '[20804] testhost.x86.exe'  
-has exited with code -532462766 (0xe0434352)". the fix is to remove <default visual c++ | windows desktop | dynamic-link library (dll) project template> | dllmain.cpp and 
-any "class __declspec(dllexport) className" or "extern "C" declexport class returnType functionName" entries  
+#include <vector> // to enable use of c++ native code arrays, e.g. jagged array std::vector<std::vector<double>> vs managed form array<double, 2>^  
+
+with Source Files | dllmain.cpp left in place you get build warning C4747: Calling managed 'DllMain': Managed code may not be run under loader lock, including the DLL entrypoint and calls reached from the DLL entrypoint  
+and you get following runtime alert and process crash result "Managed Debugging Assistant 'LoaderLock' : 'DLL 'fqdn path to dll' is attempting managed execution inside OS Loader lock. Do not attempt to run managed code 
+inside a DllMain or image initialization function since doing so can cause the application to hang.'" with a call to this class in place which can be made to go away using using debug | exception settings | 
+managed debugging assistants | loaderloack = checked -> unchecked to suppress message is not a fix as you then get "The program '[20804] testhost.x86.exe' has exited with code -532462766 (0xe0434352)".  the fix is to 
+remove <default visual c++ | windows desktop | dynamic-link library (dll) project template> | dllmain.cpp and "class __declspec(dllexport) className" or "extern "C" declexport class returnType functionName" entries  
+
+without c/c++ | all options | additional options | /Zc:twoPhase- %(AdditionalOptions) [ and have Source Files | stdafx.cpp, &lt;dll project name&gt;.cpp left in place you will see build warning C4199: two-phase name 
+lookup is not supported for C++/CLI, C++/CX, or OpenMP; use /Zc:twoPhase-  
   
 c++ project template rationalization of "Output Directory" | $(OutDir) | $(OutputPath) setting  
 Win32 = $(SolutionDir)$(Configuration)\$(MSBuildProjectName)\  
