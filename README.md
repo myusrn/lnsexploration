@@ -57,7 +57,8 @@ without c/c++ | all options | additional options | /Zc:twoPhase- %(AdditionalOpt
 lookup is not supported for C++/CLI, C++/CX, or OpenMP; use /Zc:twoPhase-  
 
 .net core c/c++ native code library access currently only works with platform invoke c# [DllImport] option and not c++/cli /clr managed assembly "it just works" [ijw] build output  
-.net core the c++ module failed to load [ EntryPointNotFoundException: A library name must be specified in a DllImport attribute applied to non-IJW methods ] -> https://stackoverflow.com/questions/51958187/managed-c-with-net-core-2-1  
+.net core the c++ module failed to load [ EntryPointNotFoundException: A library name must be specified in a DllImport attribute applied to non-IJW methods ] -> 
+https://stackoverflow.com/questions/51958187/managed-c-with-net-core-2-1 -> https://github.com/dotnet/coreclr/issues/659  
   
 c++ project template rationalization of "Output Directory" | $(OutDir) | $(OutputPath) setting  
 Win32 = $(SolutionDir)$(Configuration)\$(MSBuildProjectName)\  
