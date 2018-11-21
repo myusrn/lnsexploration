@@ -7,9 +7,9 @@ MathUtils::MathUtils()
 {
 }
 
-MathUtils::~MathUtils()
-{
-}
+//MathUtils::~MathUtils()
+//{
+//}
 
 double MathUtils::Add(double a, double b)
 {
@@ -35,8 +35,8 @@ double MathUtils::Divide(double a, double b)
 	//return Lib2::MathUtils::Divide(a, b);
 }
 
-String^ MathUtils::ManagedTypeTest(String^ input)
+String^ MathUtils::StringInputAndOutputTest(String^ input)
 {
-	return gcnew String("you passed in the value" + input);
+	return gcnew String("you passed in the value " + input);
 }
 

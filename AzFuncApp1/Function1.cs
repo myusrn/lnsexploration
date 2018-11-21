@@ -22,7 +22,7 @@ namespace AzFuncApp1
 //cmd /c if exist %cd%\Dll1.dll echo robocopy of [DllImport] required file appears to have succeeded, double check file date and size
 //rem echo executing xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin /y
 //rem xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin /y
-        //const string dllName = Environment.Is64BitProcess ? @"..\..\..\..\Dll2\bin\Win32\Debug\Dll2.dll" : @"..\..\..\..\Dll2\bin\x64\Debug\Dll2.dll";
+        //const string dllName = Environment.Is64BitProcess ? @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll" : @"..\..\..\..\Dll2\bin\x64\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\x64\Debug\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
         const string dllName = @"Dll1.dll";  // when using post-build event setting
@@ -49,7 +49,8 @@ namespace AzFuncApp1
             if (Environment.Is64BitProcess) is64bitprocess = true; // dnc dotnet.exe process is always 64bit even though AnyCPU output is W32i not W32x64 format
             else is64bitprocess = false;
 
-            var dll1mathutilsAddTest = Add(4, 3);
+            var dll1mathutilsAddTest = Add(4, 3); // c++ native code dllexport/import
+            //var dll2mathutilsAddTest = new Dll2().Add(4, 3); // c++ native code /clr output reference
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);

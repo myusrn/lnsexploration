@@ -1,6 +1,6 @@
 # lift and shift exploration work
 
-## azure functions http triggered use of c++ native code functions
+## azure functions http triggered use of c++ native code libraries
 
 go serverless with azure c# functions talk https://www.youtube.com/watch?v=2ZGYLblGZQA by cecil philip cloud developer advocate https://www.linkedin.com/in/cecil-phillip/
 associated demo site http://dnc-todos.azurewebsites.net/ and repo https://github.com/anthonychu/ToDoFunctions
@@ -14,15 +14,41 @@ https://code.msdn.microsoft.com/custom-dll-reference-c2c9b57e
 add the ability to load native c++ libraries (dll) -> https://github.com/Azure/Azure-Functions/issues/68 | see ask you added to thread
 manual work around deployment of c++ native code dll with c# [DllImport] referenced functions -> azSxp | <azfn storage account> | file shares | 
 <azfn app deployment>/site/wwwroot/bin | upload | <c++ native code dll>
-twitter post for help = @cecilphillip watched your talk on azure .net core functions . Have a scenario where I need to use platform invoke [DllImport] to enable calling some legacy c++ native code dll exported math functions. Works locally, any pointers on how to get that dll included in deployment.
-. . . note that I can get things to work if I use azure storage explorer and upload the c++ native code dll with [DllImport] referenced functions to <azfn storage account> | file shares | <azfn app deployment>/site/wwwroot/bin | upload | <c++ native code dll>
-
+twitter post for help = @cecilphillip watched your talk on azure .net core functions . Have a scenario where I need to use platform invoke [DllImport] to enable calling some legacy c++ native code dll exported math functions. Works locally, any pointers on how to get that dll included in deployment.  
+. . . note that I can get things to work if I use azure storage explorer and upload the c++ native code dll with [DllImport] referenced functions to <azfn storage account> | file shares | <azfn app deployment>/site/wwwroot/bin | upload | <c++ native code dll>  
+azure functions wwwroot bin -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/  
   
-## c++ native code api exports and managed code access
+  
+## c# managed code access to c++ native code library wrapped legacy dynamic link library (.dll) and/or static library (.lib)
 
-tests of managed code access to c++ native code dll wrapped legacy static library (.lib) or dynamic link library (.dll) apis using
-1. platform invoke c# [DllImport] / c++ dll extern "C" __declspec( dllexport )  
-2. c++ dll /clr generated managed code build output that is directly referencable  
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interoperability-overview and https://docs.microsoft.com/en-us/cpp/build/reference/clr-common-language-runtime-compilation  
+1. platform invoke c# [DllImport] of c++ | windows desktop | dll "class __declspec(dllexport) className" or "extern "C" declexport class returnType functionName" entries  
+2. c++ dll /clr "it just works" [ijw] generated managed code build output that is directly referencable like any managed code assembly  
+  
+https://www.codeproject.com/articles/19354/quick-c-cli-learn-c-cli-in-less-than-minutes  
+c++/cli [ common language infrastructure ] usage details specifically use or ref keywoard to declare a managed class and use of ^ punctuator to allocate managed objects  
+  
+&lt;default visual c++ | windows desktop | dynamic-link library (dll) project template&gt; | properties | configuration properties | 
+1. general | configuration = All Configurations and platforms = All Platforms 
+common language runtime support = No Common Runtime Language Support -> Common Language Runtime Support (/clr)
+2. c/c++ | configuration = All Configurations and platforms = All Platforms 
+//general | common language runtime support = <unset> -> Common Language Runtime Support (/clr) // this should have been set by previous step don't do it here as it breaks
+//things leading you change other settings, e.g. projectname.vcproj CompileAsManaged, ExceptionHandling, DebugInformationFormat, BasicRuntimeChecks, to get things to build
+//that are unnecessary when step 1 change is used
+precompiled headers | precompiled header = Use (/Yu) -> Not Using Precompiled hHaders  // or you get 
+3. &lt;default visual c++ | windows desktop | dynamic-link library (dll) project template&gt; |
+Source Files | dllmain.cpp [ , stdafx.cpp, &lt;dll project name&gt;.cpp ] | delete  
+// Header Files | stdafx.h, targetver.h | delete   
+4. managed class header file add   
+#include <vector> // to enable use of c++ native code arrays, e.g. jagged array std::vector<std::vector<double>> vs managed form array<double, 2>^  
+using namespace System; // to enable use of managed types, e.g. String^    
+suffix reference[/instance] type declarations with ^ punctuator to have them allocated on the cli[/managed] heap but not value[/integral] types as doing so will cause them to be passed as System.ValueType<T> instead
+  
+"Managed Debugging Assistant 'LoaderLock' : 'DLL 'fqdn path to dll' is attempting managed execution inside OS Loader lock. Do not attempt to run managed code inside a DllMain 
+or image initialization function since doing so can cause the application to hang.'" with a call to this class in place which can be made to go away using using debug | 
+exception settings | managed debugging assistants | loaderloack = checked -> unchecked to suppress message is not a fix as you then get "The program '[20804] testhost.x86.exe'  
+has exited with code -532462766 (0xe0434352)". the fix is to remove <default visual c++ | windows desktop | dynamic-link library (dll) project template> | dllmain.cpp and 
+any "class __declspec(dllexport) className" or "extern "C" declexport class returnType functionName" entries  
   
 c++ project template rationalization of "Output Directory" | $(OutDir) | $(OutputPath) setting  
 Win32 = $(SolutionDir)$(Configuration)\$(MSBuildProjectName)\  
@@ -42,30 +68,8 @@ setting rooted in project folder that doesn't treat Win32 like AnyCPU = obj\$(Pl
 
 to make $(OutDir) and $(IntDir) setting changes use &lt;project&gt; | properties | configuration = All Configurations and 
 platforms = All Platforms at which point you can replace "&lt;different options&gt;" value you'll see in $(OutDir) and 
-$(IntDir) boxes with the recommended ones above
-
-c# c++ /clr [ it just works / ijw ] -> 
-https://msdn.microsoft.com/en-us/library/k8d11d4s.aspx | latest version of this topic can be found at -> 
-https://docs.microsoft.com/en-us/cpp/build/reference/clr-common-language-runtime-compilation?view=vs-2017
-  
-https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interoperability-overview which says use 
-c++ interop, aka it just works (ijw), compiler /clr switch option vs platform invoke or com options  
-&lt;dll project&gt; | properties | configuration properties | c/c++ |
-1. configuration = All Configurations and platforms = All Platforms 
-general | common language runtime support = <unset> -> common language runtime support (/clr)  
-code generation | enable c++ extensions = Yes (/EHsc) -> Yes with SEH Exceptions (/EHa)    
-2. configuration = Debug and platforms = All Platforms
-general | debug information format = program database for edit and continue (/ZI) -> program database (/Zi)  
-code generation | basice runtime checks = Both (/RTC1, equiv. to /RTCsu) (/RTC1) -> Default  
-  
-Managed Debugging Assistant 'LoaderLock' : 'DLL 'D:\src\repos\wrapTest\CnslApp.Dnf.Tests\bin\Debug\Dll2.dll' is attempting managed execution inside OS Loader lock. Do not attempt to run managed code inside a DllMain or image initialization function since doing so can cause the application to hang.'  
-/clr attempting managed execution inside OS Loader lock -> 
-https://stackoverflow.com/questions/23689521/os-loader-lock-when-doing-managed-to-native-interop  
-debug | windows | exception settings | managed debugging assistants | LoaderLock = checked -> unchecked
-
-Unhandled Exception: System.IO.FileLoadException: Could not load file or assembly 'Dll2.dll' or one of its dependencies. A dynamic link library (DLL) initialization routine failed. (Exception from HRESULT: 0x8007045A)
-/clr Could not load file or assembly 0x8007045A ->   
-    
+$(IntDir) boxes with the recommended ones above  
+   
 filever CnslApp.Dnf.Tests.exe -> W32i always with AnyCPU  
 filever Dll2.dll -> W32i or W32x64  
 dumpbin /dependents Dll2.dll -> VCRUNTIME140D.dll ucrtbased.dll KERNEL32.dll mscoree.dll  

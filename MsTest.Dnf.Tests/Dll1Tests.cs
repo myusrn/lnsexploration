@@ -9,8 +9,8 @@ namespace MsTest.Dnf.Tests
     {
         #region dll imports 
         //const string dllName = Environment.Is64BitProcess ? @"..\..\..\Dll1\bin\Win32\Debug\Dll1.dll" : @"..\..\..\Dll1\bin\x64\Debug\Dll1.dll";
-        const string dllName = @"..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
-        //const string dllName = @"..\..\..\Dll1\bin\x64\Debug\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
+        //const string dllName = @"..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
+        const string dllName = @"..\..\..\Dll1\bin\x64\Debug\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         static extern double Add(double a, double b);
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -32,6 +32,7 @@ namespace MsTest.Dnf.Tests
             //var actual = Dll1Tests.Add(3, 4);
             var dll2mathutils = new Dll2.MathUtils();
             var actual = dll2mathutils.Add(3, 4);
+            var test = dll2mathutils.StringInputAndOutputTest("foo");
             Assert.AreEqual(expected, actual);
         }
 
