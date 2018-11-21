@@ -32,7 +32,8 @@ namespace MsTest.Dnf.Tests
             //var actual = Dll1Tests.Add(3, 4);
             var dll2mathutils = new Dll2.MathUtils();
             var actual = dll2mathutils.Add(3, 4);
-            var test = dll2mathutils.StringInputAndOutputTest("foo");
+            var test1 = dll2mathutils.StringInputAndOutputTest("foo");
+            var test2 = new Dll2.MiscUtils().CombineIntAndString(4, "foobar");
             Assert.AreEqual(expected, actual);
         }
 

@@ -36,14 +36,14 @@ common language runtime support = No Common Runtime Language Support -> Common L
 //things leading you change other settings, e.g. projectname.vcproj CompileAsManaged, ExceptionHandling, DebugInformationFormat, BasicRuntimeChecks, to get things to build
 //that are unnecessary when step 1 change is used
 precompiled headers | precompiled header = Use (/Yu) -> Not Using Precompiled Headers // == &lt;PrecompiledHeader&gt;Use -&gt; NotUsing&lt;/PrecompiledHeader&gt; and not required
-all options | additional options | /Zc:twoPhase- %(AdditionalOptions) [ or should it be $(AdditionalOptions) or is that suffix even required ]
+all options | additional options | /Zc:twoPhase- %(AdditionalOptions) [ or should it be $(AdditionalOptions) or is that suffix even required since things build and run w/o it ]
 3. &lt;default visual c++ | windows desktop | dynamic-link library (dll) project template&gt; |
 Source Files | dllmain.cpp [ , stdafx.cpp, &lt;dll project name&gt;.cpp ] | delete 
 // Header Files | stdafx.h, targetver.h | delete   
 4. add | new item | c++ class | NewClass | other options Managed = checked | 
 NewClass.h | ref class NewClass -> public ref class NewClass [ sealed ] + optionally namespace NewNamespace { . . . } wrapper
 NewClass.cpp | optionally using namespace NewNamespace; if used in header file 
-using namespace System; // to enable use of managed types, e.g. String^    
+using namespace System; // to enable use of managed types in variable and method parameter and return type declarations, e.g. String^ mystring = gcnew String("some string value");  
 suffix reference[/instance] type declarations with ^ punctuator to have them allocated on the cli[/managed] heap but not value[/integral] types as doing so will cause them to be passed as System.ValueType<T> instead
 #include <vector> // to enable use of c++ native code arrays, e.g. jagged array std::vector<std::vector<double>> vs managed form array<double, 2>^  
 
