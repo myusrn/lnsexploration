@@ -32,9 +32,9 @@ namespace CnslApp.Dnf.Tests
             else is64bitprocess = false;
 
             var expected = 7;
-            var actual = Program.Add(3, 4); // platform invoke c# [DllImport] / c++ dll extern "C" __declspec( dllexport )  
-            //var dll2mathutils = new Dll2.MathUtils();
-            //var actual = dll2mathutils.Add(3, 4); // c++ dll /clr generated managed code build output that is directly referencable 
+            //var actual = Program.Add(3, 4); // platform invoke c# [DllImport] / c++ dll extern "C" __declspec( dllexport )  
+            var dll2mathutils = new Dll2.MathUtils();
+            var actual = dll2mathutils.Add(3, 4); // c++ dll /clr generated managed code build output that is directly referencable 
             Console.WriteLine($"expected = {expected} and actual = {actual}");
         }
     }

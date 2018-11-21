@@ -23,7 +23,7 @@ azure functions wwwroot bin -> https://blogs.msdn.microsoft.com/benjaminperkins/
 
 https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interoperability-overview and https://docs.microsoft.com/en-us/cpp/build/reference/clr-common-language-runtime-compilation  
 1. platform invoke c# [DllImport] of c++ | windows desktop | dll "class __declspec(dllexport) className" or "extern "C" declexport class returnType functionName" entries  
-2. c++ dll /clr "it just works" [ijw] generated managed code build output that is directly referencable like any managed code assembly  
+2. c++/cli /clr managed assembly "it just works" [ijw] build output that is directly referencable like any managed code assembly  
   
 https://www.codeproject.com/articles/19354/quick-c-cli-learn-c-cli-in-less-than-minutes  
 c++/cli [ common language infrastructure ] usage details specifically use or ref keywoard to declare a managed class and use of ^ punctuator to allocate managed objects  
@@ -55,6 +55,9 @@ remove <default visual c++ | windows desktop | dynamic-link library (dll) projec
 
 without c/c++ | all options | additional options | /Zc:twoPhase- %(AdditionalOptions) [ and have Source Files | stdafx.cpp, &lt;dll project name&gt;.cpp left in place you will see build warning C4199: two-phase name 
 lookup is not supported for C++/CLI, C++/CX, or OpenMP; use /Zc:twoPhase-  
+
+.net core c/c++ native code library access currently only works with platform invoke c# [DllImport] option and not c++/cli /clr managed assembly "it just works" [ijw] build output  
+.net core the c++ module failed to load [ EntryPointNotFoundException: A library name must be specified in a DllImport attribute applied to non-IJW methods ] -> https://stackoverflow.com/questions/51958187/managed-c-with-net-core-2-1  
   
 c++ project template rationalization of "Output Directory" | $(OutDir) | $(OutputPath) setting  
 Win32 = $(SolutionDir)$(Configuration)\$(MSBuildProjectName)\  
