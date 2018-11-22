@@ -2,14 +2,17 @@
 
 ## azure functions http triggered use of c++ native code libraries
 
-aad application user role -> https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/ 
+aad application user role -> /*** this is it ***/ 09/18/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/ 
 and https://blogs.msdn.microsoft.com/aaddevsup/2018/08/29/how-to-add-an-azure-ad-role-to-a-enterprise-application-service-principal/  
 remember to add an application role to a service [ /app vs user/client ] principal you will need to have the proper permissions to assign roles to objects  
 https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles#details-about-the-global-administrator-role  
 you need to be aad global administrator in order to set the roles of an enterpries application  
   
-azure web app aad security ->  
-azure functions aad security -> https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
+azure web app [ aad security / ] authentication ->  &lt; see aad application user role hit about &gt;
+azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/ 
+  04/26/16 https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
+azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings	
+  plaform features tab | advanced tools (kudu) | https://&lt;myfunctionapp&gt;.scm.azurewebsites.net/, e.g. https://azfndn.scm.azurewebsites.net/ | debug console | cmd  
   
 aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary  
 aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
@@ -50,6 +53,9 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interop
   
 https://www.codeproject.com/articles/19354/quick-c-cli-learn-c-cli-in-less-than-minutes  
 c++/cli [ common language infrastructure ] usage details specifically use or ref keywoard to declare a managed class and use of ^ punctuator to allocate managed objects  
+
+https://stackoverflow.com/questions/53419367/pinvoke-marshalling-of-2d-multidimensional-array-of-type-double-as-input-and-out  
+pinvoke marshalling of 2d multidimensional array of type double as input and output between c# and c++  
   
 &lt;default visual c++ | windows desktop | dynamic-link library (dll) project template&gt; | properties | configuration properties | 
 1. general | configuration = All Configurations and platforms = All Platforms 
