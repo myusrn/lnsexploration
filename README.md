@@ -2,18 +2,16 @@
 
 ## azure functions http triggered use of c++ native code libraries
 
-azure active directory add application role -> https://blogs.msdn.microsoft.com/aaddevsup/2018/08/29/how-to-add-an-azure-ad-role-to-a-enterprise-application-service-principal/  
-azure functions aad securty -> https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
+aad application user role -> https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/ 
+and https://blogs.msdn.microsoft.com/aaddevsup/2018/08/29/how-to-add-an-azure-ad-role-to-a-enterprise-application-service-principal/  
+remember to add an application role to a service [ /app vs user/client ] principal you will need to have the proper permissions to assign roles to objects  
+https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles#details-about-the-global-administrator-role  
+you need to be aad global administrator in order to set the roles of an enterpries application  
+
+azure functions aad security -> https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
 openid connect vs oauth2 -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth  
-azure functions including dll in deployment -> 
-go serverless with azure c# functions talk https://www.youtube.com/watch?v=2ZGYLblGZQA by cecil philip cloud developer advocate https://www.linkedin.com/in/cecil-phillip/ 
-associated demo site http://dnc-todos.azurewebsites.net/ and repo https://github.com/anthonychu/ToDoFunctions
-at t=28m30s mark [ to t=30m50s mark ] the walkthrough discusses azfn proxy settings use of blob storage to host static and spa web app content as part of service  
-at t=39m0s mark covers how you use telementryClient, e.g. telementryClient.TrackEvent/TrackException, in lieu of your own logger api
-recommended using postman, not fiddler, for http endpoint test and debugging services
-additional resources https://azure.com/serverless and https://functions.azure.com/try
-dos and dont's of azure functions https://www.youtube.com/watch?v=kvTostlJp7M by jeff hollan senior pm https://www.linkedin.com/in/jeffhollan/
-azure functions deployment include dll -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
+  
+azure functions including dll in deployment -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
 where you added question about this on 20nov, then deleted and added updated one on 22nov to see if you could get some leads on this matter 
 manual work around deployment of c++ native code dll with c# [DllImport] referenced functions -> azSxp | <azfn storage account> | file shares | 
 <azfn app deployment>/site/wwwroot/bin | upload | <c++ native code dll>
@@ -21,7 +19,16 @@ twitter post that you deleted = @cecilphillip watched your talk on azure .net co
 [DllImport] to enable calling some legacy c++ native code dll exported math functions. Works locally, any pointers on how to get that dll included in 
 deployment . . . note that I can get things to work if I use azure storage explorer and upload the c++ native code dll with [DllImport] referenced 
 functions to azSxp | <azfn storage account> | file shares | <azfn app deployment>/site/wwwroot/bin | upload | <c++ native code dll>  
+  
 requests for ability to use c++/cli managed assemblies in functions [ / .net core ] -> https://github.com/Azure/Azure-Functions/issues/68 -? https://github.com/Azure/azure-functions-host/issues/1470  
+  
+go serverless with azure c# functions talk https://www.youtube.com/watch?v=2ZGYLblGZQA by cecil philip cloud developer advocate https://www.linkedin.com/in/cecil-phillip/ 
+associated demo site http://dnc-todos.azurewebsites.net/ and repo https://github.com/anthonychu/ToDoFunctions
+at t=28m30s mark [ to t=30m50s mark ] the walkthrough discusses azfn proxy settings use of blob storage to host static and spa web app content as part of service  
+at t=39m0s mark covers how you use telementryClient, e.g. telementryClient.TrackEvent/TrackException, in lieu of your own logger api
+recommended using postman, not fiddler, for http endpoint test and debugging services
+additional resources https://azure.com/serverless and https://functions.azure.com/try
+dos and dont's of azure functions https://www.youtube.com/watch?v=kvTostlJp7M by jeff hollan senior pm https://www.linkedin.com/in/jeffhollan/
   
 ## c# managed code access to c++ native code library wrapped legacy dynamic link library (.dll) and/or static library (.lib)
 
