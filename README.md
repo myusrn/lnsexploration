@@ -7,18 +7,20 @@ and https://blogs.msdn.microsoft.com/aaddevsup/2018/08/29/how-to-add-an-azure-ad
 remember to add an application role to a service [ /app vs user/client ] principal you will need to have the proper permissions to assign roles to objects  
 https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles#details-about-the-global-administrator-role  
 you need to be aad global administrator in order to set the roles of an enterpries application  
-
+  
 azure web app aad security ->  
 azure functions aad security -> https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
-
+  
 aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary  
 aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
   we have client role and resource server role | application object and service principal object and user principal object
 oauth 2.0 auth code grant -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code
 https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary#authorization-grant 
   we have implicit grant flow | auth code grant | on-behalf-of flow | client credentials grant  
-openid connect vs oauth2 -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth  
-  
+openid connect vs oauth2 -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth ->
+http://cakebaker.42dh.com/2008/04/01/openid-versus-oauth-from-the-users-perspective/  
+openid vs openid connect -> https://security.stackexchange.com/questions/44797/when-do-you-use-openid-vs-openid-connect  
+    
 azure functions including dll in deployment -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
 where you added question about this on 20nov, then deleted and added updated one on 22nov to see if you could get some leads on this matter 
 manual work around deployment of c++ native code dll with c# [DllImport] referenced functions -> azSxp | <azfn storage account> | file shares | 
@@ -37,6 +39,7 @@ at t=39m0s mark covers how you use telementryClient, e.g. telementryClient.Track
 recommended using postman, not fiddler, for http endpoint test and debugging services
 additional resources https://azure.com/serverless and https://functions.azure.com/try
 dos and dont's of azure functions https://www.youtube.com/watch?v=kvTostlJp7M by jeff hollan senior pm https://www.linkedin.com/in/jeffhollan/
+functions getting started https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-your-first-function-visual-studio  
   
 ## c# managed code access to c++ native code library wrapped legacy dynamic link library (.dll) and/or static library (.lib)
 
