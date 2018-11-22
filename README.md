@@ -11,8 +11,12 @@ you need to be aad global administrator in order to set the roles of an enterpri
 azure web app aad security ->  
 azure functions aad security -> https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
 
-aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals  
-we have client role and resource server role | application object and service principal object and user principal object
+aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary  
+aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
+  we have client role and resource server role | application object and service principal object and user principal object
+oauth 2.0 auth code grant -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code
+https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary#authorization-grant 
+  we have implicit grant flow | auth code grant | on-behalf-of flow | client credentials grant  
 openid connect vs oauth2 -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth  
   
 azure functions including dll in deployment -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
