@@ -8,7 +8,10 @@ remember to add an application role to a service [ /app vs user/client ] princip
 https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles#details-about-the-global-administrator-role  
 you need to be aad global administrator in order to set the roles of an enterpries application  
 
+azure web app aad security ->  
 azure functions aad security -> https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
+
+aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals  
 openid connect vs oauth2 -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth  
   
 azure functions including dll in deployment -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
