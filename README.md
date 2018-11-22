@@ -17,9 +17,10 @@ aad client resource server role application service principal object -> https://
 oauth 2.0 auth code grant -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code
 https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary#authorization-grant 
   we have implicit grant flow | auth code grant | on-behalf-of flow | client credentials grant  
-openid connect vs oauth2 -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth ->
+openid vs oauth2 -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth ->
 http://cakebaker.42dh.com/2008/04/01/openid-versus-oauth-from-the-users-perspective/  
-openid vs openid connect -> https://security.stackexchange.com/questions/44797/when-do-you-use-openid-vs-openid-connect  
+openid vs openid connect -> https://security.stackexchange.com/questions/44797/when-do-you-use-openid-vs-openid-connect 
+  my take away is openid is authN and openid connect is enhanced/evolved/extended implementation of oauth2 
     
 azure functions including dll in deployment -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
 where you added question about this on 20nov, then deleted and added updated one on 22nov to see if you could get some leads on this matter 
