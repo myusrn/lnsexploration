@@ -13,10 +13,9 @@ azure functions aad security -> https://contos.io/working-with-identity-in-an-az
   
 aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary  
 aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
-  we have client role and resource server role | application object and service principal object and user principal object
-oauth 2.0 auth code grant -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code
-https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary#authorization-grant 
-  we have implicit grant flow | auth code grant | on-behalf-of flow | client credentials grant  
+  client role and resource server role | application object and service principal object and user principal object
+oauth 2.0 authorization code grant flow -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code 
+  implicit grant flow | auth code grant | on-behalf-of flow | client credentials grant  
 openid connect vs oauth -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth
   openid connect is replacement/extended story based on oauth 2.0 that adds/includes authN in addition to authZ
 http://cakebaker.42dh.com/2008/04/01/openid-versus-oauth-from-the-users-perspective/  
