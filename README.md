@@ -20,11 +20,10 @@ azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-fun
   plaform features tab | advanced tools (kudu) | https://&lt;myfunctionapp&gt;.scm.azurewebsites.net/, e.g. https://azfndn.scm.azurewebsites.net/ | debug console | cmd  
   
 aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary 
-  where it highlights fact that application id is aka client id which is different than a user id claim which is typically present in isssued tokens
-  roles / rbac and scopes / sbac are both solutions to enabling application permissions, aka authorization
-  roles are respource defined strings, resource.role, can be "user" role which allow for users/groups as members and "application" role which allows for client applications as members
-  scopes are resource definded strings,resource.operation.constraint, like roles / role based access control [rbac] they enable scopes / scope based access control [sbac] 
-  e.g. mail.read or directory.readwrite.all, vs rbac typically covers just resource.operation and this is hard aspect of authZ that crm/erp platforms cover
+  where it highlights fact that application id is aka client id which is different than a user id claim which is typically present in isssued tokens  
+  scopes names use resource defined strings, resource.operation.constraint, and enable a more granular level of api request/response permissions, aka authorization, than rbac  
+  roles names use persona defined strings, Writer/Observer/Approver/Admin, and enable more managable app permissions, aka authorization, than groups  
+  roles can have allowedMemberTypes "User" to enable user and group members and/or "Application" to enable client application members
 aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
   client role and resource server role | application object and service principal object and user principal object
 oauth 2.0 authorization code grant flow -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code 

@@ -30,11 +30,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzFuncApp1", "AzFuncApp1\Az
 		{B9A049E5-8C0F-4D7F-A2AD-4F7976D6AB22} = {B9A049E5-8C0F-4D7F-A2AD-4F7976D6AB22}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publishSettings", "publishSettings", "{330FD5AC-5A1F-4B0E-9415-74D826402919}"
-	ProjectSection(SolutionItems) = preProject
-		publishSettings\azfndn.PublishSettings = publishSettings\azfndn.PublishSettings
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,9 +135,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{330FD5AC-5A1F-4B0E-9415-74D826402919} = {1720A7FB-7587-4E98-8C35-5E3C7581FD49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD839800-5000-4E73-923B-6A89F8B0997E}
