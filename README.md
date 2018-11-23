@@ -14,7 +14,10 @@ azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn
 azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings	
   plaform features tab | advanced tools (kudu) | https://&lt;myfunctionapp&gt;.scm.azurewebsites.net/, e.g. https://azfndn.scm.azurewebsites.net/ | debug console | cmd  
   
-aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary  
+aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary 
+  where it highlights fact that application id is aka client id which is different than a user id claim which is typically present in isssued tokens
+  scopes are like roles but instead of role based access control [rbac] they enable scope based access control [sbac] which covers resource.operation.constraint,
+  e.g. mail.read or directory.readwrite.all, vs rbac typically covers just resource.operation and this is hard aspect of authZ that crm/erp platforms cover
 aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
   client role and resource server role | application object and service principal object and user principal object
 oauth 2.0 authorization code grant flow -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code 
