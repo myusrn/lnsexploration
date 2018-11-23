@@ -1,10 +1,14 @@
 # lift and shift exploration work
 
 ## azure functions http triggered use of c++ native code libraries
-aad developers guide [ https://docs.microsoft.com/en-us/azure/active-directory/develop/ ] | v2.0 | 
-  quickstarts | web apis | asp.net core | 11/10/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-native-aspnetcore-v2/
-  how to guides | authentication | configure role claims | 10/04/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-enterprise-app-role-management
-aad application user role -> 09/18/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/ 
+aad developers guide [ https://docs.microsoft.com/en-us/azure/active-directory/develop/ ] | v2.0 |  
+  quickstarts | mobile and desktop apps | windows desktop | 11/14/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-windows-desktop  
+  quickstarts | web apis | asp.net core | 11/10/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-native-aspnetcore-v2/  
+  tutorials | mobile and desktop apps | windows desktop | 09/18/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-windows-desktop  
+  tutorials | web apps | asp.net | 09/10/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp  
+  how to guides | application configuration | add app roles | 09/23/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps  
+  how to guides | authentication | configure role claims | 10/04/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-enterprise-app-role-management  
+aad application user role -> 09/18/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/  
 aad role permissions https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles  
 graph api scope permissions -> https://msdn.microsoft.com/library/azure/ad/graph/howto/azure-ad-graph-api-permission-scopes  
   
