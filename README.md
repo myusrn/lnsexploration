@@ -1,14 +1,15 @@
 # lift and shift exploration work
 
 ## azure functions http triggered use of c++ native code libraries
-
-aad application user role -> /*** this is it ***/ 09/18/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/ 
-and https://blogs.msdn.microsoft.com/aaddevsup/2018/08/29/how-to-add-an-azure-ad-role-to-a-enterprise-application-service-principal/  
-remember to add an application role to a service [ /app vs user/client ] principal you will need to have the proper permissions to assign roles to objects  
-https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles#details-about-the-global-administrator-role  
-you need to be aad global administrator in order to set the roles of an enterpries application  
+aad developers guide [ https://docs.microsoft.com/en-us/azure/active-directory/develop/ ] | v2.0 | 
+  quickstarts | web apis | asp.net core | 11/10/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-native-aspnetcore-v2/
+  how to guides | authentication | configure role claims | 10/04/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-enterprise-app-role-management
+aad application user role -> 09/18/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/ 
+aad role permissions https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles  
+graph api scope permissions -> https://msdn.microsoft.com/library/azure/ad/graph/howto/azure-ad-graph-api-permission-scopes  
   
-azure web app [ aad security / ] authentication ->  &lt; see aad application user role hit about &gt;
+azure web app [ aad security / ] authentication ->  &lt; see aad application user role hit about &gt; and
+  https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp  
 azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/ 
   04/26/16 https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
 azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings	
@@ -16,7 +17,9 @@ azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-fun
   
 aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary 
   where it highlights fact that application id is aka client id which is different than a user id claim which is typically present in isssued tokens
-  scopes are like roles but instead of role based access control [rbac] they enable scope based access control [sbac] which covers resource.operation.constraint,
+  roles / rbac and scopes / sbac are both solutions to enabling application permissions, aka authorization
+  roles are respource defined strings, resource.role, can be "user" role which allow for users/groups as members and "application" role which allows for client applications as members
+  scopes are resource definded strings,resource.operation.constraint, like roles / role based access control [rbac] they enable scopes / scope based access control [sbac] 
   e.g. mail.read or directory.readwrite.all, vs rbac typically covers just resource.operation and this is hard aspect of authZ that crm/erp platforms cover
 aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
   client role and resource server role | application object and service principal object and user principal object
