@@ -29,7 +29,7 @@ aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-director
   role names for "allowedMemberTypes": [ "User" ] use persona defined strings, Admin/Approver/Observer/Writer/etc, to enable more managable user permissions, aka authorization, than groups  
   role with "allowedMemberTypes": [ "Application" ] vs [ "User" ] appear to be an admin consent only scope permission  
 aad application scope and role permission -> 03/12/17 https://joonasw.net/view/defining-permissions-and-roles-in-aad  
-  scope is delegated permission for service principal object downstream api call and role is permission for user object or service principal against local resources  
+  scope is delegated permission for service principal object downstream api calls and role is permission for user object or service principal object against local resources  
 aad application objects and service principal objects -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals  
   application object 1:1 relationship with the software application and 1:many relationships with its corresponding service principal object(s)  
   application object serves as the template from which common and default properties are derived for use in creating corresponding service principal objects  
