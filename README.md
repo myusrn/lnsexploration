@@ -13,6 +13,11 @@ aad application user role -> 09/18/18 https://azure.microsoft.com/en-us/resource
 aad role permissions https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles  
 graph api scope permissions -> https://msdn.microsoft.com/library/azure/ad/graph/howto/azure-ad-graph-api-permission-scopes  
   
+msal vs adal -> https://stackoverflow.com/questions/40046598/msal-or-adal-library-for-use-with-azure-ad-b2c-and-xamarin  
+msal = microsoft authentication library nupkg [ Microsoft.Identity.Client ] and adal = active directory authentication library nupkg [ Microsoft.IdentityModel.Clients.ActiveDirectory ] 
+adal is designed to only work against aad classic, not b2c, and adfs 3.0 onward. there are important protocol and feature differences that make the adal object model and protocol 
+capabilities incompatible with b2c. msal represents the new generation of microsoft's authentication libraries, designed to work with aad v2 endpoints, msa and b2c  
+    
 azure web app [ aad security / ] authentication ->  &lt; see aad application user role hit about &gt; and 
   https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp   
 azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/  
