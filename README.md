@@ -8,31 +8,36 @@ aad developers guide [ https://docs.microsoft.com/en-us/azure/active-directory/d
   tutorials | web apps | asp.net | 09/10/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp  
   how to guides | application configuration | add app roles | 09/23/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps  
   how to guides | authentication | configure role claims | 10/04/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-enterprise-app-role-management  
-aad application user role -> 09/18/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/  
+aad application user role -> 09/18/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-roleclaims/ and 
+  11/22/17 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-multitenant-openidconnect/  
 aad role permissions https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles  
 graph api scope permissions -> https://msdn.microsoft.com/library/azure/ad/graph/howto/azure-ad-graph-api-permission-scopes  
   
-azure web app [ aad security / ] authentication ->  &lt; see aad application user role hit about &gt; and
-  https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp  
-azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/ 
-  04/26/16 https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900  
-azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings	
+azure web app [ aad security / ] authentication ->  &lt; see aad application user role hit about &gt; and 
+  https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp   
+azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/  
+  04/26/16 https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900   
+azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings	 
   plaform features tab | advanced tools (kudu) | https://&lt;myfunctionapp&gt;.scm.azurewebsites.net/, e.g. https://azfndn.scm.azurewebsites.net/ | debug console | cmd  
   
-aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary 
-  where it highlights fact that application id is aka client id which is different than a user id claim which is typically present in isssued tokens  
-  scopes names use resource defined strings, resource.operation.constraint, and enable a more granular level of api request/response permissions, aka authorization, than rbac  
-  roles names use persona defined strings, Writer/Observer/Approver/Admin, and enable more managable app permissions, aka authorization, than groups  
-  roles can have allowedMemberTypes "User" to enable user and group members and/or "Application" to enable client application members
-aad client resource server role application service principal object -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals 
-  client role and resource server role | application object and service principal object and user principal object
-oauth 2.0 authorization code grant flow -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code 
+aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary   
+  the redirect uri [ optional ] is also referred to as sign-on url by some  
+  every application [ / client ] id also has an app id uri, e.g. api://&lt;application id%gt;  
+  directory [ / tenant ] id | application [ / client ] id | user [ / ??? ] id are all distinctly different things all of which are typically included in issued jwt token  
+  scope names use resource defined strings, resource.operation.constraint, to enable on-behalf-of user api permissions, aka delegated authorization, with user consent UI  
+  role names for "allowedMemberTypes": [ "Application" ] use resource defined strings, resource.operation.constraint, to enable on-behalf-of processing permissions, aka delegated authorization, with admin consent  
+  role names for "allowedMemberTypes": [ "User" ] use persona defined strings, Admin/Approver/Observer/Writer/etc, to enable more managable user permissions, aka authorization, than groups  
+  role with "allowedMemberTypes": [ "Application" ] vs [ "User" ] appear to be an admin consent only scope permission  
+aad application scope and role permission -> 03/12/17 https://joonasw.net/view/defining-permissions-and-roles-in-aad  
+  scope is delegated permission for service principal object, the actor for an application, and role is permission for user object or application object  
+aad application objects and service principal objects -> https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals  
+  client role and resource server role | application object and service principal object and user principal object  
+oauth 2.0 authorization code grant flow -> https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-protocols-oauth-code   
   implicit grant flow | auth code grant | on-behalf-of flow | client credentials grant  
-openid connect vs oauth -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth
-  openid connect is replacement/extended story based on oauth 2.0 that adds/includes authN in addition to authZ
-http://cakebaker.42dh.com/2008/04/01/openid-versus-oauth-from-the-users-perspective/  
-openid connect vs openid -> https://security.stackexchange.com/questions/44797/when-do-you-use-openid-vs-openid-connect 
-  openid connect is replacement of deprecated openid 2.0 and both are based on oauth
+openid connect vs oauth -> https://stackoverflow.com/questions/1087031/whats-the-difference-between-openid-and-oauth  
+  openid connect is replacement/extended story based on oauth 2.0 that adds/includes authN in addition to authZ  
+openid connect vs openid -> https://security.stackexchange.com/questions/44797/when-do-you-use-openid-vs-openid-connect  
+  openid connect is replacement of deprecated openid 2.0 and both are based on oauth  
     
 azure functions including dll in deployment -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
 where you added question about this on 20nov, then deleted and added updated one on 22nov to see if you could get some leads on this matter 
