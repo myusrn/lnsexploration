@@ -21,8 +21,7 @@ azure functions remote debug -> https://stackoverflow.com/questions/39343291/rem
   use publishing profile that doesn't have run from package file (recommended) [ / application settings WEBSITE_RUN_FROM_PACKAGE Remote = 1 ]  
   use publishing profile that uses configuration Debug/AnyCPU output and file publish options | remove additional files at destination  
   use log.LogInformation("some debugging message"); then see portal | run | log output window  
-azure functions publishing [ debug ] fails -> https://github.com/Azure/Azure-Functions/issues/506 
-  go to portal and stop function app first then publish  
+azure functions publishing fails -> https://github.com/Azure/Azure-Functions/issues/506 go to portal and stop function app first then publish  
 azure functions publish app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings  
     
 azure functions proxies.json reference -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-proxies#advanced-configuration  
