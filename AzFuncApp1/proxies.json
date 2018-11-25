@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "HelloProxy": {
+          "matchCondition": {
+            "route": "/api/hello"
+          },
+            "backendUri": "https://%HELLO_HOST%/api/hello"
+        },
+        "GetUserByName" : {
+            "matchCondition": {
+                "methods": [ "GET" ],
+                "route": "/api/users/{username}"
+            },
+            "responseOverrides": {
+                "response.statusCode": "200",
+                "response.headers.Content-Type" : "application/json",
+                "response.body": {
+                    "name": "{username}",
+                    "description": "Awesome developer and master of serverless APIs",
+                    "skills": [
+                        "Serverless",
+                        "APIs",
+                        "Azure",
+                        "Cloud"
+                    ]
+                }
+            }
+        }
+    }
+}

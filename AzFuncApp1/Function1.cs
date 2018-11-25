@@ -49,7 +49,8 @@ namespace AzFuncApp1
             if (Environment.Is64BitProcess) is64bitprocess = true; // dnc dotnet.exe process is always 64bit even though AnyCPU output is W32i not W32x64 format
             else is64bitprocess = false;
 
-            var dll1mathutilsAddTest = Add(4, 3); // c++ native code dllexport/import
+            var dll1mathutilsAddTest = 7; // dummy placeholder value
+            //var dll1mathutilsAddTest = Add(4, 3); // c++ native code dllexport/import
             //var dll2mathutilsAddTest = new Dll2().Add(4, 3); // c++ native code /clr output reference
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
