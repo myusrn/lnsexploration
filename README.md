@@ -13,25 +13,6 @@ aad application user role -> 09/18/18 https://azure.microsoft.com/en-us/resource
 aad role permissions https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles  
 graph api scope permissions -> https://msdn.microsoft.com/library/azure/ad/graph/howto/azure-ad-graph-api-permission-scopes  
 
-azure function httptrigger authorizationlevel.user -> https://stackoverflow.com/questions/46300913/whats-authorizationlevel-user-and-how-to-use-it-correctly -> 
-https://github.com/Azure/azure-functions-host/issues/33  
-
-azure functions remote debug -> https://stackoverflow.com/questions/39343291/remote-debugging-azure-functions-symbols-not-found   
-  recommends disabling debug | options "Enable Just My Code" and "Require source files to exactly match the original version"  
-  use publishing profile that doesn't have run from package file (recommended) [ / application settings WEBSITE_RUN_FROM_PACKAGE Remote = 1 ]  
-  use publishing profile that uses configuration Debug/AnyCPU output and file publish options | remove additional files at destination  
-  use log.LogInformation("some debugging message"); then see portal | run | log output window  
-azure functions publishing fails -> https://github.com/Azure/Azure-Functions/issues/506 go to portal and stop function app first then publish  
-azure functions publish app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings  
-    
-azure functions proxies.json reference -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-proxies#advanced-configuration  
-azure functions host.json reference -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json  
-azure functions local.settings.json reference -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local#local-settings-file  
-
-azure functions linux containers -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-function-linux-custom-image  
-azure functions iot edge module -> https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-deploy-function?toc=%2fazure%2fazure-functions%2ftoc.json  
-azure functions iot ring door bell integration -> https://medium.com/@jeffhollan/serverless-doorbell-azure-functions-and-ring-com-f24b44e01645  
-  
 msal vs adal -> https://stackoverflow.com/questions/40046598/msal-or-adal-library-for-use-with-azure-ad-b2c-and-xamarin  
 msal = microsoft authentication library nupkg [ Microsoft.Identity.Client ] and adal = active directory authentication library nupkg [ Microsoft.IdentityModel.Clients.ActiveDirectory ] 
 adal is designed to only work against aad classic, not b2c, and adfs 3.0 onward. there are important protocol and feature differences that make the adal object model and protocol 
@@ -39,12 +20,18 @@ capabilities incompatible with b2c. msal represents the new generation of micros
     
 azure web app [ aad security / ] authentication ->  &lt; see aad application user role hit about &gt; and 
   https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp   
+azure function v1 vs v2 -> https://stackoverflow.com/questions/50114965/azure-functions-v2-support-and-v1-lifetime 
+  https://blogs.msdn.microsoft.com/appserviceteam/2017/12/05/announcing-azure-functions-runtime-preview-2/  
+azure function httptrigger authorizationlevel.user easyauth -> 02/25/16 to- 11/20/18 https://github.com/Azure/azure-functions-host/issues/33  
+  works in v1 and in v2 in soon to be released 1.0.24+ of Microsoft.NET.Sdk.Functions nupkg according to this sample 
+  https://github.com/Azure/azure-functions-host/blob/dev/sample/CSharp/HttpTrigger-Identities/run.csx  
 azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/  
+  and live demo site https://easyauthweb.azurewebsites.net/ and arm deployment script
   ??/??/16 https://docs.microsoft.com/en-us/azure/functions/tutorial-static-website-serverless-api-with-database?tutorial-step=6  
   04/26/16 https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900   
 azure functions app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings	 
   plaform features tab | advanced tools (kudu) | https://&lt;myfunctionapp&gt;.scm.azurewebsites.net/, e.g. https://azfndn.scm.azurewebsites.net/ | debug console | cmd  
-  
+ 
 aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-directory/develop/developer-glossary   
   the redirect uri [ optional ] is also referred to as sign-on url by some  
   every application [ / client ] id also has an app id uri, e.g. api://&lt;application id%gt;  
@@ -66,7 +53,23 @@ openid connect vs oauth -> https://stackoverflow.com/questions/1087031/whats-the
   openid connect is replacement/extended story based on oauth 2.0 that adds/includes authN in addition to authZ  
 openid connect vs openid -> https://security.stackexchange.com/questions/44797/when-do-you-use-openid-vs-openid-connect  
   openid connect is replacement of deprecated openid 2.0 and both are based on oauth  
+
+azure functions remote debug -> https://stackoverflow.com/questions/39343291/remote-debugging-azure-functions-symbols-not-found   
+  recommends disabling debug | options "Enable Just My Code" and "Require source files to exactly match the original version"  
+  use publishing profile that doesn't have run from package file (recommended) [ / application settings WEBSITE_RUN_FROM_PACKAGE Remote = 1 ]  
+  use publishing profile that uses configuration Debug/AnyCPU output and file publish options | remove additional files at destination  
+  use log.LogInformation("some debugging message"); then see portal | run | log output window  
+azure functions publishing fails -> https://github.com/Azure/Azure-Functions/issues/506 go to portal and stop function app first then publish  
+azure functions publish app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings  
     
+azure functions proxies.json reference -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-proxies#advanced-configuration  
+azure functions host.json reference -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json  
+azure functions local.settings.json reference -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local#local-settings-file  
+
+azure functions linux containers -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-function-linux-custom-image  
+azure functions iot edge module -> https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-deploy-function?toc=%2fazure%2fazure-functions%2ftoc.json  
+azure functions iot ring door bell integration -> https://medium.com/@jeffhollan/serverless-doorbell-azure-functions-and-ring-com-f24b44e01645  
+     
 azure functions including dll in deployment -> https://blogs.msdn.microsoft.com/benjaminperkins/2017/04/13/how-to-add-assembly-references-to-an-azure-function-app/
 where you added question about this on 20nov, then deleted and added updated one on 22nov to see if you could get some leads on this matter 
 manual work around deployment of c++ native code dll with c# [DllImport] referenced functions -> azSxp | <azfn storage account> | file shares | 
