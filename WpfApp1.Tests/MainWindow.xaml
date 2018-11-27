@@ -8,10 +8,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <viewmodels:MainWindowViewModel />
+        <viewmodels:MainWindowViewModel /> <!-- preferred over MainWindow.cs | public MainWindow() { InitializeComponent(); DataContext = new MainWindowViewModel(); } -->
     </Window.DataContext>
     <Window.Resources>
-        <ResourceDictionary> <!-- this is not longer required uwp projects-->
+        <ResourceDictionary> <!-- this is not required in uwp projects as it automatically discovers resource dictionaries in project assembly -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Styles/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
