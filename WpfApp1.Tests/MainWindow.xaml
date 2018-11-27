@@ -4,9 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Tests"
+        xmlns:viewmodels="clr-namespace:WpfApp1.Tests.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel />  <!-- use to create instance of ViewModel even if not binding data -->
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary> <!-- this is not longer required uwp projects-->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Styles/Dictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Style="{StaticResource GridStyle1}">
+        <StackPanel Style="{StaticResource StackPanelStyle1}">
+            <Button Command="{Binding MsalRequestTokenCommand}">Msal__WhenTokenRequested__ShouldSucceed</Button>
+            <!--<Button Command="{Binding MsalRequestTokenCommand}" Content="Msal_WhenTokenRequested_ShouldSucceed"></Button>-->
+        </StackPanel>
     </Grid>
 </Window>
