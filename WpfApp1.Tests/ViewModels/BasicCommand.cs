@@ -10,7 +10,7 @@ namespace WpfApp1.Tests.ViewModels
     /// <summary>
     /// Simple ICommand implementation to bind commands to our ViewModels
     /// see "ViewModel BasicCommand ICommand" hits, e.g. https://stackoverflow.com/questions/12422945/how-to-bind-wpf-button-to-a-command-in-viewmodelbase
-    /// where notes that you need to use Window.DataContext to enable Button Command and not just DataGrid ItemSource {Bindings ImplementationWoXmlnsPrefix}
+    /// where notes that you need to use Window.DataContext to enable Button Command [ & CommandParameter ] and not just DataGrid ItemSource {Bindings ImplementationWoXmlnsPrefix}
     /// </summary>
     public class BasicCommand : ICommand
     {
