@@ -43,11 +43,12 @@ namespace AzFuncApp1
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
-
             bool? is64bitprocess = null;
             if (Environment.Is64BitProcess) is64bitprocess = true; // dnc dotnet.exe process is always 64bit even though AnyCPU output is W32i not W32x64 format
             else is64bitprocess = false;
+            log.LogInformation($"process type is " + (is64bitprocess == true ? "64 bit" : "32 bit"));
+
+            string name = req.Query["name"];
 
             var dll1mathutilsAddTest = 7; // dummy placeholder value
             //var dll1mathutilsAddTest = Add(4, 3); // c++ native code dllexport/import
@@ -56,6 +57,8 @@ namespace AzFuncApp1
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
+
+            if (name != null) log.LogInformation($"name property passed was \"{name}\"");
 
             return name != null
                 ? (ActionResult)new OkObjectResult($"Hello, {name} from updated release where dll1mathutilsAddTest generated {dll1mathutilsAddTest}!")

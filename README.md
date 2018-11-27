@@ -58,7 +58,7 @@ azure functions remote debug -> https://stackoverflow.com/questions/39343291/rem
   recommends disabling debug | options | "Enable Just My Code" and "Require source files to exactly match the original version"  
   use publishing profile that doesn't have run from package file (recommended) [ / application settings WEBSITE_RUN_FROM_PACKAGE Remote = 1 ]  
   use publishing profile that uses configuration Debug/AnyCPU output and file publish options | remove additional files at destination  
-  use log.LogInformation("some debugging message"); then see portal | run | log output window  
+  interim work around is log.LogInformation("some debugging message"); and portal platform features | monitoring | log streaming | application logs output  
   issue you opened against issue which doesn't repo for v1/dnf but does for v2/dnc https://github.com/Azure/azure-functions-host/issues/3810  
 azure functions publishing fails -> https://github.com/Azure/Azure-Functions/issues/506 go to portal and stop function app first then publish  
 azure functions publish app settings -> https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings  

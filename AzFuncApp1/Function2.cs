@@ -23,6 +23,11 @@ namespace AzFuncApp1
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
+            bool? is64bitprocess = null;
+            if (Environment.Is64BitProcess) is64bitprocess = true; // dnc dotnet.exe process is always 64bit even though AnyCPU output is W32i not W32x64 format
+            else is64bitprocess = false;
+            log.LogInformation($"process type is " + (is64bitprocess == true ? "64 bit" : "32 bit"));
+
             string name = req.Query["name"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -30,7 +35,7 @@ namespace AzFuncApp1
             name = name ?? data?.name;
 
 #region openid/oauth security code
-            var isAuthenticated = Thread.CurrentPrincipal != null & Thread.CurrentPrincipal.Identity.IsAuthenticated ? true: false;
+            var isAuthenticated = Thread.CurrentPrincipal != null && Thread.CurrentPrincipal.Identity.IsAuthenticated ? true: false;
             ClaimsIdentity identity = null; bool isInCommodityRole = false, isInProprietaryRole = false;
             Dictionary<string, string> claims = null; List<string> roles = new List<string> { "None" };
             if (!isAuthenticated)
