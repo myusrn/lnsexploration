@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace WpfApp1.Tests.ViewModels
@@ -11,13 +13,18 @@ namespace WpfApp1.Tests.ViewModels
     {
         public MainWindowViewModel()
         {
-
+            GraphApiCallResults = TokenInfo = "initial value";
+            SignOutVisibility = Visibility.Collapsed;
         }
 
         /// <summary>
         /// A collection of datagrid bindable data
         /// </summary>
         //public ObservableCollection<SomeDataTypeOnlyViewModel> SomeDataGridBindableData { get; set; }
+
+        public string /* IObservable<string> */ GraphApiCallResults { get; set; }
+        public string /* IObservable<string> */ TokenInfo { get; set; }
+        public Visibility /* IObservable<Visibility> */ SignOutVisibility { get; set; }
 
         private ICommand msalRequestTokenCommand;
         /// <summary>
@@ -74,11 +81,56 @@ namespace WpfApp1.Tests.ViewModels
             return isCallingGraphApi;
         }
 
-        public void CallGraphApi()
+        // set the graph api endpoint to graph 'me' endpoint
+        const string graphApiEndpoint = "https://graph.microsoft.com/v1.0/me";
+
+        // set the scope for API call to user.read
+        readonly string[] _scopes = new string[] { "user.read" };
+
+        public async void CallGraphApi()
         {
             isCallingGraphApi = true;
 
-            // TODO: execute call graph api code here
+            // execute call graph api code here
+            AuthenticationResult authResult = null;
+
+            var app = App.PublicClientApp;
+            GraphApiCallResults = string.Empty;
+            TokenInfo = string.Empty;
+
+            var accounts = await app.GetAccountsAsync();
+
+            try
+            {
+                authResult = await app.AcquireTokenSilentAsync(_scopes, accounts.FirstOrDefault());
+            }
+            catch (MsalUiRequiredException ex)
+            {
+                // A MsalUiRequiredException happened on AcquireTokenSilentAsync. This indicates you need to call AcquireTokenAsync to acquire a token
+                System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
+
+                try
+                {
+                    authResult = await App.PublicClientApp.AcquireTokenAsync(_scopes);
+                }
+                catch (MsalException msalex)
+                {
+                    GraphApiCallResults = $"Error Acquiring Token:{System.Environment.NewLine}{msalex}";
+                }
+            }
+            catch (Exception ex)
+            {
+                GraphApiCallResults = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
+                return;
+            }
+
+            if (authResult != null)
+            {
+// TODO: find and add these methods
+//                GraphApiCallResults = await GetHttpContentWithToken(graphApiEndpoint, authResult.AccessToken);
+//                DisplayBasicTokenInfo(authResult);
+                SignOutVisibility = Visibility.Visible;
+            }
 
             isCallingGraphApi = false;
         }

@@ -23,12 +23,12 @@
             <Button Command="{Binding MsalRequestTokenCommand}" Content="Msal__WhenTokenRequested_ShouldSucceed" MinHeight="40" />
             <StackPanel Style="{StaticResource StackPanelStyle2}">
                 <Button Command="{Binding CallGraphApiCommand}" Content="Call Microsoft Graph Api" />
-                <Button Command="{Binding MsalSignOutCommand}" Content="Sign-Out" Visibility="Collapsed" />
+                <Button Command="{Binding MsalSignOutCommand}" Content="Sign-Out" Visibility="{Binding Path=SignOutVisibility, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-            <!--<Label Content="Api Call Results" />--> <TextBlock Text="Api Call Results" />
-            <TextBox x:Name="ResultText" MinHeight="120" />
+            <!--<Label Content="Api Call Results" />--> <TextBlock Text="Graph Api Call Results" />
+            <TextBox MinHeight="120" Text="{Binding Path=GraphApiCallResults, UpdateSourceTrigger=PropertyChanged}" />
             <!--<Label Content="Token Info" />--> <TextBlock Text="Token Info" />
-            <TextBox x:Name="TokenInfoText" MinHeight="70" />
+            <TextBox MinHeight="70" Text="{Binding Path=TokenInfo, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </Grid>
 </Window>
