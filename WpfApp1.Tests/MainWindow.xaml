@@ -11,7 +11,7 @@
         <viewmodels:MainWindowViewModel /> <!-- preferred over MainWindow.cs | public MainWindow() { InitializeComponent(); DataContext = new MainWindowViewModel(); } -->
     </Window.DataContext>
     <Window.Resources>
-        <ResourceDictionary> <!-- this is not required in uwp projects as it automatically discovers resource dictionaries in project assembly -->
+        <ResourceDictionary> <!-- place this in App.xaml <Application.Resources /> if you want to be globally applicable -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Styles/Dictionary1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -19,8 +19,16 @@
     </Window.Resources>
     <Grid Style="{StaticResource GridStyle1}">
         <StackPanel Style="{StaticResource StackPanelStyle1}">
-            <Button Command="{Binding MsalRequestTokenCommand}">Msal__WhenTokenRequested__ShouldSucceed</Button>
-            <!--<Button Command="{Binding MsalRequestTokenCommand}" Content="Msal_WhenTokenRequested_ShouldSucceed"></Button>-->
+            <!--<Button Command="{Binding MsalRequestTokenCommand}">Msal__WhenTokenRequested__ShouldSucceed</Button>-->
+            <Button Command="{Binding MsalRequestTokenCommand}" Content="Msal__WhenTokenRequested_ShouldSucceed" MinHeight="40" />
+            <StackPanel Style="{StaticResource StackPanelStyle2}">
+                <Button Command="{Binding CallGraphApiCommand}" Content="Call Microsoft Graph Api" />
+                <Button Command="{Binding MsalSignOutCommand}" Content="Sign-Out" Visibility="Collapsed" />
+            </StackPanel>
+            <!--<Label Content="Api Call Results" />--> <TextBlock Text="Api Call Results" />
+            <TextBox x:Name="ResultText" MinHeight="120" />
+            <!--<Label Content="Token Info" />--> <TextBlock Text="Token Info" />
+            <TextBox x:Name="TokenInfoText" MinHeight="70" />
         </StackPanel>
     </Grid>
 </Window>

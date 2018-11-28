@@ -50,5 +50,69 @@ namespace WpfApp1.Tests.ViewModels
 
             isMsalRequestingToken = false;
         }
+
+        private ICommand callGraphApiCommand;
+        /// <summary>
+        /// Setup the delegates for MsalRequestToken
+        /// </summary>
+        public ICommand CallGraphApiCommand
+        {
+            get
+            {
+                return callGraphApiCommand ?? (callGraphApiCommand = 
+                    new BasicCommand((arg) => CallGraphApi(), () => !IsCallingGraphApi()));
+            }
+        }
+
+        private bool isCallingGraphApi;
+        /// <summary>
+        /// Whether or not the msal requesting token process is in progress
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCallingGraphApi()
+        {
+            return isCallingGraphApi;
+        }
+
+        public void CallGraphApi()
+        {
+            isCallingGraphApi = true;
+
+            // TODO: execute call graph api code here
+
+            isCallingGraphApi = false;
+        }
+
+        private ICommand msalSignOutCommand;
+        /// <summary>
+        /// Setup the delegates for MsalRequestToken
+        /// </summary>
+        public ICommand MsalSignOutCommand
+        {
+            get
+            {
+                return msalSignOutCommand ?? (msalSignOutCommand = 
+                    new BasicCommand((arg) => MsalSignOut(), () => !IsMsalSigningOut()));
+            }
+        }
+
+        private bool isMsalSigningOut;
+        /// <summary>
+        /// Whether or not the msal requesting token process is in progress
+        /// </summary>
+        /// <returns></returns>
+        public bool IsMsalSigningOut()
+        {
+            return isMsalSigningOut;
+        }
+
+        public void MsalSignOut()
+        {
+            isCallingGraphApi = true;
+
+            // TODO: execute msal signout code here
+
+            isCallingGraphApi = false;
+        }
     }
 }

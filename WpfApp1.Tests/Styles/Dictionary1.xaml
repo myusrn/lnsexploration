@@ -4,24 +4,80 @@
 
     <!-- see "uwp css descendant selector equivalent", "uwp stackpanel textblock style targeting" and "uwp define style without targettype" 
         hits such as https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/xaml-styles -->
+    <!-- xaml style target nested type -> https://stackoverflow.com/questions/21689259/wpf-style-selectors-on-targettype-specifying-nested-target-types -->
 
     <Style x:Key="GridStyle1" TargetType="Grid">
     </Style>
 
     <Style x:Key="StackPanelStyle1" TargetType="StackPanel">
-        <Setter Property="Orientation" Value="Vertical" />
-        <Setter Property="Width" Value="350" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <!--<Setter Property="Margin" Value="10,0,0,20" />-->
-        <!--<Setter Property="BorderBrush" Value="Red" />-->
+        <!--<Setter Property="Orientation" Value="Vertical" />--> <!-- default so not needed -->
+        <Setter Property="Background" Value="Azure" />
+        <Style.Resources>
+            <Style TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Padding" Value="10,0,10,5" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontFamily" Value="Segoe Ui" />
+            </Style>
+            <!--<Style TargetType="StackPanel">
+                <Style.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="Padding" Value="5" />
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="FontFamily" Value="Segoe Ui" />
+                    </Style>
+                </Style.Resources>
+            </Style>-->
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="0,0,0,-5" />
+                <Setter Property="FontFamily" Value="Segoe Ui" />
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="5,0,0,0" />
+                <Setter Property="FontFamily" Value="Segoe Ui" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontFamily" Value="Segoe Ui" />
+            </Style>
+        </Style.Resources>
     </Style>
 
-    <Style TargetType="Button">
-        <!--<Setter Property="Margin" Value="10" />-->
-        <Setter Property="Padding" Value="1,10,1,1" />
-        <!--<Setter Property="Height" Value="40" />-->
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Style x:Key="StackPanelStyle2" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Style.Resources>
+            <Style TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontFamily" Value="Segoe Ui" />
+            </Style>
+        </Style.Resources>
     </Style>
+   
+    <!--<Style TargetType="Grid">
+        <Style.Resources>
+            <Style TargetType="StackPanel">
+                <Style.Resources>-->  <!-- for nested style targeting to work named styles can be applied -->
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Orientation" Value="Horizontal" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Style.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                <Setter Property="Padding" Value="5" />
+                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="FontFamily" Value="Segoe Ui" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                <!--</Style.Resources>
+            </Style>
+        </Style.Resources>
+    </Style>-->
 
     <Style TargetType="TextBlock">
         <Setter Property="TextWrapping" Value="Wrap" />
