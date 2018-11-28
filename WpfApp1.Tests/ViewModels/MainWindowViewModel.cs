@@ -116,7 +116,9 @@ namespace WpfApp1.Tests.ViewModels
 // The scope https://azfndn1ipt.azurewebsites.net/user_impersonation offline_access openid profile user.read [ email ] is not valid.
 // in case of graph api user.read scope setting the issued token ends up having scp claim = "openid profile User.Read email"
 // in case of my web api access_as_user / user_impersonation scope setting the issued token ends up having scp claim = just that value
-// is scope / scp new name for what we used to be considered the audience uri claim ???
+// scope / scp claim is granular resource.operation.constraint permission versus more course grained user/persona based role permission
+// and audience uri / aud claim destination based permission. one is assigned to role directory or via group(s) and scope permission is 
+// issued during token acquisition when user consents to delegate that permission to service principal object ???
 
             var scopes = new string[] { "user.read" }; // graph api setting which ends up being "openid profile User.Read email"
             //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/access_as_user" }; // quickstart proposed setting
