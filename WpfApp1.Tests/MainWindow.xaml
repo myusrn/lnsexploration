@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1.Tests"
         xmlns:viewmodels="clr-namespace:WpfApp1.Tests.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Width="800">
     <Window.DataContext>
         <viewmodels:MainWindowViewModel /> <!-- preferred over MainWindow.cs | public MainWindow() { InitializeComponent(); DataContext = new MainWindowViewModel(); } -->
     </Window.DataContext>
@@ -19,16 +19,20 @@
     </Window.Resources>
     <Grid Style="{StaticResource GridStyle1}">
         <StackPanel Style="{StaticResource StackPanelStyle1}">
-            <!--<Button Command="{Binding MsalRequestTokenCommand}">Msal__WhenTokenRequested__ShouldSucceed</Button>-->
-            <Button Command="{Binding MsalRequestTokenCommand}" Content="Msal__WhenTokenRequested_ShouldSucceed" MinHeight="40" />
+            <!--<Button Command="{Binding MsalAcquireTokenCommand}">Msal__AcquireToken__ShouldSucceed</Button>-->
+            <Button Command="{Binding MsalAcquireTokenCommand}" Content="Msal__AcquireToken__ShouldSucceed" MinHeight="30" />
             <StackPanel Style="{StaticResource StackPanelStyle2}">
-                <Button Command="{Binding CallGraphApiCommand}" Content="Call Microsoft Graph Api" />
-                <Button Command="{Binding MsalSignOutCommand}" Content="Sign-Out" Visibility="{Binding Path=SignOutVisibility, UpdateSourceTrigger=PropertyChanged}" />
+                <!--<Button Command="{Binding CallGraphApiCommand}" Content="Call Graph Api" Visibility="{Binding Path=GraphApiCallResultsVisibity, UpdateSourceTrigger=PropertyChanged}" />-->
+                <Button Command="{Binding CallGraphApiCommand}" Content="Call Graph Api" Visibility="{Binding GraphApiCallResultsVisibity}" />
+                <Button Command="{Binding CallGraphApiCommand}" Content="Call My Web Api" Visibility="{Binding MyWebApiCallResultsVisibity}" />
+                <Button Command="{Binding MsalSignOutCommand}" Content="Sign-Out" Visibility="{Binding SignOutVisibility}" />
             </StackPanel>
-            <!--<Label Content="Api Call Results" />--> <TextBlock Text="Graph Api Call Results" />
-            <TextBox MinHeight="120" Text="{Binding Path=GraphApiCallResults, UpdateSourceTrigger=PropertyChanged}" />
+            <!--<Label Content="Graph Api Call Results" />--> <TextBlock Text="Graph Api Call Results" />
+            <TextBox MinHeight="120" Text="{Binding GraphApiCallResults}" />
+            <!--<Label Content="My Web Api Call Results" />--> <TextBlock Text="My Web Api Call Results" />
+            <TextBox MinHeight="120" Text="{Binding MyWebApiCallResults}" />
             <!--<Label Content="Token Info" />--> <TextBlock Text="Token Info" />
-            <TextBox MinHeight="70" Text="{Binding Path=TokenInfo, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox MinHeight="70" Text="{Binding TokenInfo}" />
         </StackPanel>
     </Grid>
 </Window>

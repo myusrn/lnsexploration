@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Tests.ViewModels
 {
+    class MagicAttribute : Attribute { }
+    class NoMagicAttribute : Attribute { }
+
     /// <summary>
     /// Basic Wpf ViewModel class to implement INotifyPropertyChanged
     /// </summary>
