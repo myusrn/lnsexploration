@@ -22,9 +22,9 @@ namespace WpfApp1.Tests.ViewModels
         /// </summary>
         //public ObservableCollection<SomeDataTypeOnlyViewModel> SomeDataGridBindableData { get; set; }
 
-        public string /* IObservable<string> */ GraphApiCallResults { get; set; }
-        public string /* IObservable<string> */ TokenInfo { get; set; }
-        public Visibility /* IObservable<Visibility> */ SignOutVisibility { get; set; }
+        public string /*IObservable<string>*/ GraphApiCallResults { get; set; }
+        public string  /*IObservable<string>*/ TokenInfo { get; set; }
+        public Visibility /*IObservable<Visibility>*/ SignOutVisibility { get; set; }
 
         private ICommand msalRequestTokenCommand;
         /// <summary>
@@ -54,6 +54,11 @@ namespace WpfApp1.Tests.ViewModels
             isMsalRequestingToken = true;
 
             // TODO: execute msal request token code here
+            GraphApiCallResults = TokenInfo = "initial value updated";
+            SignOutVisibility = Visibility.Visible;
+            this.RaisePropertyChanged("GraphApiCallResults");
+            this.RaisePropertyChanged("TokenInfo");
+            this.RaisePropertyChanged("SignOutVisibility");
 
             isMsalRequestingToken = false;
         }
