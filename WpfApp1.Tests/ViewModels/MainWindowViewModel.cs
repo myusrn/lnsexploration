@@ -198,8 +198,8 @@ namespace WpfApp1.Tests.ViewModels
 
             if (authResult != null)
             {
-                //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=foobar"; // endpoint expecting one audienceUri in AccessToken
-                const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?code=kG5giVEfEDtPAA6Dz9z0bC3EjYYCYRVf9apYxewkaYoqMyMGMiZwcw==&name=foobar";
+                const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
+                //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?code=kG5giVEfEDtPAA6Dz9z0bC3EjYYCYRVf9apYxewkaYoqMyMGMiZwcw==&name=azfndn1ipt%20foobar";
                 MyWebApiCallResults = await GetHttpContentWithToken(myWebApiEndpoint, authResult.AccessToken);
                 DisplayBasicTokenInfo(authResult);
                 CallMyWebApiVisibility = Visibility.Collapsed;
