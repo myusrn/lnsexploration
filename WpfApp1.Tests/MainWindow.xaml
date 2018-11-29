@@ -20,12 +20,12 @@
     <Grid Style="{StaticResource GridStyle1}">
         <StackPanel Style="{StaticResource StackPanelStyle1}">
             <!--<Button Command="{Binding MsalAcquireTokenCommand}">Msal__AcquireToken__ShouldSucceed</Button>-->
-            <Button Command="{Binding MsalAcquireTokenCommand}" Content="Msal__AcquireToken__ShouldSucceed" MinHeight="30" />
+            <Button Command="{Binding MsalAcquireTokenCommand}" IsEnabled="{Binding MsalAcquireTokenEnabled}" Content="Msal__AcquireToken__ShouldSucceed" MinHeight="30" />
             <StackPanel Style="{StaticResource StackPanelStyle2}">
                 <!--<Button Command="{Binding CallGraphApiCommand}" Content="Call Graph Api" Visibility="{Binding Path=GraphApiCallResultsVisibity, UpdateSourceTrigger=PropertyChanged}" />-->
-                <Button Command="{Binding CallGraphApiCommand}" Content="Call Graph Api" Visibility="{Binding GraphApiCallResultsVisibity}" />
-                <Button Command="{Binding CallGraphApiCommand}" Content="Call My Web Api" Visibility="{Binding MyWebApiCallResultsVisibity}" />
-                <Button Command="{Binding MsalSignOutCommand}" Content="Sign-Out" Visibility="{Binding SignOutVisibility}" />
+                <Button Command="{Binding CallGraphApiCommand}" Visibility="{Binding CallGraphApiVisibity}" Content="Call Graph Api" />
+                <Button Command="{Binding CallMyWebApiCommand}" Visibility="{Binding CallMyWebApiVisibity}" Content="Call My Web Api" />
+                <Button Command="{Binding MsalSignOutCommand}" Visibility="{Binding MsalSignOutVisibility}" Content="Msal Sign-Out" />
             </StackPanel>
             <!--<Label Content="Graph Api Call Results" />--> <TextBlock Text="Graph Api Call Results" />
             <TextBox MinHeight="120" Text="{Binding GraphApiCallResults}" />

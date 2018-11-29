@@ -36,8 +36,8 @@ aad developer glossary -> https://docs.microsoft.com/en-us/azure/active-director
   the redirect uri [ optional ] is also referred to as sign-on url by some  
   every application [ / client ] id also has an app id uri, e.g. api://&lt;application id%gt;  
   directory [ / tenant ] id | application [ / client ] id | user [ / ??? ] id are all distinctly different things all of which are typically included in issued jwt token  
-  scope names use resource defined strings, resource.operation.constraint, to enable on-behalf-of user api permissions, aka delegated authorization, with user consent UI  
-  role names for "allowedMemberTypes": [ "Application" ] use resource defined strings, resource.operation.constraint, to enable on-behalf-of processing permissions, aka delegated authorization, with admin consent  
+  scope names use resource defined strings, resource.operation[.constraint], to enable on-behalf-of user api permissions, aka delegated authorization, with user consent UI  
+  role names for "allowedMemberTypes": [ "Application" ] use resource defined strings, resource.operation[.constraint], to enable on-behalf-of processing permissions, aka delegated authorization, with admin consent  
   role names for "allowedMemberTypes": [ "User" ] use persona defined strings, Admin/Approver/Observer/Writer/etc, to enable more managable user permissions, aka authorization, than groups  
   role with "allowedMemberTypes": [ "Application" ] vs [ "User" ] appear to be an admin consent only scope permission  
 aad application scope and role permission -> 03/12/17 https://joonasw.net/view/defining-permissions-and-roles-in-aad  

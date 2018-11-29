@@ -13,8 +13,10 @@ namespace WpfApp1.Tests.ViewModels
     {
         public MainWindowViewModel()
         {
+            MsalAcquireTokenEnabled = true; // vs false (default)
+            //CallGraphApiVisibility = CallMyWebApiVisibility = Visibility.Visible; // (default)
             GraphApiCallResults = MyWebApiCallResults = TokenInfo = "nothing yet";
-            SignOutVisibility = Visibility.Collapsed;
+            MsalSignOutVisibility = Visibility.Collapsed; // vs Visible (default)
         }
 
         /// <summary>
@@ -30,17 +32,19 @@ namespace WpfApp1.Tests.ViewModels
 // requires ViewModel.cs | class MagicAttribute : Attribute { } & class NoMagicAttribute : Attribute { }
 // c# alternative to kindofmagic nuget -> nothing
         [Magic]
+        public bool MsalAcquireTokenEnabled { get; set; }
+        [Magic]
+        public Visibility CallGraphApiVisibility { get; set; }
+        [Magic]
+        public Visibility CallMyWebApiVisibility { get; set; }
+        [Magic]
+        public Visibility MsalSignOutVisibility { get; set; }
+        [Magic]
         public string GraphApiCallResults { get; set; }
         [Magic]
         public string MyWebApiCallResults { get; set; }
         [Magic]
         public string TokenInfo { get; set; }
-        [Magic]
-        public Visibility GraphApiCallResultsVisibility { get; set; }
-        [Magic]
-        public Visibility MyWebApiCallResultsVisibility { get; set; }
-        [Magic]
-        public Visibility SignOutVisibility { get; set; }
 
         private ICommand msalAcquireTokenCommand;
         /// <summary>
@@ -65,13 +69,45 @@ namespace WpfApp1.Tests.ViewModels
             return isMsalAcquiringToken;
         }
 
-        public void MsalAcquireToken()
+        public async void MsalAcquireToken()
         {
             isMsalAcquiringToken = true;
 
             // TODO: execute msal request token code here
-            GraphApiCallResults = TokenInfo = "initial value updated";
-            SignOutVisibility = Visibility.Visible;           
+            GraphApiCallResults = MyWebApiCallResults = TokenInfo = string.Empty;
+            MsalSignOutVisibility = Visibility.Visible;
+
+// scopes = { "user.read" } for graph api call or { "<application id uri>/access_as_user" } for custom web api calls
+// where <application id uri> = "api://<application (client) id>" (default) or "https://<azfn>.azurewebsites.net" (azfn express provisioned)
+// which surfaces in manifest under "identifierUris": [	"api://<application (client) id>" or "https://<azfn>.azurewebsites.net" ]
+// e.g. "identifierUris": [ "api://8e98f706-dc42-4f97-bef2-b51e3e146e06" or "https://azfndn1.azurewebsites.net" or "https://azfndn1ipt.azurewebsites.net" ]
+// AADSTS65005: The application 'azfndn1' asked for scope 'access_as_user' that doesn't exist on the resource '<tenant id>'.
+// AADSTS700022: The provided value for the input parameter scope is not valid because it contains more than one resource.
+// The scope https://azfndn1ipt.azurewebsites.net/user_impersonation offline_access openid profile user.read [ email ] is not valid.
+// in case of graph api user.read scope setting the issued token ends up having scp claim = "openid profile User.Read email"
+// in case of my web api access_as_user / user_impersonation scope setting the issued token ends up having scp claim = just that value
+// scope / scp claim is granular resource.operation.constraint permission versus more course grained user/persona based role permission
+// and audience uri / aud claim destination based permission. one is assigned to role directory or via group(s) and scope permission is 
+// issued during token acquisition when user consents to delegate that permission to service principal object ???
+
+            var scopes = new string[] { "user.read" }; // graph api setting which ends up being "openid profile User.Read email"
+            //var scopes = new string[] { "user.read", "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/user_impersonation" }; // n/a
+            //var scopes = new string[] { "openid", "profile", "User.Read", "email", "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/user_impersonation" }; // n/a
+
+            //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/access_as_user" }; // quickstart proposed setting using "identifierUris": [ "api://<application (client) id>" ] format
+            //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/user_impersonation" }; // azfn express provisioned scope using altered "identifierUris": [ "api://<application (client) id>" ] format
+            //var scopes = new string[] { "https://azfndn1.azurewebsites.net/user_impersonation" }; // azfndn1 express provisioned scope using default "identifierUris": [ "https://<azfn>.azurewebsites.net" ] format
+            //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfndn1ipt express provisioned scope using default "identifierUris": [ "https://<azfn>.azurewebsites.net" ] format
+            //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/Files.Read" }; // app registrations (preview) | <app> | expose an api | add a scope proposed setting using resource.operation[.constraint] format
+
+            AuthenticationResult authResult = await GetAuthResult(scopes, MyWebApiCallResults);
+
+            if (authResult != null)
+            {
+                DisplayBasicTokenInfo(authResult);
+                MsalAcquireTokenEnabled = false;
+                MsalSignOutVisibility = Visibility.Visible;
+            }
 
             isMsalAcquiringToken = false;
         }
@@ -104,76 +140,19 @@ namespace WpfApp1.Tests.ViewModels
             isCallingGraphApi = true;
 
             // execute call graph api here
-            AuthenticationResult authResult = null;
-
             GraphApiCallResults = TokenInfo = string.Empty;
 
-// scopes = { "user.read" } for graph api call or { "<application id uri>/access_as_user" } for custom web api calls
-// where <application id uri> = api://<application (client) id> (default) or "https://<azfn>.azurewebsites.net" (azfn express provisioned)
-// which surfaces in manifest under "identifierUris": [	api://<application (client) id> or "https://<azfn>.azurewebsites.net" ]
-// AADSTS65005: The application 'azfndn1' asked for scope 'access_as_user' that doesn't exist on the resource '<tenant id>'.
-// AADSTS700022: The provided value for the input parameter scope is not valid because it contains more than one resource.
-// The scope https://azfndn1ipt.azurewebsites.net/user_impersonation offline_access openid profile user.read [ email ] is not valid.
-// in case of graph api user.read scope setting the issued token ends up having scp claim = "openid profile User.Read email"
-// in case of my web api access_as_user / user_impersonation scope setting the issued token ends up having scp claim = just that value
-// scope / scp claim is granular resource.operation.constraint permission versus more course grained user/persona based role permission
-// and audience uri / aud claim destination based permission. one is assigned to role directory or via group(s) and scope permission is 
-// issued during token acquisition when user consents to delegate that permission to service principal object ???
-
             var scopes = new string[] { "user.read" }; // graph api setting which ends up being "openid profile User.Read email"
-            //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/access_as_user" }; // quickstart proposed setting
-            //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfn express provisioned
-            //var scopes = new string[] { "user.read", "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // n/a
-            //var scopes = new string[] { "openid", "profile", "User.Read", "email", "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // n/a
 
-            var app = App.PublicClientApp;
-            var accounts = await app.GetAccountsAsync();
-
-            try
-            {
-                authResult = await app.AcquireTokenSilentAsync(scopes, accounts.FirstOrDefault());
-            }
-            catch (MsalUiRequiredException ex)
-            {
-                // A MsalUiRequiredException happened on AcquireTokenSilentAsync. This indicates you need to call AcquireTokenAsync to acquire a token
-                System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
-
-                try
-                {
-// public client application acquiretokenasync -> 
-// https://docs.microsoft.com/en-us/dotnet/api/microsoft.identity.client.publicclientapplication.acquiretokenasync?view=azure-dotnet
-                    authResult = await App.PublicClientApp.AcquireTokenAsync(scopes);
-//Sign in to your account | Microsoft | Sign in 
-//Sorry, but we're having trouble signing you in. 
-//AADSTS50194: Application '<application id>' is not configured as a multi-tenant application. Usage of the /common endpoint is not supported for such applications created after '10/15/2018'. Use a tenant-specific endpoint or configure the application to be multi-tenant. 
-
-//App.xaml.cs | new PublicClientApplication(clientId) -> (clientId, authority);
-//Constructor of the application. 
-//authority: Authority of the security token service (STS) from which MSAL.NET will acquire the tokens. Usual authorities are: 
-//https://login.microsoftonline.com/tenant/, where tenant is the tenant ID of the Azure AD tenant or a domain associated with this Azure AD tenant, in order to sign-in user of a specific organization only
-//https://login.microsoftonline.com/common/ to sign-in users with any work and school accounts or Microsoft personal account 
-//https://login.microsoftonline.com/organizations/ to sign-in users with any work and school accounts https://login.microsoftonline.com/consumers/ to sign-in users with only personal Microsoft account (live)
-//Note that this setting needs to be consistent with what is declared in the application registration portal 
-
-                }
-                catch (MsalException msalex)
-                {
-                    GraphApiCallResults = $"Error Acquiring Token:{System.Environment.NewLine}{msalex}";
-                }
-            }
-            catch (Exception ex)
-            {
-                GraphApiCallResults = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
-                return;
-            }
+            AuthenticationResult authResult = await GetAuthResult(scopes, GraphApiCallResults);
 
             if (authResult != null)
             {
-                const string graphApiEndpoint = "https://graph.microsoft.com/v1.0/me"; // endpoint operates based on identity in AccessToken
+                const string graphApiEndpoint = "https://graph.microsoft.com/v1.0/me"; // endpoint expecting one audienceUri in AccessToken
                 GraphApiCallResults = await GetHttpContentWithToken(graphApiEndpoint, authResult.AccessToken);
                 DisplayBasicTokenInfo(authResult);
-                GraphApiCallResultsVisibility = Visibility.Collapsed;
-                SignOutVisibility = Visibility.Visible;
+                CallGraphApiVisibility = Visibility.Collapsed;
+                MsalSignOutVisibility = Visibility.Visible;
             }
 
             isCallingGraphApi = false;
@@ -202,11 +181,30 @@ namespace WpfApp1.Tests.ViewModels
             return isCallingMyWebApi;
         }
 
-        public void CallMyWebApi()
+        public async void CallMyWebApi()
         {
             isCallingMyWebApi = true;
 
-            // TODO: execute call my web api here
+            // execute call my web api here
+            MyWebApiCallResults = TokenInfo = string.Empty;
+
+            //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/access_as_user" }; // quickstart proposed setting using "identifierUris": [ api://<application (client) id> ] format
+            //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/user_impersonation" }; // azfn express provisioned scope using "identifierUris": [ api://<application (client) id> ] format
+            //var scopes = new string[] { "https://azfndn1.azurewebsites.net/user_impersonation" }; // azfndn1 express provisioned
+            //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfndn1ipt express provisioned
+            var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/Files.Read" }; // app registrations (preview) | <app> | expose an api | add a scope proposed setting using resource.operation[.constraint] format
+
+            AuthenticationResult authResult = await GetAuthResult(scopes, MyWebApiCallResults);
+
+            if (authResult != null)
+            {
+                //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=foobar"; // endpoint expecting one audienceUri in AccessToken
+                const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?code=kG5giVEfEDtPAA6Dz9z0bC3EjYYCYRVf9apYxewkaYoqMyMGMiZwcw==&name=foobar";
+                MyWebApiCallResults = await GetHttpContentWithToken(myWebApiEndpoint, authResult.AccessToken);
+                DisplayBasicTokenInfo(authResult);
+                CallMyWebApiVisibility = Visibility.Collapsed;
+                MsalSignOutVisibility = Visibility.Visible;
+            }
 
             isCallingMyWebApi = false;
         }
@@ -246,8 +244,9 @@ namespace WpfApp1.Tests.ViewModels
                 {
                     await App.PublicClientApp.RemoveAsync(accounts.FirstOrDefault());
                     GraphApiCallResults = MyWebApiCallResults = string.Empty; TokenInfo = "User has been signed-out";
-                    GraphApiCallResultsVisibility = MyWebApiCallResultsVisibility = Visibility.Visible;
-                    SignOutVisibility = Visibility.Collapsed;
+                    MsalAcquireTokenEnabled = true;
+                    CallGraphApiVisibility = CallMyWebApiVisibility = Visibility.Visible;
+                    MsalSignOutVisibility = Visibility.Collapsed;
                 }
                 catch (MsalException ex)
                 {
@@ -256,6 +255,57 @@ namespace WpfApp1.Tests.ViewModels
             }
 
             isMsalSigningOut = false;
+        }
+
+        /// <summary>
+        /// Perform a microsoft authentication library [msal] acquire token silent/interactive sequence.
+        /// </summary>
+        /// <param name="scopes">The aad app registration scope permission you are requesting token for.</param>
+        /// <param name="resultsNotifyPropertyChanged">The INotifyPropertyChanged enabled property to report results.</param>
+        /// <returns>The authentication result from acquire token silent/interactive sequence.</returns>
+        public async Task<AuthenticationResult> GetAuthResult(string[] scopes, string resultsNotifyPropertyChanged)
+        {
+            var app = App.PublicClientApp;
+            var accounts = await app.GetAccountsAsync();
+            AuthenticationResult authResult = null;
+
+            try
+            {
+                authResult = await app.AcquireTokenSilentAsync(scopes, accounts.FirstOrDefault());
+            }
+            catch (MsalUiRequiredException ex)
+            {
+                // A MsalUiRequiredException happened on AcquireTokenSilentAsync. This indicates you need to call AcquireTokenAsync to acquire a token
+                System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
+
+                try
+                {
+// public client application acquiretokenasync -> https://docs.microsoft.com/en-us/dotnet/api/microsoft.identity.client.publicclientapplication.acquiretokenasync?view=azure-dotnet
+                    authResult = await App.PublicClientApp.AcquireTokenAsync(scopes);
+//Sign in to your account | Microsoft | Sign in 
+//Sorry, but we're having trouble signing you in. 
+//AADSTS50194: Application '<application id>' is not configured as a multi-tenant application. Usage of the /common endpoint is not supported for such applications created after '10/15/2018'. Use a tenant-specific endpoint or configure the application to be multi-tenant. 
+
+//App.xaml.cs | new PublicClientApplication(clientId) -> (clientId, authority);
+//Constructor of the application. 
+//authority: Authority of the security token service (STS) from which MSAL.NET will acquire the tokens. Usual authorities are: 
+//https://login.microsoftonline.com/tenant/, where tenant is the tenant ID of the Azure AD tenant or a domain associated with this Azure AD tenant, in order to sign-in user of a specific organization only
+//https://login.microsoftonline.com/common/ to sign-in users with any work and school accounts or Microsoft personal account 
+//https://login.microsoftonline.com/organizations/ to sign-in users with any work and school accounts https://login.microsoftonline.com/consumers/ to sign-in users with only personal Microsoft account (live)
+//Note that this setting needs to be consistent with what is declared in the application registration portal 
+                }
+                catch (MsalException msalex)
+                {
+                    resultsNotifyPropertyChanged = $"Error Acquiring Token:{System.Environment.NewLine}{msalex}";
+                }
+            }
+            catch (Exception ex)
+            {
+                resultsNotifyPropertyChanged = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
+                //return; // now that part of helper function need to wait till end and return authResult
+            }
+
+            return authResult;
         }
 
         /// <summary>
