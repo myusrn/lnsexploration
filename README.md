@@ -1,6 +1,6 @@
 ## lift and shift exploration work using bash shell .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts
-gbash.exe 
+gbash.exe // or windows subsystem for linux [wsl] store app distribution install terminal session
 echo $PATH // or printenv PATH
 //https://stackoverflow.com/questions/53563543/bash-shell-access-to-programfilesx86-environment-variable
 //access %programfiles(x86)% environment variable, e.g. echo $ProgramFiles(x86), echo $ProgramFiles\(x86\) and echo $"ProgramFiles(x86)" ???
@@ -11,12 +11,17 @@ PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Microsoft Visual Studio/Shared/Anacond
 // or PFX86="${PROGRAMFILES//:\\//} (x86)" & PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/${APPDATA//:\\//}/Python/Python36/Scripts
 echo $PATH // or printenv PATH
 // usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -n <deploymentName> -l <resourceGroupLocation>  
-./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g exxonLnsRgn -n exxonLnsDn -l centralus  
+./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g exxonRgn -n exxonDn -l centralus  
   
 ## lift and shift exploration work using powershell .ps1 scripts  
-powershell.exe  
-// usage: .\deploy.ps1 <subscriptionId> <resourceGroupName> <deploymentName> <resourceGroupLocation>  
-.\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 -g exxonLnsRgn exxonLnsDn centralus  
+win+s | windows powershell // or powershell.exe -noexit -executionpolicy unrestricted 
+//get-executionpolicy -list // or get-executionpolicy -scope currentuser
+//set-executionpolicy -scope currentuser -executionpolicy unrestricted | y[es]
+open parameters.json and provide values for each of the entries noting that the first four have to be unique across all azure subscriptions
+e.g. <provide example values here and note https://aka.ms/arm-deploy reference>
+// usage: .\deploy.ps1 <subscriptionId> <resourceGroupName> <deploymentName> <resourceGroupLocation>
+// noting that all names must be unique within azure subscription and things like function app, web app and storage account names must be unique across all azure subscriptions
+.\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 exxonRgn exxonDn centralus | r[un once] | <enter azure subscription credentials>
   
 ## azure functions and web apps openid/oauth security and rbac 
 owin authorization header and session cookie authentication -> https://github.com/MicrosoftDocs/azure-docs/issues/19717 
