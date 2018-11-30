@@ -1,8 +1,29 @@
-# lift and shift exploration work
-
-## azure functions http triggered use of c++ native code libraries
+## lift and shift exploration work using bash shell .sh scripts
+// or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts
+gbash.exe 
+echo $PATH // or printenv PATH
+//https://stackoverflow.com/questions/53563543/bash-shell-access-to-programfilesx86-environment-variable
+//access %programfiles(x86)% environment variable, e.g. echo $ProgramFiles(x86), echo $ProgramFiles\(x86\) and echo $"ProgramFiles(x86)" ???
+//replace every : with nothing and backslash with forward to create path friendly version of environment variables, e.g. echo "${PROGRAMFILES//:\\//} (x86)/Some App InstallDir With Spaces"
+//enabling use in PATH environment variable updates, e.g. PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Some Path With Spaces/"
+// or PATH=$PATH:"/c/Program Files (x86)/Microsoft Visual Studio/Shared/Anaconda3_64":"/c/Program Files (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/c/Users/ob1/AppData/Roaming/Python/Python36/Scripts
+PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Microsoft Visual Studio/Shared/Anaconda3_64":"/${PROGRAMFILES//:\\//} (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/${APPDATA//:\\//}/Python/Python36/Scripts
+// or PFX86="${PROGRAMFILES//:\\//} (x86)" & PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/${APPDATA//:\\//}/Python/Python36/Scripts
+echo $PATH // or printenv PATH
+// usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -n <deploymentName> -l <resourceGroupLocation>  
+./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g exxonLnsRgn -n exxonLnsDn -l centralus  
+  
+## lift and shift exploration work using powershell .ps1 scripts  
+powershell.exe  
+// usage: .\deploy.ps1 <subscriptionId> <resourceGroupName> <deploymentName> <resourceGroupLocation>  
+.\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 -g exxonLnsRgn exxonLnsDn centralus  
+  
+## azure functions and web apps openid/oauth security and rbac 
+owin authorization header and session cookie authentication -> https://github.com/MicrosoftDocs/azure-docs/issues/19717 
+  and https://stackoverflow.com/questions/53544037/owin-authorization-header-and-session-cookie-authentication  
 aad developers guide [ https://docs.microsoft.com/en-us/azure/active-directory/develop/ ] | v2.0 |  
   quickstarts | mobile and desktop apps | windows desktop | 11/14/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-windows-desktop  
+  quickstarts | web apps | asp.net core | 11/10/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp
   quickstarts | web apis | asp.net core | 11/10/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-native-aspnetcore-v2/  
   tutorials | mobile and desktop apps | windows desktop | 09/18/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-windows-desktop  
   tutorials | web apps | asp.net | 09/10/18 https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp  
@@ -90,7 +111,10 @@ recommended using postman, not fiddler, for http endpoint test and debugging ser
 additional resources https://azure.com/serverless and https://functions.azure.com/try
 dos and dont's of azure functions https://www.youtube.com/watch?v=kvTostlJp7M by jeff hollan senior pm https://www.linkedin.com/in/jeffhollan/
 functions getting started https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-your-first-function-visual-studio  
-  
+ 
+## azure functions inclusion of c++ native code libraries 
+must be accessed using .net core compatible platform invoke DllImport attribute and not .net framework only compatible c++/cli managed assembly build output reference
+
 ## c# managed code access to c++ native code library wrapped legacy dynamic link library (.dll) and/or static library (.lib)
 
 https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interoperability-overview and https://docs.microsoft.com/en-us/cpp/build/reference/clr-common-language-runtime-compilation  
