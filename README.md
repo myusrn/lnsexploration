@@ -17,8 +17,8 @@ echo $PATH // or printenv PATH
 win+s | windows powershell // or powershell.exe -noexit -executionpolicy unrestricted 
 //get-executionpolicy -list // or get-executionpolicy -scope currentuser
 //set-executionpolicy -scope currentuser -executionpolicy unrestricted | y[es]
-open parameters.json and provide values for each of the entries noting that the first four have to be unique across all azure subscriptions
-e.g. <provide example values here and note https://aka.ms/arm-deploy reference>
+open parameters.json and provide values for each of the entries noting that they have to be unique across all azure subscriptions
+e.g. <provide example values here and note https://aka.ms/arm-deploy and https://aka.ms/arm-template/#resources references>
 // usage: .\deploy.ps1 <subscriptionId> <resourceGroupName> <deploymentName> <resourceGroupLocation>
 // noting that all names must be unique within azure subscription and things like function app, web app and storage account names must be unique across all azure subscriptions
 .\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 exxonRgn exxonDn centralus | r[un once] | <enter azure subscription credentials>
