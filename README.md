@@ -1,4 +1,4 @@
-## lift and shift exploration work using bash shell .sh scripts
+## lift and shift exploration work using bash .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts
 gbash.exe // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to
 echo $PATH // or printenv PATH
