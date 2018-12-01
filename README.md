@@ -1,6 +1,6 @@
 ## lift and shift exploration work using bash shell .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts
-gbash.exe // or windows subsystem for linux [wsl] store app distribution install terminal session
+gbash.exe // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to
 echo $PATH // or printenv PATH
 //https://stackoverflow.com/questions/53563543/bash-shell-access-to-programfilesx86-environment-variable
 //access %programfiles(x86)% environment variable, e.g. echo $ProgramFiles(x86), echo $ProgramFiles\(x86\) and echo $"ProgramFiles(x86)" ???
