@@ -10,8 +10,8 @@ echo $PATH // or printenv PATH
 PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Microsoft Visual Studio/Shared/Anaconda3_64":"/${PROGRAMFILES//:\\//} (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/${APPDATA//:\\//}/Python/Python36/Scripts
 // or PFX86="${PROGRAMFILES//:\\//} (x86)" & PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/${APPDATA//:\\//}/Python/Python36/Scripts
 echo $PATH // or printenv PATH
-// usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -n <deploymentName> -l <resourceGroupLocation>  
-./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g exnmRgn -n exnmDpn -l centralus  
+// usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -l <resourceGroupLocation> -n <deploymentName>  
+./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g myRgn -l centralus -n myDpn  
   
 ## lift and shift exploration work using powershell .ps1 scripts  
 win+s | windows powershell // or powershell.exe -noexit -executionpolicy unrestricted 
@@ -19,9 +19,9 @@ win+s | windows powershell // or powershell.exe -noexit -executionpolicy unrestr
 //set-executionpolicy -scope currentuser -executionpolicy unrestricted | y[es]
 open parameters.json and provide values for each of the entries noting that they have to be unique across all azure subscriptions
 e.g. <provide example values here and for more info see https://aka.ms/arm-deploy and https://aka.ms/arm-template/#resources references>
-// usage: .\deploy.ps1 <subscriptionId> <resourceGroupName> <deploymentName> <resourceGroupLocation>
+// usage: .\deploy.ps1 <subscriptionId> <resourceGroupName> <resourceGroupLocation> <deploymentName>  
 // noting that all names must be unique within azure subscription and things like function app, web app and storage account names must be unique across all azure subscriptions
-.\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 exnmRgn exnmDpn centralus | r[un once] | <enter azure subscription credentials>
+.\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 myRgn centralus myDpn | r[un once] | <enter azure subscription credentials>  
   
 ## azure functions and web apps openid/oauth security and rbac 
 owin authorization header and session cookie authentication -> https://github.com/MicrosoftDocs/azure-docs/issues/19717 
