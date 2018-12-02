@@ -1,3 +1,12 @@
+## azure active directory command line application registration
+https://stackoverflow.com/questions/31684821/how-to-add-application-to-azure-ad-programmatically  
+where you could just issue command to provision app registration container then use preconfigured manifest file upload to do all the steps in one shot  
+msonline 07/09/17 https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-msonlinev1 | install-module msonline  
+is being deprecated and replaced by azuread https://docs.microsoft.com/en-us/powershell/module/Azuread/  
+https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2 -> install-module azuread [ | azureadpreview ]  & get-module -listavailable -name azuread
+https://www.powershellgallery.com/packages/MsOnline/ [ 1.1.183.17 ] -> https://www.powershellgallery.com/packages/AzureAD/ [ 2.0.2.4 ] |
+https://www.powershellgallery.com/packages/AzureADPreview/ [ 2.0.2.5 ]  
+
 ## lift and shift exploration work using bash .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts
 gbash.exe // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to
@@ -6,10 +15,9 @@ echo $PATH // or printenv PATH
 //access %programfiles(x86)% environment variable, e.g. echo $ProgramFiles(x86), echo $ProgramFiles\(x86\) and echo $"ProgramFiles(x86)" ???
 //replace every : with nothing and backslash with forward to create path friendly version of environment variables, e.g. echo "${PROGRAMFILES//:\\//} (x86)/Some App InstallDir With Spaces"
 //enabling use in PATH environment variable updates, e.g. PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Some Path With Spaces/"
-// or PATH=$PATH:"/c/Program Files (x86)/Microsoft Visual Studio/Shared/Anaconda3_64":"/c/Program Files (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/c/Users/ob1/AppData/Roaming/Python/Python36/Scripts
-PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Microsoft Visual Studio/Shared/Anaconda3_64":"/${PROGRAMFILES//:\\//} (x86)/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/${APPDATA//:\\//}/Python/Python36/Scripts
-// or PFX86="${PROGRAMFILES//:\\//} (x86)" & PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/${APPDATA//:\\//}/Python/Python36/Scripts
-echo $PATH // or printenv PATH
+PFX86="$(env | sed -n 's/^ProgramFiles(x86)=//p')"; PFX86="${PFX86/:\\//}"; echo $PFX86; APPDATAX="${APPDATA//\\//}"; APPDATAX="${APPDATAX/:/}"; echo $APPDATAX
+PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/$APPDATAX/Python/Python36/Scripts
+echo $PATH # or printenv PATH
 // usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -l <resourceGroupLocation> -n <deploymentName>  
 ./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g myRgn -l centralus -n myDpn  
   
