@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -192,14 +193,17 @@ namespace WpfApp1.Tests.ViewModels
             //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/user_impersonation" }; // azfn express provisioned scope using "identifierUris": [ api://<application (client) id> ] format
             //var scopes = new string[] { "https://azfndn1.azurewebsites.net/user_impersonation" }; // azfndn1 express provisioned
             //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfndn1ipt express provisioned
-            var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/Files.Read" }; // app registrations (preview) | <app> | expose an api | add a scope proposed setting using resource.operation[.constraint] format
+            //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/Files.Read" }; // app registrations (preview) | <app> | expose an api | add a scope proposed setting using resource.operation[.constraint] format
+            //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfndn1ipt
+            var scopes = new string[] { "api://78ca852a-959d-401e-a025-c665f6696a04/access_as_user" }; // bizlgcsvc
 
             AuthenticationResult authResult = await GetAuthResult(scopes, MyWebApiCallResults);
 
             if (authResult != null)
             {
-                const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
-                //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?code=kG5giVEfEDtPAA6Dz9z0bC3EjYYCYRVf9apYxewkaYoqMyMGMiZwcw==&name=azfndn1ipt%20foobar";
+                //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
+                //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?&name=azfndn1ipt%20foobar";
+                const string myWebApiEndpoint = "https://localhost:44373/api/values";
                 MyWebApiCallResults = await GetHttpContentWithToken(myWebApiEndpoint, authResult.AccessToken);
                 DisplayBasicTokenInfo(authResult);
                 CallMyWebApiVisibility = Visibility.Collapsed;
@@ -317,14 +321,20 @@ namespace WpfApp1.Tests.ViewModels
         public async Task<string> GetHttpContentWithToken(string url, string token)
         {
             var httpClient = new System.Net.Http.HttpClient();
-            System.Net.Http.HttpResponseMessage response;
+            //System.Net.Http.HttpResponseMessage response;
             try
             {
+                var content = string.Empty;
+
+                //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token); // add the token in Authorization header
+                //var response = await httpClient.GetAsync(url);
+
                 var request = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
-                //Add the token in Authorization header
-                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                response = await httpClient.SendAsync(request);
-                var content = await response.Content.ReadAsStringAsync();
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token); // add the token in Authorization header
+                var response = await httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode) content = await response.Content.ReadAsStringAsync();
+                else content = $"a non-success status code of {response.StatusCode} was returned";
                 return content;
             }
             catch (Exception ex)
