@@ -202,8 +202,10 @@ namespace WpfApp1.Tests.ViewModels
             {
                 //const string myWebApiEndpoint = "http://localhost:7071/api/Function1";
                 //const string myWebApiEndpoint = "http://localhost:7071/api/Function2";
-                //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
-                const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function2?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
+                //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20function1"; // endpoint expecting one audienceUri in AccessToken
+                //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?code=ZsInfo5UUe1LZHIA9hfGHFqdLifuggnSuq1mP3lbLFlgk9EOZ87pfg==&name=azfndn1%20function1";
+                //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function2?name=azfndn1%20function2"; // endpoint expecting one audienceUri in AccessToken
+                const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function2?code=esuldfz/tgIunGVVfxTLLNGSEbgSJinKnV9OT3yrZ63oHMvbWjuLgg==&name=azfndn1%20function2";
                 //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?&name=azfndn1ipt%20foobar";                
                 //const string myWebApiEndpoint = "https://localhost:44373/api/values"; // AzWebApp1
                 //const string myWebApiEndpoint = "https://localhost:44351/api/todolist"; // TodoListService

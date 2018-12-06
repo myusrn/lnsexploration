@@ -17,9 +17,12 @@ namespace AzFuncApp1
         #region dll imports
 //for deployment to pull in c++ native code dll require adding following to project | properties | build events | post-build event command line
 //echo current directory is %cd%
+//rem using echo. > cd.log output determined its $(ProjectDir) in both build and publish cases
 //set dllPlatform=Win32
-//echo executing robocopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin\netcoreapp2.1\bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
-//robocopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin\netcoreapp2.1\bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
+//rem echo executing robocopy $(SolutionDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
+//echo executing robocopy $(ProjectDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
+//rem robocopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
+//robocopy $(ProjectDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
 //cmd /c if exist %cd%\Dll1.dll echo robocopy of [DllImport] required file appears to have succeeded, double check file date and size
 //rem echo executing xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin\netcoreapp2.1\bin /y
 //rem xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin\netcoreapp2.1\bin /y
@@ -27,6 +30,7 @@ namespace AzFuncApp1
         //const string dllName = @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\x64\Debug\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
         const string dllName = @"Dll1.dll";  // when using post-build event setting
+        //const string dllName = @"..\bin\Dll1.dll"; // published environment test that didn't make a difference
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         static extern double Add(double a, double b);
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]

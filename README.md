@@ -33,7 +33,11 @@ e.g. <provide example values here and for more info see https://aka.ms/arm-deplo
 .\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 myRgn centralus myDpn | r[un once] | <enter azure subscription credentials>  
   
 ## azure functions and web apps openid/oauth security and rbac notes and urls
-https://azfndn1test.azurewebsites.net/.auth/me, https://graph.windows.net/v1.0/me [ azuread graph ] -> https://graph.microsoft.com/v1.0/me [ microsoft graph ]
+https://azfndn1.azurewebsites.net/.auth/me to acquire signed in user details like id_token and access_token and after visit
+https://azfndn1.azurewebsites.net/.auth/login/aad post with { "id_token": "&lt;from /.auth/me&gt;", "access_token": "&lt;from /.auth/me&gt;" } to acquire session token 
+  for use in X-ZUMO-AUTH header alternative to msal acquired authorization header bearer token which didn't seem to work but using a get returned
+  https://azfndn1.azurewebsites.net/.auth/login/done#token=&lt;json containing authentication_token / X-ZUMO-AUTH value&gt; query string encoded result
+https://graph.windows.net/v1.0/me [ azuread graph ] -> https://graph.microsoft.com/v1.0/me [ microsoft graph ]
 microsoft graph vs azure active directory [ | azure ad ] graph -> https://blogs.msdn.microsoft.com/aadgraphteam/2016/07/08/microsoft-graph-or-azure-ad-graph/
 and https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/graph-get-started  
   
@@ -62,8 +66,9 @@ azure web app [ aad security / ] authentication ->  &lt; see aad application use
 azure function v1 vs v2 -> https://stackoverflow.com/questions/50114965/azure-functions-v2-support-and-v1-lifetime 
   https://blogs.msdn.microsoft.com/appserviceteam/2017/12/05/announcing-azure-functions-runtime-preview-2/  
 azure function httptrigger authorizationlevel.user easyauth -> 02/25/16 to- 11/20/18 https://github.com/Azure/azure-functions-host/issues/33  
-  works in v1 and in v2 in soon to be released 1.0.24+ of Microsoft.NET.Sdk.Functions nupkg according to this sample 
-  https://github.com/Azure/azure-functions-host/blob/dev/sample/CSharp/HttpTrigger-Identities/run.csx  
+  works in v1 based on .net framework story and in just released v2 runtime 2.0.12210.0 based on .net core story  
+  as shown in https://github.com/Azure/azure-functions-host/blob/dev/sample/CSharp/HttpTrigger-Identities/run.csx     
+  also see related bug https://github.com/Azure/azure-functions-host/issues/3857  
 azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/  
   and live demo site https://easyauthweb.azurewebsites.net/ and arm deployment script
   ??/??/16 https://docs.microsoft.com/en-us/azure/functions/tutorial-static-website-serverless-api-with-database?tutorial-step=6  
@@ -136,6 +141,8 @@ https://stackoverflow.com/questions/tagged/azure-functions -> https://social.msd
 https://stackoverflow.com/questions/53643543/include-c-unmanaged-code-dll-consumed-using-dllimport-in-azure-functions-pub  
 https://social.msdn.microsoft.com/Forums/azure/en-US/8e8340ee-3963-4b10-b8f5-1e139fd106ee/include-c-unmanaged-code-dll-consumed-using-dllimport-in-azure-functions-publish-process?forum=AzureFunctions  
 https://github.com/Azure/Azure-Functions/issues/1061  
+current workaround is use azSxp to upload Dll1.dll and dbd Dll1.dll output %windir%\System32\vcruntime140d.dll + ucrtbased.dll [ if Debug build vs 
+vcruntime140d.dll & ucrtbase.dll that should already be a part of host process environment path if Release build ]  
   
 ## c# managed code access to c++ native code library wrapped legacy dynamic link library (.dll) and/or static library (.lib)
 https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interoperability-overview and https://docs.microsoft.com/en-us/cpp/build/reference/clr-common-language-runtime-compilation  
