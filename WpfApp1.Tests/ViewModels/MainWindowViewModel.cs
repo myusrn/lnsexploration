@@ -201,8 +201,9 @@ namespace WpfApp1.Tests.ViewModels
             if (authResult != null)
             {
                 //const string myWebApiEndpoint = "http://localhost:7071/api/Function1";
-                const string myWebApiEndpoint = "http://localhost:7071/api/Function2";
+                //const string myWebApiEndpoint = "http://localhost:7071/api/Function2";
                 //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
+                const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function2?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
                 //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?&name=azfndn1ipt%20foobar";                
                 //const string myWebApiEndpoint = "https://localhost:44373/api/values"; // AzWebApp1
                 //const string myWebApiEndpoint = "https://localhost:44351/api/todolist"; // TodoListService

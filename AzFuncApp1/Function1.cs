@@ -59,8 +59,8 @@ namespace AzFuncApp1
             else is64bitprocess = false; // localhost %localappdata%\azurefunctionstools\releases\2.11.3\cli\func.exe is W32i / 32bit process
             log.LogInformation($"process type is " + (is64bitprocess == true ? "64 bit" : "32 bit"));
 
-            var dll1mathutilsAddTest = 7; // dummy placeholder value
-            //var dll1mathutilsAddTest = Add(4, 3); // c++ native code dllexport/import
+            //var dll1mathutilsAddTest = 7; // dummy placeholder value
+            var dll1mathutilsAddTest = Add(4, 3); // c++ native code dllexport/import
             //var dll2mathutilsAddTest = new Dll2().Add(4, 3); // c++ native code /clr output reference
 #endregion
 
