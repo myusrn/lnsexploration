@@ -203,7 +203,8 @@ namespace WpfApp1.Tests.ViewModels
             {
                 //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
                 //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?&name=azfndn1ipt%20foobar";
-                const string myWebApiEndpoint = "https://localhost:44373/api/values";
+                const string myWebApiEndpoint = "https://localhost:44373/api/values"; // AzWebApp1
+                //const string myWebApiEndpoint = "https://localhost:44351/api/todolist"; // TodoListService
                 MyWebApiCallResults = await GetHttpContentWithToken(myWebApiEndpoint, authResult.AccessToken);
                 DisplayBasicTokenInfo(authResult);
                 CallMyWebApiVisibility = Visibility.Collapsed;

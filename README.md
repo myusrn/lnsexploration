@@ -32,8 +32,8 @@ e.g. <provide example values here and for more info see https://aka.ms/arm-deplo
 // noting that all names must be unique within azure subscription and things like function app, web app and storage account names must be unique across all azure subscriptions
 .\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 myRgn centralus myDpn | r[un once] | <enter azure subscription credentials>  
   
-## azure functions and web apps openid/oauth security and rbac 
-https://azfndn1test.azurewebsites.net/.auth/me [ vs https://graph.microsoft.com/v1.0/me ]
+## azure functions and web apps openid/oauth security and rbac notes and urls
+https://azfndn1test.azurewebsites.net/.auth/me and https://graph.microsoft.com/v1.0/me
 
 owin authorization header and session cookie authentication -> https://github.com/MicrosoftDocs/azure-docs/issues/19717 
   and https://stackoverflow.com/questions/53544037/owin-authorization-header-and-session-cookie-authentication  
@@ -129,17 +129,20 @@ dos and dont's of azure functions https://www.youtube.com/watch?v=kvTostlJp7M by
 functions getting started https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-your-first-function-visual-studio  
  
 ## azure functions inclusion of c++ native code libraries 
-must be accessed using .net core compatible platform invoke DllImport attribute and not .net framework only compatible c++/cli managed assembly build output reference
-
+must be accessed using functions v2 .net core compatible platform invoke DllImport attribute and not functions v1 .net framework only compatible c++/cli managed assembly build output reference  
+https://stackoverflow.com/questions/tagged/azure-functions -> https://social.msdn.microsoft.com/forums/azure/en-us/home?forum=azurefunctions -> https://github.com/azure/azure-functions/issues  
+https://stackoverflow.com/questions/53643543/include-c-unmanaged-code-dll-consumed-using-dllimport-in-azure-functions-pub  
+https://social.msdn.microsoft.com/Forums/azure/en-US/8e8340ee-3963-4b10-b8f5-1e139fd106ee/include-c-unmanaged-code-dll-consumed-using-dllimport-in-azure-functions-publish-process?forum=AzureFunctions  
+https://github.com/Azure/Azure-Functions/issues/1061  
+  
 ## c# managed code access to c++ native code library wrapped legacy dynamic link library (.dll) and/or static library (.lib)
-
 https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interop/interoperability-overview and https://docs.microsoft.com/en-us/cpp/build/reference/clr-common-language-runtime-compilation  
 1. platform invoke c# [DllImport] of c++ | windows desktop | dll "class __declspec(dllexport) className" or "extern "C" declexport class returnType functionName" entries  
 2. c++/cli /clr managed assembly "it just works" [ijw] build output that is directly referencable like any managed code assembly  
   
 https://www.codeproject.com/articles/19354/quick-c-cli-learn-c-cli-in-less-than-minutes  
 c++/cli [ common language infrastructure ] usage details specifically use or ref keywoard to declare a managed class and use of ^ punctuator to allocate managed objects  
-
+  
 https://stackoverflow.com/questions/53419367/pinvoke-marshalling-of-2d-multidimensional-array-of-type-double-as-input-and-out  
 pinvoke marshalling of 2d multidimensional array of type double as input and output between c# and c++  
   

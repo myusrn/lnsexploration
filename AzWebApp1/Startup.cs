@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Authentication.JwtBearer; // quickstart sample provided story 
-using Microsoft.AspNetCore.Authentication; // project template based story, enables .AddAzureADBearer() extension method
-using Microsoft.AspNetCore.Authentication.AzureAD.UI; // project template based story
+using Microsoft.AspNetCore.Authentication; // quickstart sample and project template based story, enables .AddAzureADBearer() extension method
+using Microsoft.AspNetCore.Authentication.JwtBearer; // quicktart sample based story 
+//using Microsoft.AspNetCore.Authentication.AzureAD.UI; // project template based story
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Http; // openid connect browser/user agent signin project template based story
 //using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 //using Microsoft.IdentityModel.Tokens;
 //using Microsoft.AspNetCore.Authorization;
@@ -34,12 +34,17 @@ namespace AzWebApp1
         public void ConfigureServices(IServiceCollection services)
         {
             // quickstart sample provided story, uncomment associated using statement above
-            //services.AddAuthentication(sharedOptions => { sharedOptions.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; })
-            //    .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+            services.AddAuthentication(sharedOptions => 
+            {
+                sharedOptions.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+
+            services.AddMvc();
 
             // project template based story, uncomment associated using statement above
-            services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-                .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+            //services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+            //    .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
 
             // using Microsoft.Extensions.Http.PolicyHttpMessageHandler; -> IHttpClientBuilder.AddTransientHttpErrorPolicy ???
             //https://github.com/aspnet/HttpClientFactory/blob/master/src/Microsoft.Extensions.Http.Polly/PolicyHttpMessageHandler.cs
@@ -47,7 +52,7 @@ namespace AzWebApp1
             // using Microsoft.Extensions.Http.Polly; -> IHttpClientBuilder.AddTransientHttpErrorPolicy ???
             //services.AddHttpClient("api").AddTransientHttpErrorPolicy(p => p.RetryAsync(6));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //services.Configure<CookiePolicyOptions>(options =>
             //{
