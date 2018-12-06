@@ -190,20 +190,21 @@ namespace WpfApp1.Tests.ViewModels
             MyWebApiCallResults = TokenInfo = string.Empty;
 
             //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/access_as_user" }; // quickstart proposed setting using "identifierUris": [ api://<application (client) id> ] format
-            //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/user_impersonation" }; // azfn express provisioned scope using "identifierUris": [ api://<application (client) id> ] format
-            //var scopes = new string[] { "https://azfndn1.azurewebsites.net/user_impersonation" }; // azfndn1 express provisioned
+            var scopes = new string[] { "https://azfndn1.azurewebsites.net/user_impersonation" }; // azfndn1 express provisioned
             //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfndn1ipt express provisioned
             //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/Files.Read" }; // app registrations (preview) | <app> | expose an api | add a scope proposed setting using resource.operation[.constraint] format
             //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfndn1ipt
-            var scopes = new string[] { "api://78ca852a-959d-401e-a025-c665f6696a04/access_as_user" }; // bizlgcsvc
+            //var scopes = new string[] { "api://78ca852a-959d-401e-a025-c665f6696a04/access_as_user" }; // bizlgcsvc
 
             AuthenticationResult authResult = await GetAuthResult(scopes, MyWebApiCallResults);
 
             if (authResult != null)
             {
+                //const string myWebApiEndpoint = "http://localhost:7071/api/Function1";
+                const string myWebApiEndpoint = "http://localhost:7071/api/Function2";
                 //const string myWebApiEndpoint = "https://azfndn1.azurewebsites.net/api/Function1?name=azfndn1%20foobar"; // endpoint expecting one audienceUri in AccessToken
-                //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?&name=azfndn1ipt%20foobar";
-                const string myWebApiEndpoint = "https://localhost:44373/api/values"; // AzWebApp1
+                //const string myWebApiEndpoint = "https://azfndn1ipt.azurewebsites.net/api/HttpTrigger1?&name=azfndn1ipt%20foobar";                
+                //const string myWebApiEndpoint = "https://localhost:44373/api/values"; // AzWebApp1
                 //const string myWebApiEndpoint = "https://localhost:44351/api/todolist"; // TodoListService
                 MyWebApiCallResults = await GetHttpContentWithToken(myWebApiEndpoint, authResult.AccessToken);
                 DisplayBasicTokenInfo(authResult);

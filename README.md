@@ -33,8 +33,10 @@ e.g. <provide example values here and for more info see https://aka.ms/arm-deplo
 .\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 myRgn centralus myDpn | r[un once] | <enter azure subscription credentials>  
   
 ## azure functions and web apps openid/oauth security and rbac notes and urls
-https://azfndn1test.azurewebsites.net/.auth/me and https://graph.microsoft.com/v1.0/me
-
+https://azfndn1test.azurewebsites.net/.auth/me, https://graph.windows.net/v1.0/me [ azuread graph ] -> https://graph.microsoft.com/v1.0/me [ microsoft graph ]
+microsoft graph vs azure active directory [ | azure ad ] graph -> https://blogs.msdn.microsoft.com/aadgraphteam/2016/07/08/microsoft-graph-or-azure-ad-graph/
+and https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/graph-get-started  
+  
 owin authorization header and session cookie authentication -> https://github.com/MicrosoftDocs/azure-docs/issues/19717 
   and https://stackoverflow.com/questions/53544037/owin-authorization-header-and-session-cookie-authentication  
 aad developers guide [ https://docs.microsoft.com/en-us/azure/active-directory/develop/ ] | v2.0 |  
