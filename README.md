@@ -41,6 +41,10 @@ https://graph.windows.net/v1.0/me [ azuread graph ] -> https://graph.microsoft.c
 microsoft graph vs azure active directory [ | azure ad ] graph -> https://blogs.msdn.microsoft.com/aadgraphteam/2016/07/08/microsoft-graph-or-azure-ad-graph/
 and https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/graph-get-started  
   
+[owin authorization header and session cookie authentication](https://github.com/MicrosoftDocs/azure-docs/issues/19717#issuecomment-444709091) -> 
+[owin and azuread to secure both mvc ux and web api in same project](http://www.cloudidentity.com/blog/2014/04/28/use-owin-azure-ad-to-secure-both-mvc-ux-and-web-api-in-the-same-project/)
+will have to trialNerror to see if that old april 28, 2014 post details will apply to current asp.net core 2.1 project environments
+
 owin authorization header and session cookie authentication -> https://github.com/MicrosoftDocs/azure-docs/issues/19717 
   and https://stackoverflow.com/questions/53544037/owin-authorization-header-and-session-cookie-authentication  
 aad developers guide [ https://docs.microsoft.com/en-us/azure/active-directory/develop/ ] | v2.0 |  
