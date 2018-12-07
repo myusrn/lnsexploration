@@ -34,8 +34,8 @@ e.g. <provide example values here and for more info see https://aka.ms/arm-deplo
   
 ## azure functions and web apps openid/oauth security and rbac notes and urls
 https://azfndn1.azurewebsites.net/.auth/me to acquire signed in user details like id_token and access_token and after visit
-https://azfndn1.azurewebsites.net/.auth/login/aad post with { "id_token": "&lt;from /.auth/me&gt;", "access_token": "&lt;from /.auth/me&gt;" } to acquire session token 
-  for use in X-ZUMO-AUTH header alternative to msal acquired authorization header bearer token which didn't seem to work but using a get returned
+https://azfndn1.azurewebsites.net/.auth/login/aad POST with { "id_token": "&lt;from /.auth/me&gt;", "access_token": "&lt;from /.auth/me&gt;" } to acquire session token 
+  for use in X-ZUMO-AUTH header alternative to msal acquired authorization header bearer token which didn't seem to work but using a GET did return
   https://azfndn1.azurewebsites.net/.auth/login/done#token=&lt;json containing authentication_token / X-ZUMO-AUTH value&gt; query string encoded result
 https://graph.windows.net/v1.0/me [ azuread graph ] -> https://graph.microsoft.com/v1.0/me [ microsoft graph ]
 microsoft graph vs azure active directory [ | azure ad ] graph -> https://blogs.msdn.microsoft.com/aadgraphteam/2016/07/08/microsoft-graph-or-azure-ad-graph/
