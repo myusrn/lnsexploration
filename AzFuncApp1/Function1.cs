@@ -15,22 +15,19 @@ namespace AzFuncApp1
     public static class Function1
     {
         #region dll imports
-//for deployment to pull in c++ native code dll require adding following to project | properties | build events | post-build event command line
-//echo current directory is %cd%
-//rem using echo. > cd.log output determined its $(ProjectDir) in both build and publish cases
-//set dllPlatform=Win32
-//rem echo executing robocopy $(SolutionDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
-//echo executing robocopy $(ProjectDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
-//rem robocopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
-//robocopy $(ProjectDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs
-//cmd /c if exist %cd%\Dll1.dll echo robocopy of [DllImport] required file appears to have succeeded, double check file date and size
-//rem echo executing xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin\netcoreapp2.1\bin /y
-//rem xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin\netcoreapp2.1\bin /y
+//requires <project>.csproj | edit | addition of following
+//<ItemGroup>
+//  <None Include="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll"> <!-- for pack and publish inclusion of dllimport referenced dll -->
+//    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+//  </None>
+//</ItemGroup>  
+//<Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll -->
+//  <Copy SourceFiles = "$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />
+//</Target>
         //const string dllName = Environment.Is64BitProcess ? @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll" : @"..\..\..\..\Dll2\bin\x64\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\x64\Debug\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
         const string dllName = @"Dll1.dll";  // when using post-build event setting
-        //const string dllName = @"..\bin\Dll1.dll"; // published environment test that didn't make a difference
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
         static extern double Add(double a, double b);
         [DllImport(dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -63,9 +60,11 @@ namespace AzFuncApp1
             else is64bitprocess = false; // localhost %localappdata%\azurefunctionstools\releases\2.11.3\cli\func.exe is W32i / 32bit process
             log.LogInformation($"process type is " + (is64bitprocess == true ? "64 bit" : "32 bit"));
 
+            log.LogInformation($"just before dll1mathutilsAddTest");
             //var dll1mathutilsAddTest = 7; // dummy placeholder value
             var dll1mathutilsAddTest = Add(4, 3); // c++ native code dllexport/import
             //var dll2mathutilsAddTest = new Dll2().Add(4, 3); // c++ native code /clr output reference
+            log.LogInformation($"just after dll1mathutilsAddTest");
 #endregion
 
             return name != null

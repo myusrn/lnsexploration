@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
@@ -15,7 +15,12 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo current directory is %cd%&#xD;&#xA;rem using echo. &gt; cd.log output determined its $(ProjectDir) in both build and publish cases&#xD;&#xA;set dllPlatform=Win32&#xD;&#xA;rem echo executing robocopy $(SolutionDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs&#xD;&#xA;echo executing robocopy $(ProjectDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs&#xD;&#xA;rem robocopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs&#xD;&#xA;robocopy $(ProjectDir)..\Dll1\bin\%dllPlatform%\$(Configuration) $(TargetDir)bin Dll1.dll /njh /ndl /nfl /nc /ns /np /njs&#xD;&#xA;cmd /c if exist %cd%\Dll1.dll echo robocopy of [DllImport] required file appears to have succeeded, double check file date and size&#xD;&#xA;rem echo executing xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin /y&#xD;&#xA;rem xcopy $(SolutionDir)Dll1\bin\%dllPlatform%\$(Configuration)\Dll1.dll $(TargetDir)bin /y" />
+  <ItemGroup>
+    <None Include="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll"> <!-- for pack and publish inclusion of dllimport referenced dll -->
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>  
+  <Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll -->
+    <Copy SourceFiles="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />
   </Target>
 </Project>
