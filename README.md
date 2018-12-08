@@ -62,10 +62,17 @@ asp.net core ilogger injection -> https://stackoverflow.com/questions/30194919/h
 easyauth web apps localhost development -> https://weblogs.asp.net/pglavich/easy-auth-app-service-authentication-using-multiple-providers 
   and https://blogs.msdn.microsoft.com/kaushal/2016/04/01/azure-web-apps-how-to-retrieve-user-email-in-the-claim-when-using-microsoft-account-as-a-provider-in-easy-auth/  
   is application running in visual studio debugger -> https://stackoverflow.com/questions/101806/check-if-application-was-started-from-within-visual-studio
-  bool IsInLocalDevelopmentMode() {
-    /* return System.Diagnostics.Debugger.IsAttached; */ System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
-    string moduleName = currentProcess.MainModule.ModuleName; bool launchedFromStudio = moduleName.Contains(".vshost") || moduleName.Contains("qtagent");
-    return launchedFromStudio
+  ConfigureServices access to IHostingEnvironment -> https://stackoverflow.com/questions/37660043/accessing-the-ihostingenvironment-in-configureservices-method
+  to enable env and log access from ConfigureServices delegates can use the following but no solution for top level ConfigureServices which executes before Configure
+  private IHostingEnvironment env; private ILogger<Startup> log; public void Configure(. . . , ILogger<Startup> log)) { this.env = env; this.log = log; . . . }
+  and https://stackoverflow.com/questions/32548948/how-to-get-the-development-staging-production-hosting-environment-in-configurese
+  public static class SystemDiagnosticsProcessExtensions {
+    public static bool IsRunningFromVisualStudio(this System.Diagnostics.Process currentProcess) {
+      //return System.Diagnostics.Debugger.IsAttached;
+      //System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+      var moduleName = currentProcess.MainModule.ModuleName; var isRunningFromVisualStudio = moduleName.Contains(".vshost") || moduleName.Contains("qtagent");
+      return isRunningFromVisualStudio;
+    }
   }
   
 asp.net core web api easyauth x-ms-client-principal-id claimsprincipal user -> https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag  

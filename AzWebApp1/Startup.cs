@@ -24,6 +24,9 @@ namespace AzWebApp1
 
         public IConfiguration Configuration { get; }
 
+        private IHostingEnvironment env;
+        private ILogger<Startup> log;
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -40,8 +43,10 @@ namespace AzWebApp1
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> log)
         {
+            this.env = env; this.log = log;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
