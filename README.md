@@ -40,14 +40,46 @@ https://azfndn1.azurewebsites.net/.auth/login/aad POST with { "id_token": "&lt;f
 https://graph.windows.net/v1.0/me [ azuread graph ] -> https://graph.microsoft.com/v1.0/me [ microsoft graph ]
 microsoft graph vs azure active directory [ | azure ad ] graph -> https://blogs.msdn.microsoft.com/aadgraphteam/2016/07/08/microsoft-graph-or-azure-ad-graph/
 and https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/graph-get-started  
-
+  
 using postman to acquire azuread tokens to attach to web api requests https://www.bruttin.com/2017/11/21/azure-api-postman.html 
 and https://learning.getpostman.com/docs/postman/sending_api_requests/authorization/
+
+** the application registration fully qualified scope doesn't have to be followed in msal/postman requests only the suffix and prefix is whatever you want, specifically application(client)id **
+** for easyauth and openid connect / oauth services authentication the audience "aud" claim must be the guid of the app you are trying to talk to not the scope prefix **  
+** for native app oauth secured calls the native app registration controls common, consumers, organizations, &lt;tenantid&gt; user signins allowed which suggests that 
+for browser app openid connect secured calls the web app registration and appsettings.json tenantid setting controls user signins allowed **  
+  
+azure api app vs web app -> https://stackoverflow.com/questions/31387073/what-is-the-difference-between-an-api-app-and-a-web-app  
+Currently all of Web, Mobile and Api Apps are collectively called App Services, see https://azure.microsoft.com/en-us/services/app-service/api | /mobile | /web 
+There was a point in time when there were differences between the different app service types, but that is no longer true. The documentation now states: 
+The only difference between the three app types (API, web, mobile) is the name and icon used for them in the Azure portal.  
+  
+asp.net core ilogger injection -> https://stackoverflow.com/questions/30194919/how-to-register-ilogger-for-injection-in-asp-net-mvc-6
+  https://stackoverflow.com/questions/51345161/should-i-take-ilogger-iloggert-iloggerfactory-or-iloggerprovider-for-a-libra
+  https://simpleinjector.org/blog/2016/06/whats-wrong-with-the-asp-net-core-di-abstraction/  
+  https://vuscode.wordpress.com/2009/10/16/inversion-of-control-single-responsibility-principle-and-nikola-s-laws-of-dependency-injection/  
+
+easyauth web apps localhost development -> https://weblogs.asp.net/pglavich/easy-auth-app-service-authentication-using-multiple-providers 
+  and https://blogs.msdn.microsoft.com/kaushal/2016/04/01/azure-web-apps-how-to-retrieve-user-email-in-the-claim-when-using-microsoft-account-as-a-provider-in-easy-auth/  
+  is application running in visual studio debugger -> https://stackoverflow.com/questions/101806/check-if-application-was-started-from-within-visual-studio
+  bool IsInLocalDevelopmentMode() {
+    /* return System.Diagnostics.Debugger.IsAttached; */ System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+    string moduleName = currentProcess.MainModule.ModuleName; bool launchedFromStudio = moduleName.Contains(".vshost") || moduleName.Contains("qtagent");
+    return launchedFromStudio
+  }
+  
+asp.net core web api easyauth x-ms-client-principal-id claimsprincipal user -> https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag  
+azure .net core app easyauth claims -> https://stackoverflow.com/questions/42260708/azure-apps-easyauth-claims-with-net-core ->  
+  similar issue https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag/42260375#42260375
+  alternative middleware nuget solution https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag/42402163#42402163 ->
+  https://github.com/lpunderscore/azureappservice-authentication-middleware -> https://www.nuget.org/packages/AzureAppserviceAuthenticationMiddleware/
+  or better still one with recent commits https://github.com/kirkone/KK.AspNetCore.EasyAuthAuthentication -> https://www.nuget.org/packages/KK.AspNetCore.EasyAuthAuthentication/
+  https://github.com/kirkone/KK.AspNetCore.EasyAuthAuthentication/issues/7
 
 webapi supporting both browser/user agent openid connect and desktop/mobile/spa oauth authentication -> https://github.com/MicrosoftDocs/azure-docs/issues/19717 
   which recommended reviewing old vittorio 04/28/18 post on the subject http://www.cloudidentity.com/blog/2014/04/28/use-owin-azure-ad-to-secure-both-mvc-ux-and-web-api-in-the-same-project/ 
   and https://stackoverflow.com/questions/53544037/owin-authorization-header-and-session-cookie-authentication you also created  
-
+  
 aad for developers v2 overview https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-overview | getting started | web apps and web apis
   add sign-in to asp.net core web app -> 12/06/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-aspnetcore-webapp-openidconnect-v2/
   protect and asp.net core web api -> 12/06/18 https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-native-aspnetcore-v2/

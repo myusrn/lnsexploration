@@ -196,7 +196,7 @@ namespace WpfApp1.Tests.ViewModels
             var scopes = new string[] { "5270888e-273e-4bba-9283-872088abe9f8/user_impersonation" }; // setting first part of scope to functions app application id so audience claim will match
             //var scopes = new string[] { "api://8e98f706-dc42-4f97-bef2-b51e3e146e06/Files.Read" }; // app registrations (preview) | <app> | expose an api | add a scope proposed setting using resource.operation[.constraint] format
             //var scopes = new string[] { "https://azfndn1ipt.azurewebsites.net/user_impersonation" }; // azfndn1ipt
-            //var scopes = new string[] { "api://78ca852a-959d-401e-a025-c665f6696a04/access_as_user" }; // bizlgcsvc
+            //var scopes = new string[] { "api://78ca852a-959d-401e-a025-c665f6696a04/access_as_user" }; // azvmdn1
 
             AuthenticationResult authResult = await GetAuthResult(scopes, MyWebApiCallResults);
 
