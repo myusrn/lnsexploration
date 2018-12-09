@@ -74,7 +74,8 @@ easyauth web apps localhost development -> https://weblogs.asp.net/pglavich/easy
       return isRunningFromVisualStudio;
     }
   }
-  
+  and for functions solution see https://stackoverflow.com/questions/53688014/function-app-equivalent-for-ihostingenvironment-isdevelopment
+
 asp.net core web api easyauth x-ms-client-principal-id claimsprincipal user -> https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag  
 azure .net core app easyauth claims -> https://stackoverflow.com/questions/42260708/azure-apps-easyauth-claims-with-net-core ->  
   similar issue https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag/42260375#42260375
@@ -181,7 +182,7 @@ https://stackoverflow.com/questions/53643543/include-c-c-unmanaged-code-dll-cons
 https://social.msdn.microsoft.com/Forums/en-US/8e8340ee-3963-4b10-b8f5-1e139fd106ee/include-cc-unmanaged-code-dll-consumed-using-dllimport-in-azure-functions-publish-process?forum=AzureFunctions  
 https://github.com/Azure/Azure-Functions/issues/1061  
 function project | pack puts files in $(ProjectDir)\bin\$(Configuration)\netcoreapp2.1\publish\bin 
-functin project | publish output can be viewed in $(ProjectDir)\obj\$(Configuration)\netcoreapp2.1\PubTmp\Out\bin
+function project | publish output can be viewed in $(ProjectDir)\obj\$(Configuration)\netcoreapp2.1\PubTmp\Out\bin
 
 current workaround is use azSxp to upload Dll1.dll and dbd Dll1.dll output %windir%\System32\vcruntime140d.dll + ucrtbased.dll [ if Debug build vs 
 vcruntime140d.dll & ucrtbase.dll that should already be a part of host process environment path if Release build ]  
