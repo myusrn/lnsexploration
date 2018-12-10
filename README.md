@@ -75,7 +75,8 @@ easyauth web apps localhost development -> https://weblogs.asp.net/pglavich/easy
     }
   }
   and for functions solution see https://stackoverflow.com/questions/53688014/function-app-equivalent-for-ihostingenvironment-isdevelopment
-
+  which notes that IHostingEnvironment.IsDevelopment() is just a check for ASPNETCORE_ENVIRONMENT variable, i.e. Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") 
+  
 asp.net core web api easyauth x-ms-client-principal-id claimsprincipal user -> https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag  
 azure .net core app easyauth claims -> https://stackoverflow.com/questions/42260708/azure-apps-easyauth-claims-with-net-core ->  
   similar issue https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag/42260375#42260375
