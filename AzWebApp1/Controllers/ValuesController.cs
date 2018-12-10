@@ -44,9 +44,8 @@ namespace AzWebApp1.Controllers
             string owner = (User.FindFirst(ClaimTypes.NameIdentifier))?.Value;
             log.LogInformation($"isAuthenticated = {isAuthenticated}, idName = {idName}, owner = {owner}");
 
-            bool isInCommodityRole = false, isInProprietaryRole = false;
-            if (User.IsInRole("Commodity")) isInCommodityRole = true;
-            if (User.IsInRole("Proprietary")) isInProprietaryRole = true;
+            bool isInCommodityRole = User.IsInRole("Commodity"), isInProprietaryRole = User.IsInRole("Proprietary");
+            //isInCommodityRole = User.HasClaim(ClaimTypes.Role, "Commodity"); isInProprietaryRole = User.HasClaim(ClaimTypes.Role, "Proprietary");
             log.LogInformation($"Current user in Commoditity role = {isInCommodityRole} and in Proprietary role = {isInProprietaryRole}");
 
             string[] identityStrings = User.Identities.Select(GetIdentityString).ToArray();

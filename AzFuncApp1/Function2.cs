@@ -61,8 +61,8 @@ namespace AzFuncApp1
                 log.LogInformation("Current user is authenticated as " + principal.Identity.Name);
                 foreach (var claim in principal.Claims) log.LogInformation($"claim type = {claim.Type} and value = {claim.Value}");
 
-                if (principal.IsInRole("Commodity")) isInCommodityRole = true;
-                if (principal.IsInRole("Proprietary")) isInProprietaryRole = true;
+                isInCommodityRole = principal.IsInRole("Commodity"); isInProprietaryRole = principal.IsInRole("Proprietary");
+                //isInCommodityRole = principal.HasClaim(ClaimTypes.Role, "Commodity"); isInProprietaryRole = principal.HasClaim(ClaimTypes.Role, "Proprietary");
                 log.LogInformation($"Current user in Commoditity role = {isInCommodityRole} and in Proprietary role = {isInProprietaryRole}");
 
                 claims = principal.Claims.ToDictionary(c => c.Type, c => c.Value);
