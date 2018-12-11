@@ -23,13 +23,14 @@ echo $PATH # or printenv PATH
 ./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g myRgn -l centralus -n myDpn  
   
 ## lift and shift exploration work using powershell .ps1 scripts  
-win+s | windows powershell // or powershell.exe -noexit -executionpolicy unrestricted 
-//get-executionpolicy -list // or get-executionpolicy -scope currentuser
-//set-executionpolicy -scope currentuser -executionpolicy unrestricted | y[es]
-open parameters.json and provide values for each of the entries noting that they have to be unique across all azure subscriptions
-e.g. <provide example values here and for more info see https://aka.ms/arm-deploy and https://aka.ms/arm-template/#resources references>
+win+s | windows powershell // or powershell.exe -noexit -executionpolicy unrestricted  
+//get-executionpolicy -list // or get-executionpolicy -scope currentuser  
+//set-executionpolicy -scope currentuser -executionpolicy unrestricted | y[es]  
+open parameters.json and provide values for each of the entries noting that they have to be unique across all azure subscriptions  
+e.g. <provide the deploy menu option with provide example values and for more info see https://aka.ms/arm-deploy and https://aka.ms/arm-template/#resources references>  
+see https://stackoverflow.com/questions/53565723/meaning-and-relevant-values-for-azure-functions-resource-manager-template-parame?noredirect=1#comment94001130_53565723  
 // usage: .\deploy.ps1 <subscriptionId> <resourceGroupName> <resourceGroupLocation> <deploymentName>  
-// noting that all names must be unique within azure subscription and things like function app, web app and storage account names must be unique across all azure subscriptions
+// noting that all names must be unique within azure subscription and things like function app, web app and storage account names must be unique across all azure subscriptions  
 .\deploy.ps1 1336717a-463c-4c74-b90f-a357edd79989 myRgn centralus myDpn | r[un once] | <enter azure subscription credentials>  
   
 ## azure functions and web apps openid/oauth security and rbac notes and urls
