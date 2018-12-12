@@ -42,6 +42,14 @@ namespace MsTest.Dnc.Tests
 //        //const string backEndWebAppEndpoint = config.AppSettings.Settings["BackEndWebAppEndpoint"].Value;
 //        //const string backEndVmIisWebEndpoint = config.AppSettings.Settings["BackEndVmIisAppEndpoint"].Value;
 
+// add | new item | web | json file = appsettings.json
+//{ "DoglegCalculatorBackEndUnitTests": { "BackEndFuncAppEndpoint": "https://localhost:7071/api/Calculate", "BackEndWebAppEndpoint": "https://localhost:44301/api/Calculate",
+//    "BackEndVmIisAppEndpoint": "https://localhost:44302/api/Calculate"  } }
+// thisproject | edit thisproject.csproj | add following to include copying appsettings.json to output path
+//<Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll -->
+//  <Copy SourceFiles="$(ProjectDir)appsettings.json" DestinationFolder="$(OutputPath)" />
+//</Target>
+
 //        //static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
 //        //const string backEndFuncAppEndpoint = config["DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint"];
 //        //const string backEndWebAppEndpoint = config["DoglegCalculatorBackEndUnitTests:BackEndWebAppEndpoint"];
