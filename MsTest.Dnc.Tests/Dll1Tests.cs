@@ -49,6 +49,10 @@ namespace MsTest.Dnc.Tests
 
 //        static string backEndFuncAppEndpoint, backEndWebAppEndpoint, backEndVmIisWebEndpoint;
 
+//        const string BackEndFuncAppBaseAddr = "https://localhost:7071/";
+//        const string BackEndWebAppBaseAddr = "https://localhost:44301/";
+//        const string BackEndVmIisAppBaseAddr = "https://localhost:44302/";
+
 //        [ClassInitialize]
 //        public static void ClassInit(TestContext context)
 //        {
@@ -80,19 +84,24 @@ namespace MsTest.Dnc.Tests
 //                //.AddEnvironmentVariables() // adnc
 //                .Build();
 
-//            var test1 = config.GetSection("DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint").Value;
-//            var test2 = config["DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint"];
-//            var dcbutSection = config.GetSection("DoglegCalculatorBackEndUnitTests");
-//            backEndFuncAppEndpoint = dcbutSection["BackEndFuncAppEndpoint"];
-//            backEndWebAppEndpoint = dcbutSection["BackEndWebAppEndpoint"];
-//            backEndVmIisWebEndpoint = dcbutSection["BackEndVmIisAppEndpoint"];
+//            //var test1 = config.GetSection("DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint").Value;
+//            //var test2 = config["DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint"];
+//            //var dcbutSection = config.GetSection("DoglegCalculatorBackEndUnitTests");
+//            //backEndFuncAppEndpoint = dcbutSection["BackEndFuncAppEndpoint"];
+//            //backEndWebAppEndpoint = dcbutSection["BackEndWebAppEndpoint"];
+//            //backEndVmIisWebEndpoint = dcbutSection["BackEndVmIisAppEndpoint"];
+
+//            backEndFuncAppEndpoint = config["DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint"];
+//            backEndWebAppEndpoint = config["DoglegCalculatorBackEndUnitTests:BackEndWebAppEndpoint"];
+//            backEndFuncAppEndpoint = config["DoglegCalculatorBackEndUnitTests:BackEndVmIisAppEndpoint"];
 //        }
 
 //        [DataTestMethod]
-//        //[DataRow(backEndFuncAppEndpoint)]
-//        [DataRow("https://localhost:7071/api/calculate")]
-//        [DataRow("https://localhost:44301/api/calculate")]
-//        [DataRow("https://localhost:44302/api/calculate")]
+//        //[DataRow(config["DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint"])] // n/a
+//        //[DataRow(backEndFuncAppEndpoint)] // n/a
+//        [DataRow(BackEndFuncAppBaseAddr + "api/calculate")]
+//        [DataRow(BackEndWebAppBaseAddr + "api/calculate")]
+//        [DataRow(BackEndWebAppBaseAddr + "api/calculate")]
 //        public void SomeMethod_Calculate_ShouldNotThrowException(string backendEndpoint)
 //        {
 //            // TODO: use DataTestMethod/DataRow input parameter assignment in test
