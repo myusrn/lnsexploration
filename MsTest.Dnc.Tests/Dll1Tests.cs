@@ -113,6 +113,7 @@ namespace MsTest.Dnc.Tests
 //        public void SomeMethod_Calculate_ShouldNotThrowException(string backendEndpoint)
 //        {
 //            // TODO: use DataTestMethod/DataRow input parameter assignment in test
+//            // unit testing azure functions v2 -> https://medium.com/@tsuyoshiushio/writing-unit-test-for-azure-durable-functions-80f2af07c65e
 //        }
 
         [TestMethod]
