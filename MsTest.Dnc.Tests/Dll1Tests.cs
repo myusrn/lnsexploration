@@ -22,6 +22,7 @@ namespace MsTest.Dnc.Tests
         static extern double Divide(double a, double b);
         #endregion
 
+// manage nuget packages | browse | Microsoft.Extensions.Configuration.Json | install
 // ConfigurationBuilder().AddJsonFile("appsettings.json").Build() GetSection -> https://stackoverflow.com/questions/31453495/how-to-read-appsettings-values-from-json-file-in-asp-net-core
 // configuration builder addjsonfile -> https://stackoverflow.com/questions/27382481/why-visual-studio-tell-me-that-addjsonfile-method-is-not-define-in-configurati
 // https://docs.microsoft.com/en-us/dotnet/core/tools/project-json-to-csproj
