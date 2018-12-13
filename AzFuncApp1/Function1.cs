@@ -50,7 +50,8 @@ namespace AzFuncApp1
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            name = name ?? data?.name; // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator
+            // and https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-conditional-operators on the right hand operand
 
             if (name != null) log.LogInformation($"name property passed was \"{name}\"");
 
@@ -67,7 +68,7 @@ namespace AzFuncApp1
             log.LogInformation($"just after dll1mathutilsAddTest");
 #endregion
 
-            return name != null
+            return name != null // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator, aka ternary conditional operator
                 ? (ActionResult)new OkObjectResult($"Hello, {name} from updated release where dll1mathutilsAddTest generated {dll1mathutilsAddTest}!")
                 : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
         }
