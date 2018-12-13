@@ -13,7 +13,7 @@ namespace xUnit.Tests
         None
     }
 
-    public class WebApiTestData : IEnumerable<object[]>
+    public class WebApiIntgTestsData : IEnumerable<object[]>
     {
         static IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
         //string backEndFuncAppEndpoint = config["DoglegCalculatorBackEndUnitTests:BackEndFuncAppEndpoint"];

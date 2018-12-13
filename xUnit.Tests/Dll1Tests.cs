@@ -38,7 +38,7 @@ namespace xUnit.Tests
 //</Target>
             
         [Theory]
-        [ClassData(typeof(WebApiTestData))]
+        [ClassData(typeof(WebApiIntgTestsData))]
         public void SomeMethod_Calculate_ShouldNotThrowException(string backendEndpoint, AuthHeaderType authHeaderType, string authHeaderValue)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, backendEndpoint);
