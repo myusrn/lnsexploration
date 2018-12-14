@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +9,8 @@ using Xunit;
 
 namespace xUnit.Tests
 {
+    public enum AuthHeaderType {  None, OAuth, XMsClient }
+
     public class Dll1Tests
     {
         #region dll imports 
@@ -36,16 +40,42 @@ namespace xUnit.Tests
 //<Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll and appsettings -->
 //  <Copy SourceFiles="$(ProjectDir)appsettings.json" DestinationFolder="$(OutputPath)" />
 //</Target>
-            
-        [Theory]
-        [ClassData(typeof(WebApiIntgTestsData))]
-        public void SomeMethod_Calculate_ShouldNotThrowException(string backendEndpoint, AuthHeaderType authHeaderType, string authHeaderValue)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Post, backendEndpoint);
 
-            Assert.NotNull(backendEndpoint);
+// "xunit theory data driven tests" -> 07nov17 https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/
+// and 14apr12 https://stackoverflow.com/questions/22093843/pass-complex-parameters-to-theory and 
+         
+        [Theory, ClassData(typeof(WebApiIntgTestsData))]
+        public void SomeMethod_Calculate_UsingClassData_ShouldNotThrowException(string endpoint, AuthHeaderType authHeaderType, string authHeaderValue)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, endpoint);
+
+            Assert.NotNull(endpoint);
             Assert.IsType<AuthHeaderType>(authHeaderType);
             Assert.NotNull(authHeaderValue);
+        }
+
+        [Theory, MemberData(nameof(WebApiIntgTestsDataMethod))]
+        public void SomeMethod_Calculate_UsingMethodData_ShouldNotThrowException(string endpoint, AuthHeaderType authHeaderType, string authHeaderValue)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, endpoint);
+
+            Assert.NotNull(endpoint);
+            Assert.IsType<AuthHeaderType>(authHeaderType);
+            Assert.NotNull(authHeaderValue);
+        }
+
+        public static IEnumerable<object[]> WebApiIntgTestsDataMethod()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            
+            List<object[]> data = new List<object[]>();
+            foreach (var child in config.GetSection("DoglegBackEndIntgTests").GetChildren())
+            {
+// *** number of items and their types have to match [Theory, ClassData(typeof(WebApiIntgTestsData))] input parameters otherwise things don't work and not obvious why ***
+                var authHeaderType = (AuthHeaderType)Enum.Parse(typeof(AuthHeaderType), child["AuthHeaderType"].Replace("AuthHeaderType.", ""));
+                data.Add(new object[] { child["Endpoint"], authHeaderType, child["AuthHeaderValue"] });
+            }
+            return data;
         }
 
         [Fact]
