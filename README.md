@@ -9,18 +9,18 @@ https://www.powershellgallery.com/packages/AzureADPreview/ [ 2.0.2.5 ]
 
 ## lift and shift exploration work using bash .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts
-gbash.exe // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to
+git-bash // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to
 echo $PATH // or printenv PATH
 //https://stackoverflow.com/questions/53563543/bash-shell-access-to-programfilesx86-environment-variable
 //access %programfiles(x86)% environment variable, e.g. echo $ProgramFiles(x86), echo $ProgramFiles\(x86\) and echo $"ProgramFiles(x86)" ???
 //replace every : with nothing and backslash with forward to create path friendly version of environment variables, e.g. echo "${PROGRAMFILES//:\\//} (x86)/Some App InstallDir With Spaces"
 //enabling use in PATH environment variable updates, e.g. PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Some Path With Spaces/"
 PFX86="$(env | sed -n 's/^ProgramFiles(x86)=//p')"; PFX86="${PFX86/:\\//}"; echo $PFX86; 
-APPDATAX="$(cygpath $APPDATA)"; echo $APPDATAX # or // APPDATAX="${APPDATA//\\//}"; APPDATAX="${APPDATAX/:/}"; echo $APPDATAX
+APPDATAX="${APPDATA//\\//}"; APPDATAX="${APPDATAX/:/}"; echo $APPDATAX # or APPDATAX="$(cygpath $APPDATA)"; echo $APPDATAX # note this option includes leading forwardslash
 PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/$APPDATAX/Python/Python36/Scripts
 echo $PATH # or printenv PATH
 // usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -l <resourceGroupLocation> -n <deploymentName>  
-./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g myRgn -l centralus -n myDpn  
+./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g EmUamRgn -l centralus -n EmUamDpn  
   
 ## lift and shift exploration work using powershell .ps1 scripts  
 win+s | windows powershell // or powershell.exe -noexit -executionpolicy unrestricted  
