@@ -40,12 +40,12 @@ namespace AzWebApp1
             //services.AddHttpClient("api").AddTransientHttpErrorPolicy(p => p.RetryAsync(6));
 
             // services.addlogging .net core 2.0 -> https://stackoverflow.com/questions/45781873/is-net-core-2-0-logging-broken
-            services.AddLogging(builder =>
-            {
-                builder.AddConfiguration(Configuration.GetSection("Logging"))
-                    .AddConsole()
-                    .AddDebug();
-            });
+            //services.AddLogging(builder =>
+            //{
+            //    builder.AddConfiguration(Configuration.GetSection("Logging"))
+            //        .AddConsole() // see appsettings.Development.json
+            //        .AddDebug();
+            //});
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

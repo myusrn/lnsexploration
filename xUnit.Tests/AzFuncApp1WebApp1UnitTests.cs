@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
@@ -28,14 +29,19 @@ namespace xUnit.Tests
             {
                 case "FuncApp":
                     //var query = new Dictionary<String, StringValues>(); query.TryAdd("name", "myusrn");
-                    //var body = JsonConvert.SerializeObject("{ 'name': 'myusrn' }");
-                    //var body = JsonConvert.SerializeObject("{ \"name\": \"myusrn\" }");
-                    var body = JsonConvert.SerializeObject(new object[] { "name", "myusrn" });
+                    // see c# dictionary json format
+                    //var body = JsonConvert.SerializeObject("myusrn"); // not required simply pass string
+                    var body = JsonConvert.SerializeObject(new Dictionary<string, string> { { "name1", "myusrn" }, { "name2", "yourname" } });
+                    //var body = JsonConvert.SerializeObject(new Dictionary<string, int> { { "myusrn", 27 }, { "yourusrn", 37 } });
+                    //var body = "{ 'myusrn': 27, 'yourusrn': 37 }"); // test 1
+                    //var body = "{ \"myusrn\": 27, \"yourusrn\": 37} "); // test 2
+                    //var body = @"{ ""myusrn"": 27, ""yourusrn"": 37 }"); // test 3
+                    //var body = JsonConvert.SerializeObject(new object[] { { "myusrn", 27 }, { "yourusrn", 37 }" }); // test 4 
                     var objectResult = await AzFuncApp1.Function1.Run(req: HttpRequestSetup(/* query */ null, body), principal: principal, log: log);
                     result = (objectResult as OkObjectResult).Value as string;
                     break;
                 case "WebApp":
-                    var controller = new AzWebApp1.Controllers.ValuesController(Mock.Of<ILogger<AzWebApp1.Controllers.ValuesController>>());
+                    var controller = new AzWebApp1.Controllers.ValuesController(log: Mock.Of<ILogger<AzWebApp1.Controllers.ValuesController>>());
                     MockHttpContext(controller);
                     //result = controller.Post();
                     result = (controller.Post("{ 'name': 'myusrn'}") as OkObjectResult).Value as string;

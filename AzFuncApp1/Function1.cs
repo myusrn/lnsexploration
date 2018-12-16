@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace AzFuncApp1
 {
@@ -49,9 +51,15 @@ namespace AzFuncApp1
             string name = req.Query["name"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name; // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator
+            dynamic data = JsonConvert.DeserializeObject(requestBody); // object(JObject)
+            //dynamic data = JsonConvert.DeserializeObject<Dictionary<string, int>>(requestBody); // throws exception
+
+            //name = name ?? data?.name; // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator
             // and https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-conditional-operators on the right hand operand
+
+            //name = name ?? data?.name;
+            var dataJObj = data as JObject;
+            name = name ?? dataJObj["name1"].Value<string>();
 
             if (name != null) log.LogInformation($"name property passed was \"{name}\"");
 

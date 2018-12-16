@@ -22,5 +22,6 @@
   </ItemGroup>  
   <Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll -->
     <Copy SourceFiles="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />
+    <!--<Copy SourceFiles="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />-->
   </Target>
 </Project>

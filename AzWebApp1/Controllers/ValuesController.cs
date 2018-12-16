@@ -21,9 +21,9 @@ namespace AzWebApp1.Controllers
     {
         ILogger<ValuesController> log;
 
-        public ValuesController(ILogger<ValuesController> logger)
+        public ValuesController(ILogger<ValuesController> log)
         {
-            this.log = logger;
+            this.log = log;
         }
 
         // GET api/values
