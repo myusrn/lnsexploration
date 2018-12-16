@@ -48,7 +48,7 @@ namespace xUnit.Tests
                     break;
             }
            
-            Assert.Equal("myusrn", result);
+            Assert.True(result.Contains("myusrn")); // Hello, myusrn from updated release where dll1mathutilsAddTest generated 7!
         }
     }
 }
