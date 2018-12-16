@@ -6,7 +6,7 @@ using Xunit;
 
 namespace xUnit.Tests
 {
-    public class AzWebApp1Tests
+    public class AzFuncApp1WebApp1IntgTests
     {
         [Fact]
         public async void Call_MyWebApi_ReturnsValues()
