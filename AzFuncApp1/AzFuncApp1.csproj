@@ -16,7 +16,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll"> <!-- for pack and publish inclusion of dllimport referenced dll -->
+    <None Include="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll"> <!-- for localhost debug [ always 64bit process ], pack and publish inclusion of dllimport referenced dll -->
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>  
