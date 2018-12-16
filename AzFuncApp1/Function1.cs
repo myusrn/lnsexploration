@@ -19,12 +19,13 @@ namespace AzFuncApp1
         #region dll imports
 //requires <project>.csproj | edit | addition of following
 //<ItemGroup>
-//  <None Include="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll"> <!-- for pack and publish inclusion of dllimport referenced dll -->
+//  <None Include="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll"> <!-- for localhost debug [ always 64bit process ], pack and publish inclusion of dllimport referenced dll -->
 //    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 //  </None>
 //</ItemGroup>  
 //<Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll -->
-//  <Copy SourceFiles = "$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />
+//  <Copy SourceFiles="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />
+//  <!--<Copy SourceFiles="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />-->
 //</Target>
         //const string dllName = Environment.Is64BitProcess ? @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll" : @"..\..\..\..\Dll2\bin\x64\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
@@ -52,14 +53,10 @@ namespace AzFuncApp1
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody); // object(JObject)
-            //dynamic data = JsonConvert.DeserializeObject<Dictionary<string, int>>(requestBody); // throws exception
-
-            //name = name ?? data?.name; // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator
-            // and https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-conditional-operators on the right hand operand
+            var dataName = JObject.Parse(requestBody)["name"].Value<string>();
 
             //name = name ?? data?.name;
-            var dataJObj = data as JObject;
-            name = name ?? dataJObj["name1"].Value<string>();
+            name = name ?? dataName;
 
             if (name != null) log.LogInformation($"name property passed was \"{name}\"");
 

@@ -7,6 +7,26 @@ https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2 
 https://www.powershellgallery.com/packages/MsOnline/ [ 1.1.183.17 ] -> https://www.powershellgallery.com/packages/AzureAD/ [ 2.0.2.4 ] |
 https://www.powershellgallery.com/packages/AzureADPreview/ [ 2.0.2.5 ]  
 
+deployment/template.json updates to vm osDisk resource configuration to remove disallowed managedDisk.id property, you cannot use comments in template or parameters.json files
+which is good as it means you can remove virtualMachines_<vmname>_id setting from template.json and parameters.json which has subscriptionid and resourcegroupname details
+"osDisk": {
+    "osType": "Windows",
+    "name": "[concat(parameters('virtualMachines_emuamvmiisapp_name'),'_OsDisk_1_addfa1192f7e4f109d72734ec305cee7')]",
+    "createOption": "FromImage",
+    "caching": "ReadWrite",
+    // "managedDisk": {
+    //     "id": "[parameters('virtualMachines_emuamvmiisapp_id')]"
+    // }
+}
+
+deployment/template.json updates to vm publicIPAddresses resource dnsSettings to enable use of parameters, you cannot use/leave comments in template or parameters.json files
+"dnsSettings": {
+    //"domainNameLabel": "emuamvmiisapp",
+    "domainNameLabel": "[parameters('virtualMachines_emuamvmiisapp_name')]",
+    //"fqdn": "emuamvmiisapp.westus2.cloudapp.azure.com"
+    "fqdn": "[concat(parameters('virtualMachines_emuamvmiisapp_name'),'westus2.cloudapp.azure.com')]"
+}
+
 ## lift and shift exploration work using bash .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts  
 git-bash // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to  
