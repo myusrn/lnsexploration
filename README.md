@@ -10,6 +10,7 @@ https://www.powershellgallery.com/packages/AzureADPreview/ [ 2.0.2.5 ]
 ## azure resource manager [arm] template and parameters json resource group | settings | automation script | generating template ... download required fixes
   
 for a good starting point overview on using arm templates for deployments see -> https://blogs.msdn.microsoft.com/benjaminperkins/2018/05/16/how-to-usecreate-arm-templates-for-deployments/  
+os provisioning for vm 'emuamvmiisapp1' did not finish in the allotted time -> https://github.com/Azure/azure-sdk-for-node/issues/1491
   
 1. deployment/template.json updates to vm osProfile resource configuration to include adminPassword property  
 see https://blogs.msdn.microsoft.com/benjaminperkins/2018/05/16/required-parameter-adminpassword-is-missing-null/  
