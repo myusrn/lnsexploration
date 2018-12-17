@@ -22,14 +22,9 @@ namespace AzWebApp1.Controllers
     {
         #region dll imports
 //requires <project>.csproj | edit | addition of following
-//<ItemGroup>
-//  <None Include="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll"> <!-- for localhost debug [ always 64bit process ], pack and publish inclusion of dllimport referenced dll -->
-//    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-//  </None>
-//</ItemGroup>  
 //<Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll -->
-//  <Copy SourceFiles="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />
-//  <!--<Copy SourceFiles="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />-->
+//  <Copy SourceFiles="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)" />
+//  <!--<Copy SourceFiles="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)" />-->
 //</Target>
         //const string dllName = Environment.Is64BitProcess ? @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll" : @"..\..\..\..\Dll2\bin\x64\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";

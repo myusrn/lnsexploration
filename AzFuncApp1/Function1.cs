@@ -18,8 +18,9 @@ namespace AzFuncApp1
     {
         #region dll imports
 //requires <project>.csproj | edit | addition of following
-//<ItemGroup>
-//  <None Include="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll"> <!-- for localhost debug [ always 64bit process ], pack and publish inclusion of dllimport referenced dll -->
+//<ItemGroup> <!-- for localhost debug, pack and publish inclusion of dllimport referenced dll -->
+//    <None Include = "$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" >
+//    !--< None Include="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll">--> 
 //    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 //  </None>
 //</ItemGroup>  
