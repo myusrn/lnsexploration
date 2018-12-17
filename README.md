@@ -7,26 +7,63 @@ https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2 
 https://www.powershellgallery.com/packages/MsOnline/ [ 1.1.183.17 ] -> https://www.powershellgallery.com/packages/AzureAD/ [ 2.0.2.4 ] |
 https://www.powershellgallery.com/packages/AzureADPreview/ [ 2.0.2.5 ]  
 
-deployment/template.json updates to vm osDisk resource configuration to remove disallowed managedDisk.id property, you cannot use comments in template or parameters.json files
-which is good as it means you can remove virtualMachines_<vmname>_id setting from template.json and parameters.json which has subscriptionid and resourcegroupname details
-"osDisk": {
-    "osType": "Windows",
-    "name": "[concat(parameters('virtualMachines_emuamvmiisapp_name'),'_OsDisk_1_addfa1192f7e4f109d72734ec305cee7')]",
-    "createOption": "FromImage",
-    "caching": "ReadWrite",
-    // "managedDisk": {
-    //     "id": "[parameters('virtualMachines_emuamvmiisapp_id')]"
-    // }
-}
+## azure resource manager [arm] template and parameters json resource group | settings | automation script | generating template ... download required fixes
+  
+for a good starting point overview on using arm templates for deployments see -> https://blogs.msdn.microsoft.com/benjaminperkins/2018/05/16/how-to-usecreate-arm-templates-for-deployments/  
+  
+1. deployment/template.json updates to vm osProfile resource configuration to include adminPassword property  
+see https://blogs.msdn.microsoft.com/benjaminperkins/2018/05/16/required-parameter-adminpassword-is-missing-null/  
+"parameters": {  
+"virtualMachines_all_adminUsername": {  
+    "defaultValue": "vmLogon",  
+    "type": "String"  
+},  
+"virtualMachines_all_adminPassword": {  
+    "defaultValue": "P@ssw0rd1234",  
+    "type": "String"  
+},  
+  
+"osProfile": {  
+    "computerName": "[parameters('virtualMachines_&lt;vmName&gt;_name')]",  
+    "adminUsername": "[parameters('virtualMachines_all_adminUsername')]",  
+	"adminPassword": "[parameters('virtualMachines_all_adminPassword')]",
 
-deployment/template.json updates to vm publicIPAddresses resource dnsSettings to enable use of parameters, you cannot use/leave comments in template or parameters.json files
-"dnsSettings": {
-    //"domainNameLabel": "emuamvmiisapp",
-    "domainNameLabel": "[parameters('virtualMachines_emuamvmiisapp_name')]",
-    //"fqdn": "emuamvmiisapp.westus2.cloudapp.azure.com"
-    "fqdn": "[concat(parameters('virtualMachines_emuamvmiisapp_name'),'westus2.cloudapp.azure.com')]"
-}
+template.json/parameter.json  
+"virtualMachines_all_adminUsername": {  
+    "value": "vmLogon"  
+},  
+"virtualMachines_all_adminPassword": {  
+    "value": "P@ssw0rd1234"  
+},  
+  
+2. deployment/template.json updates to vm schedules_shutdown resource configuration to remove disallowed uniqueIdentifier property, note that you cannot use/leave comments in template or parameters.json files  
+"schedules_shutdown_computevm_emuamvmiisapp_uniqueidentifier": {
+    "value": "6a6dc1285f1944dfb830ea3ecb4a7ba3"
+},
+"taskType": "ComputeVmShutdownTask",
+"uniqueIdentifier": "[parameters('schedules_shutdown_computevm_emuamvmiisapp_uniqueidentifier')]"
 
+3. deployment/template.json updates to vm osDisk resource configuration to remove disallowed managedDisk.id property, note that you cannot use/leave comments in template or parameters.json files  
+which is good as it means you can remove virtualMachines_&lt;vmName&gt;_id setting from template.json and parameters.json which has subscriptionid and resourcegroupname details  
+see https://blogs.msdn.microsoft.com/benjaminperkins/2018/05/16/osdisk-manageddisk-id-is-not-allowed/
+"osDisk": {  
+    "osType": "Windows",  
+    "name": "[concat(parameters('virtualMachines_&lt;vmName&gt;_name'),'_OsDisk_1_addfa1192f7e4f109d72734ec305cee7')]",  
+    "createOption": "FromImage",  
+    "caching": "ReadWrite",  
+    // "managedDisk": {  
+    //     "id": "[parameters('virtualMachines_&lt;vmName&gt;_id')]"  
+    // }  
+}  
+  
+4. deployment/template.json updates to vm publicIPAddresses resource dnsSettings to enable use of parameters, note that you cannot use/leave comments in template or parameters.json files  
+"dnsSettings": {  
+    //"domainNameLabel": "emuamvmiisapp",  
+    "domainNameLabel": "[parameters('virtualMachines_emuamvmiisapp_name')]",  
+    //"fqdn": "emuamvmiisapp.westus2.cloudapp.azure.com"  
+    "fqdn": "[concat(parameters('virtualMachines_emuamvmiisapp_name'),'westus2.cloudapp.azure.com')]"  
+}  
+   
 ## lift and shift exploration work using bash .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts  
 git-bash // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to  
