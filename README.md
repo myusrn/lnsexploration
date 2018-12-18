@@ -1,3 +1,7 @@
+## miscellaneous finishing touches
+vm enable iis and web deploy -> https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md   
+web api frombody attribute [ and multiple input parameters ] -> https://stackoverflow.com/questions/24625303/why-do-we-have-to-specify-frombody-and-fromuri  
+  
 ## azure active directory command line application registration
 https://stackoverflow.com/questions/31684821/how-to-add-application-to-azure-ad-programmatically  
 where you could just issue command to provision app registration container then use preconfigured manifest file upload to do all the steps in one shot  
@@ -64,7 +68,7 @@ see https://blogs.msdn.microsoft.com/benjaminperkins/2018/05/16/osdisk-manageddi
     //"fqdn": "emuamvmiisapp.westus2.cloudapp.azure.com"  
     "fqdn": "[concat(parameters('virtualMachines_emuamvmiisapp_name'),'westus2.cloudapp.azure.com')]"  
 }  
-   
+
 ## lift and shift exploration work using bash .sh scripts
 // or set path=%path%;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64;%programfiles(x86)%\Microsoft Visual Studio\Shared\Anaconda3_64\Scripts;%appdata%\Python\Python36\Scripts  
 git-bash // or windows subsystem for linux [wsl] store app distribution install terminal session and note that ctrl+u/w/c clears current line not esc like you are used to  
