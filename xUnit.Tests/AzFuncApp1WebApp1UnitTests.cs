@@ -31,7 +31,7 @@ namespace xUnit.Tests
                     { 
                         //var query = new Dictionary<String, StringValues>(); query.TryAdd("name", "myusrn");
                         // see c# dictionary json format
-                        var body = "{ 'name': 'myusrn'}"; // pass literal jason value
+                        var body = "{ 'name': 'myusrn'}"; // pass literal json value
                         //var body = JsonConvert.SerializeObject(new Dictionary<string, string> { { "name", "myusrn" }, { "namealt", "myaltn" } }); // pass json serialized object
                         var objectResult = await AzFuncApp1.Function1.Run(req: HttpRequestSetup(/* query */ null, body), principal: principal, log: log);
                         result = (objectResult as OkObjectResult).Value as string;
