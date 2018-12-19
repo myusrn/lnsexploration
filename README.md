@@ -1,5 +1,10 @@
 ## miscellaneous finishing touches
+windows 10 remote server administration tools rsat -> https://www.thewindowsclub.com/install-remote-server-administration-tools-windows-10
+  settings | apps | apps & features | manage optional features | add a feature | rsat: server manager
+  not https://www.microsoft.com/en-us/download/details.aspx?id=45520 | 1803 1.0 5/2/2018 WindowsTH-RSAT_WS_1803-x64.msu
+windows server core iis remote management -> https://blogs.msdn.microsoft.com/benjaminperkins/2015/11/02/configure-an-iis-server-core-server-for-remote-management/
 vm enable iis and web deploy -> https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md   
+visual studio azure web app publish credential -> portal | download publish profile | see userName and userPWD where encrypted version of latter gets stored in .pubxml.user under <Project...><PropertyGroup><EncryptedPassword>...</EncryptedPassword></PropertyGroup></Project>
 web api frombody attribute [ and multiple input parameters ] -> https://stackoverflow.com/questions/24625303/why-do-we-have-to-specify-frombody-and-fromuri  
   
 ## azure active directory command line application registration
