@@ -6,6 +6,10 @@ windows server core iis remote management -> https://blogs.msdn.microsoft.com/be
 vm enable iis and web deploy -> https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md   
 visual studio azure web app publish credential -> portal | download publish profile | see userName and userPWD where encrypted version of latter gets stored in .pubxml.user under <Project...><PropertyGroup><EncryptedPassword>...</EncryptedPassword></PropertyGroup></Project>
 web api frombody attribute [ and multiple input parameters ] -> https://stackoverflow.com/questions/24625303/why-do-we-have-to-specify-frombody-and-fromuri  
+https://github.com/Azure/azure-functions-host/issues/3898 `ClaimsPrincipal.IsInRole` doesn't work with AAD application roles
+https://github.com/Azure/azure-functions-host/issues/3857 `ClaimsPrincipal` doesn't include identity when `authType` is `anonymous`
+https://github.com/Azure/azure-functions-host/issues/33 Support EasyAuth
+https://github.com/Azure/azure-functions-host/issues/3810 vs17 attach debugger for [ functions ] v2
   
 ## azure active directory command line application registration
 https://stackoverflow.com/questions/31684821/how-to-add-application-to-azure-ad-programmatically  
