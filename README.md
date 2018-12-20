@@ -10,6 +10,7 @@ https://github.com/Azure/azure-functions-host/issues/3898 `ClaimsPrincipal.IsInR
 https://github.com/Azure/azure-functions-host/issues/3857 `ClaimsPrincipal` doesn't include identity when `authType` is `anonymous`
 https://github.com/Azure/azure-functions-host/issues/33 Support EasyAuth
 https://github.com/Azure/azure-functions-host/issues/3810 vs17 attach debugger for [ functions ] v2
+https://github.com/Azure/Azure-Functions/issues/1029 Azure function v2 dot net core 2.1 consumption plan performance is much slower than aws.
   
 ## azure active directory command line application registration
 https://stackoverflow.com/questions/31684821/how-to-add-application-to-azure-ad-programmatically  
