@@ -1,5 +1,5 @@
 ## miscellaneous finishing touches
-azure windows nano server -> https://www.thomasmaurer.ch/2016/11/how-to-deploy-nano-server-in-azure/
+azure nano server [ containers | docker | vm | winrm ] -> https://www.thomasmaurer.ch/2016/11/how-to-deploy-nano-server-in-azure/
 vm enable iis and web deploy -> https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md    
 visual studio azure web app publish credential -> portal | download publish profile | see userName and userPWD where encrypted version of latter gets stored in .pubxml.user under <Project...><PropertyGroup><EncryptedPassword>...</EncryptedPassword></PropertyGroup></Project>  
 web api frombody attribute [ and multiple input parameters ] -> https://stackoverflow.com/questions/24625303/why-do-we-have-to-specify-frombody-and-fromuri    
