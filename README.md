@@ -1,24 +1,24 @@
 ## miscellaneous finishing touches
-azure nano server [ containers | docker | vm | winrm ] -> https://www.thomasmaurer.ch/2016/11/how-to-deploy-nano-server-in-azure/
-vm enable iis and web deploy -> https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md    
+azure nano server [ containers | docker | vm | winrm ] -> https://www.thomasmaurer.ch/2016/11/how-to-deploy-nano-server-in-azure/  
+vm enable iis and web deploy -> https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md   
 visual studio azure web app publish credential -> portal | download publish profile | see userName and userPWD where encrypted version of latter gets stored in .pubxml.user under <Project...><PropertyGroup><EncryptedPassword>...</EncryptedPassword></PropertyGroup></Project>  
-web api frombody attribute [ and multiple input parameters ] -> https://stackoverflow.com/questions/24625303/why-do-we-have-to-specify-frombody-and-fromuri    
-lookup azure image skus https://docs.microsoft.com/en-us/azure/virtual-machines/windows/cli-ps-findimage 
-   Connect-AzureRMAccount
-   $locName = 'West US 2'; Get-AzureRMVMImagePublisher -Location $locName | Select PublisherName [ > d:\temp\publishers.log ]
-     "publisher": "MicrosoftWindowsDesktop", "offer": "Windows-10", "sku": "rs5-pro",
-     "publisher": "MicrosoftWindowsServer","offer": "WindowsServer", "sku": "2019-Datacenter-Core-smalldisk",
-   $pubName = 'MicrosoftWindowsDesktop'; Get-AzureRMVMImageOffer -Location $locName -Publisher $pubName | Select Offer
-     $offerName = 'Windows-10'; Get-AzureRMVMImageSku -Location $locName -Publisher $pubName -Offer $offerName | Select Skus
-     "rs5-pro" which is w10 1809 option you have been using
-   $pubName = 'MicrosoftWindowsServer'; Get-AzureRMVMImageOffer -Location $locName -Publisher $pubName | Select Offer
-     $offerName = 'WindowsServer'; Get-AzureRMVMImageSku -Location $locName -Publisher $pubName -Offer $offerName | Select Skus
-     "2019-Datacenter-Core-smalldisk" and "2019-Datacenter-smalldisk" which is w19s 1809 options you have been using
+web api frombody attribute [ and multiple input parameters ] -> https://stackoverflow.com/questions/24625303/why-do-we-have-to-specify-frombody-and-fromuri  
+lookup azure image skus https://docs.microsoft.com/en-us/azure/virtual-machines/windows/cli-ps-findimage  
+   Connect-AzureRMAccount  
+   $locName = 'West US 2'; Get-AzureRMVMImagePublisher -Location $locName | Select PublisherName [ > d:\temp\publishers.log ]  
+     "publisher": "MicrosoftWindowsDesktop", "offer": "Windows-10", "sku": "rs5-pro"  
+     "publisher": "MicrosoftWindowsServer","offer": "WindowsServer", "sku": "2019-Datacenter-Core-smalldisk"  
+   $pubName = 'MicrosoftWindowsDesktop'; Get-AzureRMVMImageOffer -Location $locName -Publisher $pubName | Select Offer  
+     $offerName = 'Windows-10'; Get-AzureRMVMImageSku -Location $locName -Publisher $pubName -Offer $offerName | Select Skus  
+     $skuName="rs5-pro"; Get-AzureRMVMImage -Location $locName -Publisher $pubName -Offer $offerName -Sku $skuName | Select Version  
+   $pubName = 'MicrosoftWindowsServer'; Get-AzureRMVMImageOffer -Location $locName -Publisher $pubName | Select Offer  
+     $offerName = 'WindowsServer'; Get-AzureRMVMImageSku -Location $locName -Publisher $pubName -Offer $offerName | Select Skus  
+     $skuName="2019-Datacenter-Core-smalldisk"; Get-AzureRMVMImage -Location $locName -Publisher $pubName -Offer $offerName -Sku $skuName | Select Version  
 https://github.com/Azure/Azure-Functions/issues/1029 Azure function v2 dot net core 2.1 consumption plan performance is much slower than aws.  
 https://github.com/Azure/Azure-Functions/issues/1080 arm template deployed function app has no host keys and throws errors  
   https://github.com/Azure/Azure-Functions/issues/879 Function App creation/deploy from RM template with Runtime 'beta' -- Always /admin/host/keys Error  
   https://github.com/Azure/Azure-Functions/issues/516 [Question] Functions 'Host Keys' & ARM templates  
-  https://github.com/Azure/Azure-Functions/issues/226 Getting error: "We are not able to retrieve the keys for function "  
+  https://github.com/Azure/Azure-Functions/issues/226 Getting error: "We are not able to retrieve the keys for function"  
 https://github.com/Azure/azure-functions-host/issues/3810 vs17 attach debugger for [ functions ] v2  
 https://github.com/Azure/azure-functions-host/issues/3898 `ClaimsPrincipal.IsInRole` doesn't work with AAD application roles  
 https://github.com/Azure/azure-functions-host/issues/3857 `ClaimsPrincipal` doesn't include identity when `authType` is `anonymous`  
