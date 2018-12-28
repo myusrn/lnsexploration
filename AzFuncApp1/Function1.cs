@@ -18,16 +18,16 @@ namespace AzFuncApp1
     {
         #region dll imports
 //requires <project>.csproj | edit | addition of following
-//<ItemGroup> <!-- for build, rebuild, pack and publish inclusion of dllimport referenced dll -->
-//    <None Include = "$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" >
-//    !--< None Include="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll">--> 
-//    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-//  </None>
-//</ItemGroup>  
-//<Target Name="CopyToBin" BeforeTargets="Build"> <!-- the above covers this for build and rebuild inclusion of dllimport referenced dll -->
+//<Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of dllimport referenced dll -->
 //  <Copy SourceFiles="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />
 //  <!--<Copy SourceFiles="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll" DestinationFolder="$(OutputPath)\bin" />-->
 //</Target>
+//<ItemGroup> <!-- for build, rebuild, pack and publish inclusion of dllimport referenced dll -->
+//    <None Include="$(ProjectDir)..\Dll1\bin\Win32\$(Configuration)\Dll1.dll">
+//    <!--<None Include="$(ProjectDir)..\Dll1\bin\x64\$(Configuration)\Dll1.dll">--> 
+//    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+//  </None>
+//</ItemGroup>  
         //const string dllName = Environment.Is64BitProcess ? @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll" : @"..\..\..\..\Dll2\bin\x64\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\Win32\Debug\Dll1.dll";
         //const string dllName = @"..\..\..\..\Dll1\bin\x64\Debug\Dll1.dll"; // if you prefer using non-relative paths wrap with System.IO.Path.GetFullPath(dllName)
