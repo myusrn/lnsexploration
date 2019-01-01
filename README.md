@@ -107,6 +107,7 @@ PATH=$PATH:"/$PFX86/Microsoft SDKs/Azure/CLI2/wbin":"/$PFX86/Microsoft SDKs/Azur
 //PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/$APPDATAX/Python/Python36/Scripts; echo $PATH # or printenv PATH  
 // usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -l <resourceGroupLocation> -n <deploymentName>  
 ./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g EmUamRgn -l centralus -n EmUamDpn  
+./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g ContainerWorkRgn -l centralus -n ContainerWorkDpn  
 **/\*\*\* it appears that bash ./deploy.sh provides better failure case details than powershell \.deploy.ps1 \*\*\*/**
 
 ## lift and shift exploration work using powershell .ps1 scripts  
