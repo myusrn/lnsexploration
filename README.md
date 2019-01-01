@@ -102,8 +102,9 @@ echo $PATH // or printenv PATH
 //enabling use in PATH environment variable updates, e.g. PATH=$PATH:"/${PROGRAMFILES//:\\//} (x86)/Some Path With Spaces/"  
 PFX86="$(env | sed -n 's/^ProgramFiles(x86)=//p')"; PFX86="${PFX86/:\\//}"; echo $PFX86;  
 APPDATAX="${APPDATA//\\//}"; APPDATAX="${APPDATAX/:/}"; echo $APPDATAX    
-\# or APPDATAX="$(cygpath $APPDATA)"; echo $APPDATAX # this includes leading forwardslash don't include in path  
-PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/$APPDATAX/Python/Python36/Scripts; echo $PATH # or printenv PATH  
+//APPDATAX="$(cygpath $APPDATA)"; echo $APPDATAX # this includes leading forwardslash don't include in path  
+PATH=$PATH:"/$PFX86/Microsoft SDKs/Azure/CLI2/wbin":"/$PFX86/Microsoft SDKs/Azure/CLI2":"/$PFX86/Microsoft SDKs/Azure/CLI2/Scripts"; echo $PATH # or printenv PATH  
+//PATH=$PATH:"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64":"/$PFX86/Microsoft Visual Studio/Shared/Anaconda3_64/Scripts":/$APPDATAX/Python/Python36/Scripts; echo $PATH # or printenv PATH  
 // usage: .\deploy.ps1 -i <subscriptionId> -g <resourceGroupName> -l <resourceGroupLocation> -n <deploymentName>  
 ./deploy.sh -i 1336717a-463c-4c74-b90f-a357edd79989 -g EmUamRgn -l centralus -n EmUamDpn  
 **/\*\*\* it appears that bash ./deploy.sh provides better failure case details than powershell \.deploy.ps1 \*\*\*/**
