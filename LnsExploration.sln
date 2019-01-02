@@ -48,6 +48,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1.Tests", "WpfApp1.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xUnit.Tests", "xUnit.Tests\xUnit.Tests.csproj", "{3E8B7D90-66BC-4607-A96D-628DE749E743}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{EB19937D-6F05-46EF-A405-9AA7161BAE76}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\RecreateVmFromSnapshot.ps1 = deployment\RecreateVmFromSnapshot.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
