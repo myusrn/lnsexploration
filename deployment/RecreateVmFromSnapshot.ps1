@@ -51,10 +51,10 @@ $nsg = Get-AzureRmNetworkSecurityGroup -Name $nsgName -ResourceGroupName $resour
 #$nicName = 'emuamvmiisapp205'; $nic = New-AzureRmNetworkInterface -Name $nicName -ResourceGroupName $resourceGroupName -Location $snapshot.Location -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $publicIp.Id -NetworkSecurityGroupId $nsg.Id
 $nicName = 'emuamvmiisapp205'; $nic = Get-AzureRmNetworkInterface -Name $nicName -ResourceGroupName $resourceGroupName
 
+# Assign nic to virtual machine
 $virtualMachine = Add-AzureRmVMNetworkInterface -VM $virtualMachine -Id $nic.Id
 
-
-# Create or disable boot disagnosts
+# Create or disable virtual machien os disk boot disagnostics which if enabled requires a storage account assignment
 #$storageAccountName = 'emstrgacct'; Set-AzureRmVMBootDiagnostics -VM $virtualMachine -Enable -ResourceGroupName $resourceGroupName -StorageAccountName $storageAccountName
 Set-AzureRmVMBootDiagnostics -VM $virtualMachine -Disable
 
