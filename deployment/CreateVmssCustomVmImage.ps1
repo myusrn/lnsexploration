@@ -31,19 +31,21 @@ Select-AzureRmSubscription -SubscriptionId $SubscriptionId
 # *** do this by establishing connection to vm and executing %windir%\system32\sysprep\sysprep.exe /oobe /generalize /shutdown
 # *** once that is done you can proceed with the following script commands
 
-# Prepare customized vm for generalization
-Stop-AzureRmVM -ResourceGroupName $resourceGroupName -Name $customizedVmName -Force
-Set-AzureRmVM -ResourceGroupName $resourceGroupName -Name $customizedVmName -Generalized 
+# 1. Prepare customized vm for generalization
+#Stop-AzureRmVM -ResourceGroupName $resourceGroupName -Name $customizedVmName -Force
+#Set-AzureRmVM -ResourceGroupName $resourceGroupName -Name $customizedVmName -Generalized 
 
-# Get VM object
-$customizedVm = Get-AzureRmVM -ResourceGroupName $resourceGroupName -Name $customizedVmName
+# 2. Get VM object
+#$customizedVm = Get-AzureRmVM -ResourceGroupName $resourceGroupName -Name $customizedVmName
 
-# Create the VM image configuration based on the source VM "powershell new-azurermimageconfig -sourcevirtualmachineid new-azurermimage"
-$imageConfig = New-AzureRmImageConfig -Location $customizedVm.Location -SourceVirtualMachineId $customizedVm.Id 
+# 3. Create the VM image configuration based on the source VM "powershell new-azurermimageconfig -sourcevirtualmachineid new-azurermimage"
+#$imageConfig = New-AzureRmImageConfig -Location $customizedVm.Location -SourceVirtualMachineId $customizedVm.Id 
 
-# Create or Get the custom VM image
+# 4. Create or Get the custom VM image
 $customizedVmImageName = 'emuamvmssapp-image'
 #$image = New-AzureRmImage -ResourceGroupName $resourceGroupName -Image $imageConfig -ImageName $customizedVmImageName 
+
+# 4b. Create or Get the custom VM image
 $image = Get-AzureRmImage -ResourceGroupName $resourceGroupName -ImageName $customizedVmImageName 
 
 # Create virtual machine scale set from custom VM image
