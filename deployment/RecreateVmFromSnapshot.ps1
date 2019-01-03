@@ -1,11 +1,21 @@
-﻿# Provide the subscription Id
+﻿<# 
+powershell azure vm disk create snapshot -> 
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/snapshot-copy-managed-disk -> 
+https://docs.microsoft.com/en-us/azure/virtual-machines/scripts/virtual-machines-windows-powershell-sample-create-vm-from-snapshot?toc=%2fpowershell%2fmodule%2ftoc.json 
+#>
+
+# Execute following command once before running any azure provisioning script to log you into your azure subscription(s)
+#Connect-AzureRmAccount
+
+# Provide the subscription Id
 $subscriptionId = '1336717a-463c-4c74-b90f-a357edd79989'
 
 # Provide the name of your resource group
 $resourceGroupName = 'EmUamRgn'
 
 # Provide the name of the snapshot that will be used to create OS disk
-$snapshotName = 'PreSysprepGeneralize'
+$snapshotName = 'emuamvmiisapp_OsDisk_1_a9b2f2875d724bb69c65d27eb76389a3_PreSysprepOobeGeneralize'
+#$snapshotName = 'emuamvmiisapp_OsDisk_1_PreSysprepOobeGeneralize'
 
 # Provide the name of the OS disk that will be created using the snapshot
 $osDiskName = 'emuamvmiisapp_OsDisk_1_a9b2f2875d724bb69c65d27eb76389a3'
@@ -15,9 +25,6 @@ $virtualMachineName = 'emuamvmiisapp'
 
 # Provide the size of the virtual machine, get all the vm sizes in a region using: Get-AzureRmVMSize -Location westus2
 $virtualMachineSize = 'Standard_DS1_v2'
-
-# Execute following command before running script to login to azure subscription(s)
-#Connect-AzureRmAccount
 
 # Set the context to the subscription Id where Managed Disk will be created
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId

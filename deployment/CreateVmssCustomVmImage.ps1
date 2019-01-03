@@ -8,6 +8,9 @@ https://docs.microsoft.com/en-us/powershell/module/azurerm.compute/new-azurermim
 https://docs.microsoft.com/en-us/powershell/module/azurerm.compute/new-azurermvmss
 #>
 
+# Execute following command once before running any azure provisioning script to log you into your azure subscription(s)
+#Connect-AzureRmAccount
+
 # Provide the subscription Id
 $subscriptionId = '1336717a-463c-4c74-b90f-a357edd79989'
 
@@ -16,9 +19,6 @@ $resourceGroupName = 'EmUamRgn'
 
 # Provide the name of your customized vm to create generliazed image from
 $customizedVmName = 'emuamvmiisapp'
-
-# Execute following command before running script to login to azure subscription(s)
-Connect-AzureRmAccount
 
 # Set the context to the subscription Id where Managed Disk will be created
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId
