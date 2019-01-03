@@ -16,7 +16,7 @@ $virtualMachineName = 'emuamvmiisapp'
 # Provide the size of the virtual machine, get all the vm sizes in a region using: Get-AzureRmVMSize -Location westus2
 $virtualMachineSize = 'Standard_DS1_v2'
 
-# Execute following command before running script to login to subscription(s)
+# Execute following command before running script to login to azure subscription(s)
 #Connect-AzureRmAccount
 
 # Set the context to the subscription Id where Managed Disk will be created
@@ -36,15 +36,15 @@ $virtualMachine = Set-AzureRmVMOSDisk -VM $virtualMachine -ManagedDiskId $disk.I
 
 # Get the virtual network where virtual machine will be hosted
 $virtualNetworkName = 'EmUamRgn-vnet'
-$vnet = Get-AzureRmVirtualNetwork -Name $virtualNetworkName -ResourceGroupName $resourceGroupName
+$vnet = Get-AzureRmVirtualNetwork -ResourceGroupName $resourceGroupName -Name $virtualNetworkName 
 
 # Create or Get a public IP for the VM
-#$publicIp = New-AzureRmPublicIpAddress -Name ($VirtualMachineName.ToLower()+'_ip') -ResourceGroupName $resourceGroupName -Location $snapshot.Location -AllocationMethod Dynamic
-#$publicIpName = 'emuamvmiisapp-ip'; $publicIp = New-AzureRmPublicIpAddress -Name $publicIpName -ResourceGroupName $resourceGroupName -Location $snapshot.Location -AllocationMethod Dynamic
-$publicIpName = 'emuamvmiisapp-ip'; $publicIp = Gew-AzureRmPublicIpAddress -Name $publicIpName -ResourceGroupName $resourceGroupName
+#$publicIp = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name ($VirtualMachineName.ToLower()+'_ip') -Location $snapshot.Location -AllocationMethod Dynamic
+#$publicIpName = 'emuamvmiisapp-ip'; $publicIp = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName -Location $snapshot.Location -AllocationMethod Dynamic
+$publicIpName = 'emuamvmiisapp-ip'; $publicIp = Get-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName 
 
 # Get the network security group that will control virtual machine exposed ports
-$nsg = Get-AzureRmNetworkSecurityGroup -Name $nsgName -ResourceGroupName $resourceGroupName
+$nsgName = 'emuamvmiisapp-nsg'; $nsg = Get-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroupName -Name $nsgName 
 
 # Create or Get NIC in the first subnet of the virtual network
 #$nic = New-AzureRmNetworkInterface -Name ($VirtualMachineName.ToLower()+'_nic') -ResourceGroupName $resourceGroupName -Location $snapshot.Location -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $publicIp.Id
