@@ -23,8 +23,9 @@ $customizedVmName = 'emuamvmiisapp'
 # Set the context to the subscription Id where Managed Disk will be created
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId
 
-# Stop and create snapshot of OsDisk beforehand if you want to restore customized vm afterwards using RecreateVmFromSnapshot.ps1
-# visit OsDisk and select create snapshot naming it "PreSysprepGeneralize" so you have a way to restore customized vm state afterwards
+# *** before proceeding publish your latest application bits, stop vm and create snapshot of customized vm OsDisk now if you want ability to get back to this setup later 
+# *** do this by visiting OsDisk resource and selecting create snapshot and assign name that matches the currently uncommented value in RecreateVmFromSnapshot.ps1 script
+# *** note that location of resource group and vm OsDisk snapshot controls what vm restore and vm scale set image scenarios you can use snapshot for 
 
 # Execute sysprep generalization on customized vm and shutdown
 # tsclient to vm and execute %windir%\system32\sysprep\sysprep.exe /oobe /generalize /shutdown
@@ -79,4 +80,3 @@ $vmss = Get-AzureRmVmss -ResourceGroupName $resourceGroupName -VMScaleSetName $v
 Add-AzureRmVmssExtension -VirtualMachineScaleSet $vmss -Name "customScript" -Publisher "Microsoft.Compute" `
   -Type "CustomScriptExtension" -TypeHandlerVersion 1.8 -Setting $publicSettings 
 Update-AzureRmVmss -ResourceGroupName $resourceGroupName -Name $vmssName -VirtualMachineScaleSet $vmss
-

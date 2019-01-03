@@ -14,8 +14,9 @@ $subscriptionId = '1336717a-463c-4c74-b90f-a357edd79989'
 $resourceGroupName = 'EmUamRgn'
 
 # Provide the name of the snapshot that will be used to create OS disk
-$snapshotName = 'emuamvmiisapp_OsDisk_1_a9b2f2875d724bb69c65d27eb76389a3_PreSysprepOobeGeneralize'
-#$snapshotName = 'emuamvmiisapp_OsDisk_1_PreSysprepOobeGeneralize'
+#$snapshotName = 'emuamvmiisapp-snapshotPreSysprepOobeGeneralize'
+$snapshotName = 'emuamvmiisapp_OsDisk_1_SnapshotPreSysprepOobeGeneralize'
+#$snapshotName = 'emuamvmiisapp_OsDisk_1_a9b2f2875d724bb69c65d27eb76389a3_SnapshotPreSysprepOobeGeneralize'
 
 # Provide the name of the OS disk that will be created using the snapshot
 $osDiskName = 'emuamvmiisapp_OsDisk_1_a9b2f2875d724bb69c65d27eb76389a3'
@@ -30,10 +31,10 @@ $virtualMachineSize = 'Standard_DS1_v2'
 Select-AzureRmSubscription -SubscriptionId $SubscriptionId
 
 # Create or Get the virtual machine disk from snapshot
-#$snapshot = Get-AzureRmSnapshot -ResourceGroupName $resourceGroupName -SnapshotName $snapshotName
-#$diskConfig = New-AzureRmDiskConfig -Location $snapshot.Location -SourceResourceId $snapshot.Id -CreateOption Copy
-#$disk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $osDiskName
-$disk = Get-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $osDiskName
+$snapshot = Get-AzureRmSnapshot -ResourceGroupName $resourceGroupName -SnapshotName $snapshotName
+$diskConfig = New-AzureRmDiskConfig -Location $snapshot.Location -SourceResourceId $snapshot.Id -CreateOption Copy
+$disk = New-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $osDiskName
+#$disk = Get-AzureRmDisk -Disk $diskConfig -ResourceGroupName $resourceGroupName -DiskName $osDiskName
 
 # Initialize virtual machine configuration
 $virtualMachine = New-AzureRmVMConfig -VMName $virtualMachineName -VMSize $virtualMachineSize
@@ -70,4 +71,3 @@ New-AzureRmVM -VM $virtualMachine -ResourceGroupName $resourceGroupName -Locatio
 
 # Get the virtual machine with Managed Disk
 #$vm = Get-AzureRmVM -ResourceGroupName $resourceGroupName -Name $virtualMachineName
-
