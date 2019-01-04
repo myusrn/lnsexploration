@@ -41,7 +41,7 @@ Select-AzureRmSubscription -SubscriptionId $SubscriptionId
 # 3. Create the VM image configuration based on the source VM "powershell new-azurermimageconfig -sourcevirtualmachineid new-azurermimage"
 #$imageConfig = New-AzureRmImageConfig -Location $customizedVm.Location -SourceVirtualMachineId $customizedVm.Id 
 
-# 4. Create or Get the custom VM image
+# 4a. Create or Get the custom VM image
 $customizedVmImageName = 'emuamvmssapp-image'
 #$image = New-AzureRmImage -ResourceGroupName $resourceGroupName -Image $imageConfig -ImageName $customizedVmImageName 
 
@@ -61,20 +61,26 @@ $vmPassword = ConvertTo-SecureString 'P@ssw0rd1234' -AsPlainText -Force
 $vmCredential = New-Object System.Management.Automation.PSCredential('vmLogon', $vmPassword)
 $lbName = $vmssName + '-lb'
 
-New-AzureRmVmss -ResourceGroupName $resourceGroupName -VMScaleSetName $vmssName `
-  -ImageName $customizedVmImageName -Credential $vmCredential `
-  -VirtualNetworkName $virtualNetworkName -SubnetName $vnetSubnetName -PublicIpAddressName $publicIpName ` # first not recognized and all defaulted to $vmssName  
-  -LoadBalancerName $lbName ` # no -ApplicationGatewayName $agName option and if not specified creates lb with $lbName = $vmssName
-  -Location 'WestUS2' `
-  #-UpgradePolicyMode 'Automatic' ` # vs 'Manual' or 'Rolling'
-  #-AllocationMethod 'Dynamic' ` # vs 'Static' ip addresses  
-# expect command to prompt you for the vmss image administrator username and password credentials even thougy you are providing them as a parameter
-# load balancer has http 80, rdp 3389, winrm 5985 port access enabled by default
+New-AzureRmVmss -ResourceGroupName $resourceGroupName -VMScaleSetName $vmssName -ImageName $customizedVmImageName -Credential $vmCredential -VirtualNetworkName $virtualNetworkName -SubnetName $vnetSubnetName -PublicIpAddressName $publicIpName -LoadBalancerName $lbName -Location 'WestUS2'
+#New-AzureRmVmss -ResourceGroupName $resourceGroupName -VMScaleSetName $vmssName `
+#  -ImageName $customizedVmImageName -Credential $vmCredential `
+#  -VirtualNetworkName $virtualNetworkName -SubnetName $vnetSubnetName -PublicIpAddressName $publicIpName `
+#  -LoadBalancerName $lbName ` # for application gateway frontend see application-gateway/tutorial-create-vmss-powershell reference at top of script
+#  -Location 'WestUS2' `
+#  -UpgradePolicyMode 'Automatic' ` # vs 'Manual' or 'Rolling'
+#  -AllocationMethod 'Dynamic' # vs 'Static' ip addresses  
+# if you don't provide vmss image administrator username and password credentials then expect a popup dialog to prompt you for them
+# the load balancer has rule for http tcp/80 enabled by default and nat settings for rdp 3389 and winrm 5985 by default
 
-Get-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName | Select IpAddress # | Select -ExpandProperty DnsSettings | Select Fqdn
-# http://52.183.99.131/index.html
-Get-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName | Select -ExpandProperty DnsSettings | Select Fqdn
-# http://emuamvmssapp-1381c1.WestUS2.cloudapp.azure.com/index.html
+#Get-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName | Select IpAddress
+#Get-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName | Select -ExpandProperty DnsSettings | Select Fqdn
+# https://docs.microsoft.com/en-us/powershell/module/azurerm.network/set-azurermpublicipaddress
+# emuamvmssapp-80dfae.westus2.cloudapp.azure.com
+$publicIp = Get-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName
+write-host 'ipAddress =' $publicIp.IpAddress 'and fqdn =' $publicIp.DnsSettings.Fqdn
+$publicIp.DnsSettings.DomainNameLabel = $vmssName; Set-AzureRmPublicIpAddress -PublicIpAddress $publicIp
+$publicIp = Get-AzureRmPublicIpAddress -ResourceGroupName $resourceGroupName -Name $publicIpName
+write-host 'ipAddress =' $publicIp.IpAddress 'and fqdn =' $publicIp.DnsSettings.Fqdn
 
 $publicSettings = @{ "fileUris" = (,"https://raw.githubusercontent.com/Azure/azure-docs-powershell-samples/master/application-gateway/iis/appgatewayurl.ps1"); 
   "commandToExecute" = "powershell -ExecutionPolicy Unrestricted -File appgatewayurl.ps1" }
