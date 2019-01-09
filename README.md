@@ -23,6 +23,7 @@ https://github.com/Azure/azure-functions-host/issues/3810 vs17 attach debugger f
 https://github.com/Azure/azure-functions-host/issues/3898 `ClaimsPrincipal.IsInRole` doesn't work with AAD application roles  
 https://github.com/Azure/azure-functions-host/issues/3857 `ClaimsPrincipal` doesn't include identity when `authType` is `anonymous`  
 https://github.com/Azure/azure-functions-host/issues/33 Support EasyAuth  
+https://github.com/Azure/azure-functions-core-tools/pull/789 Enable Easy Auth Local Dev  
 azure easyauth user claimsprincipal github -> https://stackoverflow.com/questions/41501612/trouble-getting-claimsprincipal-populated-when-using-easyauth-to-authenticate-ag/41501796?noredirect=1#comment94218519_41501796  
     
 ## azure active directory command line application registration
@@ -195,10 +196,11 @@ azure web app [ aad security / ] authentication ->  &lt; see aad application use
   https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-asp-webapp   
 azure function v1 vs v2 -> https://stackoverflow.com/questions/50114965/azure-functions-v2-support-and-v1-lifetime 
   https://blogs.msdn.microsoft.com/appserviceteam/2017/12/05/announcing-azure-functions-runtime-preview-2/  
-azure function httptrigger authorizationlevel.user easyauth -> 02/25/16 to- 11/20/18 https://github.com/Azure/azure-functions-host/issues/33  
+azure function httptrigger authorizationlevel.user easyauth -> 02/25/16 to 11/20/18 https://github.com/Azure/azure-functions-host/issues/33  
   works in v1 based on .net framework story and in just released v2 runtime 2.0.12210.0 based on .net core story  
   as shown in https://github.com/Azure/azure-functions-host/blob/dev/sample/CSharp/HttpTrigger-Identities/run.csx     
   also see related bug https://github.com/Azure/azure-functions-host/issues/3857  
+  and https://github.com/Azure/azure-functions-core-tools/pull/789 Enable Easy Auth Local Dev  
 azure functions [ aad security / ] authentication -> 02/19/18 https://blogs.msdn.microsoft.com/stuartleeks/2018/02/19/azure-functions-and-app-service-authentication/  
   and live demo site https://easyauthweb.azurewebsites.net/ and arm deployment script
   ??/??/16 https://docs.microsoft.com/en-us/azure/functions/tutorial-static-website-serverless-api-with-database?tutorial-step=6  
