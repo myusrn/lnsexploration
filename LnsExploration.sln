@@ -52,6 +52,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", 
 	ProjectSection(SolutionItems) = preProject
 		deployment\CreateVmssCustomVmImage.ps1 = deployment\CreateVmssCustomVmImage.ps1
 		deployment\RecreateVmFromSnapshot.ps1 = deployment\RecreateVmFromSnapshot.ps1
+		deployment\RemoveAutoscaleSettings.ps1 = deployment\RemoveAutoscaleSettings.ps1
 		deployment\SwitchFuncAppToPaygAppSvcPlan.ps1 = deployment\SwitchFuncAppToPaygAppSvcPlan.ps1
 	EndProjectSection
 EndProject
